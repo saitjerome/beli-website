@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Mobil Ön İzleme | Belis</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="assets/tailwind.css" rel="stylesheet"/>
+<script type="text/plain" data-note="eski tailwind cdn config (artik kullanilmiyor)">tailwind.config = {theme: {extend: {colors: {"deep-navy": "#003B6F", "industrial-gray": "#394147", primary: "#00558f"}, fontFamily: {body: ["Inter"], mono: ["JetBrains Mono"]}}}};</script>
+<style>
+  body { font-family: Inter, sans-serif; }
+  /* Telefon çerçevesi */
+  .phone {
+    width: 412px; max-width: 100%; border-radius: 46px; padding: 12px;
+    background: #0b1220; box-shadow: 0 30px 80px rgba(0,0,0,.35), inset 0 0 0 2px #1e2a3d;
+  }
+  .phone-screen { border-radius: 34px; overflow: hidden; background: #fff; position: relative; }
+  .notch {
+    position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 26px; background: #0b1220; border-radius: 9999px; z-index: 50;
+  }
+  .phone iframe { width: 388px; max-width: 100%; height: 800px; border: 0; display: block; }
+  .pg-btn {
+    padding: .5rem 1rem; font-size: 13px; font-weight: 600; border-radius: 9999px;
+    background: #fff; border: 1px solid rgba(57,65,71,.15); color: #394147;
+    transition: all .2s ease; cursor: pointer;
+  }
+  .pg-btn:hover { border-color: #00558f; color: #00558f; }
+  .pg-btn.active { background: #003B6F; border-color: #003B6F; color: #fff; }
+</style>
+</head>
+<body class="bg-[#eef2f6] text-industrial-gray antialiased min-h-screen flex flex-col items-center justify-start py-10 px-4">
+
+  <header class="text-center mb-6">
+    <p class="font-mono text-[11px] tracking-[0.25em] uppercase text-primary mb-1">Belis • Mobil Ön İzleme</p>
+    <h1 class="text-2xl font-extrabold text-deep-navy">Mobil Görünüm</h1>
+    <p class="text-sm text-industrial-gray/70 mt-1">Aşağıdaki butonlarla her sayfayı gerçek mobil boyutunda inceleyebilirsin.</p>
+  </header>
+
+  <!-- Sayfa seçici -->
+  <div class="flex gap-2 flex-wrap justify-center mb-7 max-w-xl">
+    <button data-page="index.html" class="pg-btn active">Ana Sayfa</button>
+    <button data-page="hakkimizda.html" class="pg-btn">Hakkımızda</button>
+    <button data-page="hizmetler.html" class="pg-btn">Hizmetler</button>
+    <button data-page="projeler.html" class="pg-btn">Projeler</button>
+    <button data-page="referanslar.html" class="pg-btn">Referanslar</button>
+    <button data-page="iletisim.html" class="pg-btn">İletişim</button>
+  </div>
+
+  <!-- Telefon çerçevesi -->
+  <div class="phone">
+    <div class="phone-screen">
+      <div class="notch"></div>
+      <iframe id="phone-frame" src="index.html" title="Mobil önizleme"></iframe>
+    </div>
+  </div>
+
+  <p class="text-xs text-industrial-gray/50 max-w-[380px] text-center mt-5">
+    Boş görünüyorsa: bu dosya diğer HTML sayfaları ve <span class="font-mono">assets/</span> klasörüyle aynı yerde olmalı.
+  </p>
+
+<script>
+  const frame = document.getElementById('phone-frame');
+  document.querySelectorAll('.pg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      frame.src = btn.dataset.page;
+    });
+  });
+</script>
+</body>
+</html>

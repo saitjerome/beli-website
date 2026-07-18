@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Projelerimiz | Belis Mühendislik İnşaat Elektrik</title>
+<meta content="Belis Mühendislik'in tamamladığı elektrik-elektronik taahhüt projeleri: veri merkezleri, ofis kuleleri, üniversite kampüsleri ve endüstriyel tesisler." name="description"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23003B6F'/%3E%3Cpath d='M37 6 14 38h13l-5 20 26-34H33l4-18z' fill='%2310B981'/%3E%3C/svg%3E"/>
+<link href="assets/tailwind.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
+<style>.material-symbols-outlined{opacity:0;transition:opacity .25s ease}html.ms-ready .material-symbols-outlined{opacity:1}</style>
+<script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
+<script type="text/plain" data-note="eski tailwind cdn config (artik kullanilmiyor)">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"caution-orange": "#FF9500", "deep-navy": "#003B6F", secondary: "#575f66", "inverse-surface": "#2f3131", "surface-container-lowest": "#ffffff", "industrial-gray": "#394147", "secondary-container": "#dbe3eb", "surface-container-low": "#f3f3f3", "surface-tint": "#00558f", tertiary: "#7b4500", "tertiary-fixed": "#ffdcbf", surface: "#f9f9f9", primary: "#00558f", "trust-blue": "#003B6F", "surface-dim": "#dadada", "surface-variant": "#e2e2e2", "on-surface-variant": "#404751", "surface-white": "#FFFFFF", "primary-fixed": "#d1e4ff", "primary-fixed-dim": "#9ecaff", outline: "#717882", "secondary-fixed": "#dbe3eb", "on-surface": "#1a1c1c", "primary-container": "#006eb7", "surface-container-high": "#e8e8e8", "outline-variant": "#c0c7d2", "surface-container": "#eeeeee", "on-background": "#1a1c1c", background: "#f9f9f9", "on-primary": "#ffffff", "on-secondary-container": "#5d656c", "on-tertiary": "#ffffff"}, borderRadius: {sm: "0.125rem", DEFAULT: "0.25rem", md: "0.375rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "64px", unit: "8px", gutter: "24px", "margin-mobile": "20px", "max-width": "1280px"}, fontFamily: {body: ["Inter"], label: ["JetBrains Mono"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-caps": ["12px", {lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", fontWeight: "600"}], "label-bold": ["14px", {lineHeight: "20px", fontWeight: "600"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-xl-mobile": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}]}}}};</script>
+<style>
+.nav-link { position: relative; padding: 6px 0; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
+  background: #00558f; transform: scaleX(0); transform-origin: left;
+  transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+/* ===== Mobil cam menü ===== */
+#mobile-menu { visibility: hidden; }
+#mobile-menu .mm-bg {
+  opacity: 0; transition: opacity .3s ease;
+  background: rgba(249,250,251,.72);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+}
+#mobile-menu .mm-item { opacity: 0; transform: translateY(16px); transition: opacity .4s ease, transform .4s ease; }
+#mobile-menu.open { visibility: visible; }
+#mobile-menu.open .mm-bg { opacity: 1; }
+#mobile-menu.open .mm-item { opacity: 1; transform: none; }
+#mobile-menu.open .mm-item:nth-child(1) { transition-delay: .18s; }
+#mobile-menu.open .mm-item:nth-child(2) { transition-delay: .24s; }
+#mobile-menu.open .mm-item:nth-child(3) { transition-delay: .30s; }
+#mobile-menu.open .mm-item:nth-child(4) { transition-delay: .36s; }
+#mobile-menu.open .mm-item:nth-child(5) { transition-delay: .42s; }
+#mobile-menu.open .mm-item:nth-child(6) { transition-delay: .48s; }
+#mobile-menu.open .mm-item:nth-child(7) { transition-delay: .54s; }
+.mm-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 6px; font-size: 17px; font-weight: 700; color: #1a2733;
+  border-bottom: 1px solid rgba(57,65,71,.1);
+}
+.mm-sub { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub.open { max-height: 260px; }
+.mm-sub a {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 12px 8px 12px 18px; font-size: 15px; font-weight: 600; color: #394147;
+}
+.mm-sub .sub-dot {
+  width: 7px; height: 7px; border-radius: 9999px; background: #FF9500;
+  box-shadow: 0 0 0 3px rgba(255,149,0,.18); flex-shrink: 0;
+}
+.mm-chev { transition: transform .3s ease; }
+.mm-chev.rot { transform: rotate(180deg); }
+
+/* ===== iPhone çentik / güvenli alan ===== */
+@supports (padding: env(safe-area-inset-top)) {
+  #site-header { padding-top: env(safe-area-inset-top); }
+  #mobile-menu > div.relative {
+    padding-top: calc(1.75rem + env(safe-area-inset-top));
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu .mm-bg, #mobile-menu .mm-item, .mm-sub, .mm-chev { transition: none; }
+}
+
+/* ===== Proje modali icindeki metin alanina ozel kaydirma cubugu ===== */
+.modal-scroll-area::-webkit-scrollbar { width: 6px; }
+.modal-scroll-area::-webkit-scrollbar-track { background: transparent; }
+.modal-scroll-area::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 85, 143, 0.3);
+  border-radius: 9999px;
+  transition: background 0.3s ease;
+}
+.modal-scroll-area::-webkit-scrollbar-thumb:hover { background-color: #003B6F; }
+
+/* ===== Filtre butonlari aktif durumu ===== */
+.filter-btn.active {
+  background-color: #00558f;
+  color: #FFFFFF;
+  border-color: #00558f;
+  box-shadow: 0 4px 12px rgba(0, 85, 143, 0.2);
+}
+</style>
+</head>
+<body class="bg-background text-on-background font-body text-body-md antialiased overflow-x-hidden">
+
+<!-- MOBIL ÇEKMECE MENÜ -->
+<!-- MOBİL CAM MENÜ -->
+<div class="fixed inset-0 z-[60] hidden" id="mobile-menu">
+  <div class="mm-bg absolute inset-0"></div>
+  <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
+    <div class="flex items-center justify-between mb-8">
+      <span class="text-2xl font-extrabold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined text-[28px]">blur_on</span> Belis
+      </span>
+      <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col">
+      <a class="mm-item mm-link" href="index.html">Ana Sayfa</a>
+      <a class="mm-item mm-link" href="hakkimizda.html">Hakkımızda</a>
+      <div class="mm-item">
+        <button class="mm-link w-full" id="mm-hizmetler-btn" type="button">
+          Hizmetler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub">
+          <a href="hizmetler.html?kategori=alcak-gerilim"><span class="sub-dot"></span> Alçak Gerilim Sistemleri</a>
+          <a href="hizmetler.html?kategori=zayif-akim"><span class="sub-dot"></span> Zayıf Akım Sistemleri</a>
+          <a href="hizmetler.html?kategori=orta-gerilim"><span class="sub-dot"></span> Orta Gerilim Sistemleri</a>
+        </div>
+      </div>
+      <div class="mm-item">
+        <button class="mm-link w-full text-primary" id="mm-projeler-btn" type="button">
+          Projeler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev-projeler">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub-projeler">
+          <a href="projeler.html?durum=tamamlanan"><span class="sub-dot"></span> Tamamlanan Projeler</a>
+          <a href="projeler.html?durum=devam-eden"><span class="sub-dot"></span> Devam Eden Projeler</a>
+        </div>
+      </div>
+      <a class="mm-item mm-link" href="referanslar.html">Referanslar</a>
+      <a class="mm-item mm-link" href="iletisim.html">İletişim</a>
+    </nav>
+  </div>
+</div>
+
+<header class="fixed top-0 w-full z-40 mt-3 md:mt-8 px-margin-mobile md:px-margin-desktop" id="site-header">
+  <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
+    <div class="flex items-center gap-4">
+      <a class="brand text-[22px] md:text-headline-lg font-bold tracking-tight text-primary flex items-center gap-2" href="index.html">
+        <span class="material-symbols-outlined text-primary text-[26px] md:text-[34px] font-bold">blur_on</span>
+        <span class="bg-gradient-to-r from-primary to-deep-navy bg-clip-text text-transparent font-extrabold">Belis</span>
+      </a>
+    </div>
+    <nav class="hidden lg:flex items-center gap-10">
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="index.html">Ana Sayfa</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="hakkimizda.html">Hakkımızda</a>
+      <div class="relative group py-2">
+        <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors flex items-center gap-0.5 cursor-pointer" href="hizmetler.html">
+          Hizmetler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="hizmetler.html?kategori=alcak-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Alçak Gerilim</a>
+            <a href="hizmetler.html?kategori=zayif-akim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Zayıf Akım</a>
+            <a href="hizmetler.html?kategori=orta-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Orta Gerilim</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative group py-2">
+        <a class="nav-link text-primary font-body text-label-bold tracking-wider uppercase transition-colors active flex items-center gap-0.5 cursor-pointer" href="projeler.html">
+          Projeler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="projeler.html?durum=tamamlanan" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Tamamlanan Projeler</a>
+            <a href="projeler.html?durum=devam-eden" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Devam Eden Projeler</a>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="referanslar.html">Referanslar</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="iletisim.html">İletişim</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button aria-label="Menüyü aç" class="lg:hidden p-2 text-industrial-gray hover:bg-black/5 rounded-full flex items-center" id="menu-btn"><span class="material-symbols-outlined text-[26px]">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- SİNEMATİK ARKA PLANLI SAYFA BAŞLIĞI BANNERI -->
+  <section class="relative w-full h-[240px] md:h-[340px] xl:h-[440px] flex items-end justify-center overflow-hidden bg-industrial-gray pb-8 md:pb-14">
+    <img src="assets/banner_projeler.jpg" alt="Belis Mühendislik Projeleri" onerror="this.style.display='none';" class="absolute inset-0 z-0 w-full h-full object-cover select-none pointer-events-none"/>
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
+    <div class="relative z-20 max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center w-full">
+      <span class="text-sm md:text-base font-bold text-white tracking-widest uppercase bg-[#003B6F] px-4 py-2 rounded-lg mb-3 inline-block shadow-sm">PROJELERİMİZ</span>
+      <h1 class="text-[36px] md:text-[52px] font-extrabold text-surface-white tracking-tight drop-shadow-md">
+        Mühendislik Projelerimiz
+      </h1>
+      <p class="text-surface-variant/80 text-body-sm mt-4 max-w-xl mx-auto drop-shadow">
+        Anahtar teslim elektrik-elektronik taahhüt referanslarımız
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJELER VE FİLTRELEME ALANI -->
+  <section class="pt-8 md:pt-10 pb-20 bg-surface-container-low">
+    <div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+
+      <!-- Durum Bazlı Filtre Butonları (banner hemen altında) -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12">
+        <button onclick="filterProjects('all')" id="btn-all" class="filter-btn active px-5 py-2.5 rounded-xl border border-outline-variant/50 bg-white text-label-bold tracking-wide uppercase transition-all hover:bg-gray-50">Tümü</button>
+        <button onclick="filterProjects('tamamlanan')" id="btn-tamamlanan" class="filter-btn px-5 py-2.5 rounded-xl border border-outline-variant/50 bg-white text-label-bold tracking-wide uppercase transition-all hover:bg-gray-50">Tamamlanan Projeler</button>
+        <button onclick="filterProjects('devam-eden')" id="btn-devam-eden" class="filter-btn px-5 py-2.5 rounded-xl border border-outline-variant/50 bg-white text-label-bold tracking-wide uppercase transition-all hover:bg-gray-50">Devam Eden Projeler</button>
+      </div>
+
+      <!-- Proje Kartları Izgarası -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- JS verileri buraya dinamik olarak basacak -->
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- PREMIUM DETAY MODAL YAPISI (Resim Sabit, Sadece Alt Kısım Kayar) -->
+<div id="project-modal" onclick="closeModal()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[70] flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+  <div onclick="event.stopPropagation()" class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-gray-100 transform scale-95 transition-transform duration-300 relative overflow-hidden">
+
+    <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm shadow-md border border-gray-100 rounded-full flex items-center justify-center text-industrial-gray hover:text-caution-orange transition-colors z-20">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <img id="modal-img" src="" alt="Proje Detay" onerror="this.style.visibility='hidden'" class="w-full h-56 md:h-72 object-cover flex-shrink-0"/>
+
+    <div class="p-6 md:p-8 overflow-y-auto flex-grow modal-scroll-area bg-white">
+      <span id="modal-category" class="text-xs font-bold text-primary tracking-wider uppercase bg-primary/5 px-2.5 py-1 rounded-md">Kategori</span>
+      <span id="modal-status" class="text-xs font-bold text-white tracking-wider uppercase px-2.5 py-1 rounded-md ml-1">Durum</span>
+      <h3 id="modal-title" class="text-2xl font-bold text-deep-navy mt-3">Proje Adı Buraya Gelecek</h3>
+      <div class="flex items-center gap-2 text-body-sm text-secondary mt-2 mb-4">
+        <span class="material-symbols-outlined text-sm text-caution-orange">location_on</span>
+        <span id="modal-location">İstanbul, Türkiye</span>
+      </div>
+      <div id="modal-description" class="text-secondary leading-relaxed space-y-4 border-t border-gray-100 pt-4 text-body-md">
+        <!-- Detaylı açıklama buraya akacak -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ALT BİLGİ ALANI (FOOTER) -->
+<footer class="bg-industrial-gray text-surface-white w-full">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<span class="text-headline-md text-surface-white font-bold tracking-tight mb-4">Belis</span>
+<p class="text-body-sm text-surface-variant/80 max-w-xs mb-6">İnşaat &amp; elektrik. Elektrik taahhüt, proje ve mekanik otomasyonda 2014'e dayanan tecrübeyle güvenilir çözümler.</p>
+</div>
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">Sayfalar</h4>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="index.html">Ana Sayfa</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="hakkimizda.html">Hakkımızda</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="hizmetler.html">Hizmetler</a></li>
+<li><a class="text-body-sm text-surface-white font-semibold" href="projeler.html">Projeler</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="referanslar.html">Referanslar</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="iletisim.html">İletişim</a></li>
+</ul>
+</div>
+<div class="md:col-span-4 flex flex-col">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">İletişim</h4>
+<address class="text-body-sm text-surface-variant/80 not-italic flex flex-col gap-2">
+<span class="flex items-start gap-2"><span class="material-symbols-outlined text-[16px] mt-0.5">location_on</span> Oruçreis Mah. Vadi Cad. İstanbul Ticaret Sarayı No:108 İç Kapı No:659 Esenler/İSTANBUL</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@belis.com.tr</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> 0 553 002 92 08</span>
+</address>
+</div>
+</div>
+<div class="w-full border-t border-surface-white/10 px-margin-mobile md:px-margin-desktop py-6">
+<div class="max-w-max-width mx-auto">
+<span class="text-body-sm text-surface-variant/80">© <span id="current-year">2026</span> Belis İnşaat Elektrik. Tüm hakları saklıdır.</span>
+</div>
+</div>
+</footer>
+
+<script>
+  // Mobil cam menü
+  const menuBtn = document.getElementById('menu-btn');
+  const mm = document.getElementById('mobile-menu');
+  const closeMmBtn = document.getElementById('close-mm-btn');
+  const mmHizBtn = document.getElementById('mm-hizmetler-btn');
+  const mmSub = document.getElementById('mm-sub');
+  const mmChev = document.getElementById('mm-chev');
+
+  function openMm() {
+    mm.classList.remove('hidden');
+    requestAnimationFrame(() => requestAnimationFrame(() => mm.classList.add('open')));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMm() {
+    mm.classList.remove('open');
+    setTimeout(() => mm.classList.add('hidden'), 400);
+    document.body.style.overflow = '';
+  }
+  if (menuBtn) menuBtn.addEventListener('click', openMm);
+  if (closeMmBtn) closeMmBtn.addEventListener('click', closeMm);
+
+  // Footer yılı
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (mmHizBtn) mmHizBtn.addEventListener('click', () => {
+    mmSub.classList.toggle('open');
+    mmChev.classList.toggle('rot');
+  });
+
+  // Mobil menü: Projeler alt menüsü
+  const mmProjBtn = document.getElementById('mm-projeler-btn');
+  const mmSubProj = document.getElementById('mm-sub-projeler');
+  const mmChevProj = document.getElementById('mm-chev-projeler');
+  if (mmProjBtn) mmProjBtn.addEventListener('click', () => {
+    mmSubProj.classList.toggle('open');
+    mmChevProj.classList.toggle('rot');
+  });
+</script>
+<script>
+// 8 Efsane Proje Veri Havuzu (Witto Coffee Pendik Şubesi Dahil!)
+const projectsData = {
+  "proje-kablo-tasima": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Endüstriyel Tesis Ağır Hizmet Kablo Taşıma ve Tava Sistemleri",
+    location: "Kocaeli OSB",
+    image: "assets/proje_kablo_tasima.jpg",
+    shortDesc: "Endüstriyel üretim tesisinde kuvvetli ve zayıf akım hatları için sismik askı destekli, çok katlı galvaniz kablo tavası omurgası inşa edildi.",
+    longDesc: `<p class="text-base text-industrial-gray">Gelişmiş bir endüstriyel üretim kompleksinde, tesis genelindeki binlerce metrelik kuvvetli akım, zayıf akım og ve otomasyon hatlarının hatasız taşınması amacıyla ağır hizmet tipi kablo taşıma omurgası projelendirilmiş ve montajı tamamlanmıştır.</p>
+               <p class="mt-3">Mühendislik ekiplerimiz tarafından yapılan sismik mukavemet hesaplamaları doğrultusunda, tavan strüktürüne uygun özel askı sistemleri imal edilmiştir. Çok katlı tava tasarımı sayesinde kuvvetli akım ve zayıf akım kabloları birbirinden izole edilerek elektromanyetik girişimlerin (EMI) önüne geçilmiştir.</p>
+               <p class="mt-3">Uluslararası standartlara (IEC 61537) tam uyumlu, dönüşlerde kablo bükülme yarıçaplarına sadık kalınarak yapılan bu milimetrik işçilik, tesisin uzun yıllar boyunca ısınma ve sarkma problemi yaşamadan kesintisiz çalışmasını güvence altına almaktadır.</p>`
+  },
+  "proje-trafo-merkezi": {
+    category: "orta-gerilim",
+    status: "tamamlanan",
+    title: "Endüstriyel Üretim Kompleksi 1600 kVA Trafo ve OG Şalt Merkezi",
+    location: "Tekirdağ Çerkezköy OSB",
+    image: "assets/proje_trafo_merkezi.jpg",
+    shortDesc: "Yüksek güç kapasiteli sanayi tesisi için 34.5 kV SF6 gazlı modüler metal hücreler ve trafo merkezi anahtar teslim kurulumu gerçekleştirildi.",
+    longDesc: `<p class="text-base text-industrial-gray">Üretim kapasitesini artıran ağır sanayi tesisinin güvenli ve kesintisiz enerji ihtiyacını karşılamak adına, uluslararası normlara uygun <strong>34.5 kV Orta Gerilim Şalt Merkezi ve Trafo Odası</strong> kurulumu tamamlanmıştır.</p>
+               <p class="mt-3">Projede, yüksek işletme emniyeti sağlayan SF6 gazlı yük ayırıcılı ve kesicili metal muhafazalı modüler hücrelerin montajı milimetrik hassasiyetle yapılmıştır. Enerji dönüşüm omurgasını oluşturan 1600 kVA gücündeki sargı sıcaklık korumalı kuru tip transformatör, özel havalandırma ve bara sistemleriyle entegre edilmiştir.</p>
+               <p class="mt-3">Tüm röle koordinasyon testleri, sekonder koruma ayarları ve yüksek gerilim kablo başlığı terminasyonları mühendislerimizce yapılarak, TEDAŞ kabul süreçlerinin ardından tesis kayıpsız ve tam yükte güvenle enerjilendirilmiştir.</p>`
+  },
+  "proje-otomasyon-pano": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Akıllı Fabrika Alçak Gerilim Dağıtım ve Otomasyon Pano Sistemleri",
+    location: "Bursa DOSAB",
+    image: "assets/proje_otomasyon_pano.jpg",
+    shortDesc: "Üretim hatlarının güvenliği ve verimliliği için IEC 61439 standartlarında, yüksek koruma sınıflı akıllı dağıtım ve PLC panoları imal edildi.",
+    longDesc: `<p class="text-base text-industrial-gray">Akıllı fabrika dönüşüm projesi kapsamında, modern üretim hatlarının hatasız ve yüksek performansla kontrol edilmesi amacıyla <strong>Alçak Gerilim Ana Dağıtım, Kompanzasyon ve PLC Otomasyon Panoları</strong> mühendislik ekibimizce tasarlanmış ve devreye alınmıştır.</p>
+               <p class="mt-3">Pano içi montajlarda, ısınma ve ark risklerini minimuma indiren tip testli şalt bileşenleri kullanılmıştır. Kablo kanalları, klemens grupları ve kablo etiketleme sistemleri uluslararası standartlara tam uyumlu olup, gelecekteki genişleme süreçlerine imkan tanıyacak şekilde modüler yapıda planlanmıştır.</p>
+               <p class="mt-3">İleri düzey iş güvenliği ve yüksek koruma sınıfına (IP54) sahip bu panolar, zorlu endüstriyel koşullarda dahi toz ve nemden etkilenmeden, üretimin sürekliliğini ve şebeke kalitesini (Harmonik filtreleme dahil) en üst düzeyde korumaktadır.</p>`
+  },
+  "proje-altinbas-kampus": {
+    category: "zayif-akim",
+    status: "tamamlanan",
+    title: "Altınbaş Üniversitesi Gayrettepe Kampüsü Kompleks Elektrik-Elektronik Taahhüt",
+    location: "Gayrettepe, İstanbul",
+    image: "assets/proje_altinbas_kampus.jpg",
+    shortDesc: "Çok katlı modern kampüs yerleşkesinin akıllı bina otomasyonu, yangın algılama, yüksek hızlı data network ve kesintisiz güç dağıtım altyapısı anahtar teslim tamamlanmıştır.",
+    longDesc: `<p class="text-base text-industrial-gray">Modern mimari çizgileriyle öne çıkan <strong>Altınbaş Üniversitesi Gayrettepe Yerleşkesi</strong>'nde, binlerce öğrenci ve akademisyenin en yüksek güvenlik ve konfor standartlarında eğitim alabilmesi amacıyla kapsamlı bir <strong>Elektrik-Elektronik Taahhüt ve Sistem Entegrasyonu</strong> projesi hayata geçirilmiştir.</p>
+               <p class="mt-3">Müteahhit firma Barış İnşaat iş birliğiyle yürütülen bu prestijli projede; kampüsün can güvenliğini sağlayan akıllı adresli yangın algılama ve ihbar sistemleri, merkezi IP CCTV güvenlik altyapısı, acil anons ve seslendirme ağları ile yüksek hızlı kesintisiz veri aktarımı sağlayan yapısal kablolama (Data/LAN) çözümleri uçtan uca kurulmuştur.</p>
+               <p class="mt-3">Çok katlı eğitim yapısının dinamik yük ihtiyaçları titizlikle analiz edilerek, acil durum jeneratör senkronizasyonları, kesintisiz güç kaynakları (UPS) ve enerji izleme otomasyonları entegre edilmiştir. Kampüsün tüm altyapısı, tek bir merkezi bina yönetim sisteminden (BMS) izlenebilir hale getirilerek maksimum enerji verimliliği sağlanmıştır.</p>`
+  },
+  "proje-kesintisiz-guc": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Özyeğin Üniversitesi Yurt 2 Binası Elektrik-Elektronik Taahhüt Projesi",
+    location: "Çekmeköy, İstanbul",
+    image: "assets/proje_kesintisiz_guc.jpg",
+    shortDesc: "Müşteri Berko İnşaat partnerliğinde yürütülen modern yurt kompleksinin kuvvetli akım, aydınlatma şebekeleri ve kritik altyapı dağıtımı.",
+    longDesc: `<p class="text-base text-industrial-gray"><strong>Özyeğin Üniversitesi Kampüsü</strong> içerisinde yer alan Yurt 2 Binası projesinin tüm elektrik ve elektronik altyapı işleri, ana yüklenici <strong>Berko İnşaat</strong> standartlarına uygun olarak başarıyla tamamlanmıştır.</p>
+               <p class="mt-3">Projede, öğrencilerin güvenli ve kesintisiz bir yaşam alanına sahip olması adına sismik korumalı kablo taşıma hatları, modüler alçak gerilim ana ve tali dağıtım panoları ile yüksek verimli çevre ve iç mekan aydınlatma sistemleri kurulmuştur. Yangın algılama ve acil durum yönlendirme altyapıları sıfır hata ile entegre edilmiştir.</p>`
+  },
+  "proje-trendyol-spine": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Trendyol.com Spine Tower Merkez Ofis Elektrik Taahhüt Projesi",
+    location: "Maslak, İstanbul",
+    image: "assets/proje_trendyol_spine.jpg",
+    shortDesc: "Sistema İnşaat partnerliğinde tamamlanan genel merkez ofisinin akıllı DALI aydınlatma otomasyonu, kesintisiz güç kaynakları (UPS) ve açık ofis altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Maslak bölgesinin en prestijli dikey yapılarından Spine Tower içerisinde yer alan <strong>Trendyol.com Genel Merkez Ofisi</strong>'nin teknolojik altyapı ve mimari elektrik taahhüt işleri, <strong>Sistema İnşaat</strong> ile birlikte başarıyla hayata geçirilmiştir.</p>
+               <p class="mt-3">Proje kapsamında, modern açık ofis konseptine entegre akıllı DALI aydınlatma otomasyon sistemleri, zemin altı modüler kuvvetli ve zayıf akım dağıtım şebekeleri, kesintisiz sunucu odası (Server Room) altyapıları ve hassas enerji izleme panoları devreye alınmıştır. Tüm imalatlar, firmanın yüksek teknolojik operasyonel ihtiyaçlarına tam yanıt verecek şekilde teslim edilmiştir.</p>`
+  },
+  "proje-beykoz-koc": {
+    category: "zayif-akim",
+    status: "tamamlanan",
+    title: "Beykoz Koç Ortaokulu Kompleks Elektrik-Elektronik Taahhüt Projesi",
+    location: "Beykoz, İstanbul",
+    image: "assets/proje_beykoz_koc.jpg",
+    shortDesc: "Müşteri Barış İnşaat partnerliğinde tamamlanan çevre dostu akıllı eğitim kampüsünün modern zayıf akım, seslendirme, güvenlik ve EN54 yangın algılama sistemleri.",
+    longDesc: `<p class="text-base text-industrial-gray">Prestijli eğitim kurumlarından biri olan <strong>Beykoz Koç Ortaokulu</strong> kampüs projesinin tüm elektrik ve elektronik altyapı mühendislik ve montaj süreçleri, ana yüklenici <strong>Barış İnşaat</strong> ile koordineli olarak üst düzey standartlarda tamamlanmıştır.</p>
+               <p class="mt-3">Eğitim yapısında can güvenliği ve veri iletişimini maksimum düzeye çıkaran adresli EN54 yangın algılama, acil durum seslendirme ve anons ağları kurulmuştur. Okulun yüksek hızlı internet ve bilişim ihtiyaçlarını karşılayacak gigabit yapısal kablolama (Cat6A) ve fiber optik omurga altyapısı ile bina içi/çevresi akıllı IP CCTV güvenlik kamera sistemleri entegre edilmiştir.</p>
+               <p class="mt-3">Yeşil bina felsefesine uygun konsept aydınlatma armatür montajları ve enerji verimliliği sağlayan aydınlatma kontrol çözümleriyle okulun tüm elektrifikasyon mimarisi kusursuz bir şekilde devreye alınmıştır.</p>`
+  },
+  "proje-witto-coffee": {
+    category: "zayif-akim",
+    status: "tamamlanan",
+    title: "Witto Coffee Pendik Şubesi Elektrik-Elektronik Taahhüt Projesi",
+    location: "Pendik, İstanbul",
+    image: "assets/proje_witto_coffee.jpg",
+    shortDesc: "Müşteri Barış İnşaat partnerliğinde tamamlanan yeni nesil premium kahve şubesinin modern aydınlatma otomasyonu, profesyonel seslendirme, IP CCTV ve elektrik altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Yeni nesil kahve zincirlerinin prestijli temsilcilerinden <strong>Witto Coffee Pendik Şubesi</strong>'nin tüm elektrik ve elektronik altyapı taahhüt işleri, ana yüklenici <strong>Barış İnşaat</strong> standartlarında eksiksiz bir şekilde tamamlanmıştır.</p>
+               <p class="mt-3">Projede, şubenin modern konsept mimarisine uyum sağlayacak şekilde tasarlanan akıllı aydınlatma kontrol üniteleri ve dim edilebilir armatür montajları yapılmıştır. Müşteri memnuniyetini en üst düzeyde tutacak profesyonel seslendirme sistemleri, akustik hesaplamalar yapılarak yerleştirilmiştir.</p>
+               <p class="mt-3">Ayrıca, işletme güvenliğini sağlayan akıllı IP CCTV güvenlik kamera altyapısı, yüksek hızlı kablosuz internet erişimi için yapısal data kablolaması ve mutfak yüklerini besleyen alçak gerilim panoları sıfır hata ile devreye alınarak anahtar teslim teslim edilmiştir.</p>`
+  },
+  "proje-finans-merkezi": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "İstanbul Finans Merkezi GGY Bölgesi Elektrik-Elektronik Taahhüt Projesi",
+    location: "İstanbul Uluslararası Finans Merkezi",
+    image: "assets/proje_finans_merkezi.jpg",
+    shortDesc: "Müşteri Alperdem Elektrik partnerliğinde, ülkemizin yeni finans üssünde yer alan GGY Bölgesi'nin kuvvetli akım, zayıf akım ve kritik güç altyapısı anahtar teslim tamamlanmıştır.",
+    longDesc: `<p class="text-base text-industrial-gray">Türkiye'nin yeni finans üssü konumundaki <strong>İstanbul Uluslararası Finans Merkezi</strong> yerleşkesinin <strong>GGY Bölgesi</strong>'nde yürütülen elektrik-elektronik taahhüt işleri, müşterimiz <strong>Alperdem Elektrik</strong> ile koordineli olarak uluslararası standartlarda hayata geçirilmiştir.</p>
+               <p class="mt-3">Yüksek yoğunluklu ofis ve ortak kullanım alanlarının kesintisiz enerji ihtiyacını karşılamak üzere alçak gerilim ana ve tali dağıtım panoları, busbar enerji omurgası, jeneratör devreye alma senaryoları ve kesintisiz güç kaynağı (UPS) hatları eksiksiz olarak kurulmuştur.</p>
+               <p class="mt-3">Bölge genelinde adresli yangın algılama ve ihbar sistemleri, IP CCTV güvenlik altyapısı, yapısal kablolama (Data/LAN) omurgası ve enerji verimliliği odaklı aydınlatma otomasyonu entegre edilerek, finans merkezi standartlarına uygun kusursuz bir elektrifikasyon mimarisi teslim edilmiştir.</p>`
+  },
+  "proje-sev-amerikan": {
+    category: "zayif-akim",
+    status: "tamamlanan",
+    title: "SEV Amerikan Koleji Nişantepe Kampüsü Elektrik-Elektronik Taahhüt Projesi",
+    location: "Nişantepe, Çekmeköy / İstanbul",
+    image: "assets/proje_sev_amerikan.jpg",
+    shortDesc: "Müşteri Barış İnşaat partnerliğinde tamamlanan ödüllü eğitim kampüsünün adresli yangın algılama, IP CCTV, yapısal kablolama ve akıllı aydınlatma altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">İstanbul Çekmeköy Nişantepe'de, eğimli arazi üzerine konumlanan ve mimarisiyle uluslararası ödüller kazanmış <strong>SEV Amerikan Koleji Kampüsü</strong>'nün tüm elektrik ve elektronik altyapı taahhüt işleri, ana yüklenici <strong>Barış İnşaat</strong> ile koordineli olarak eksiksiz bir şekilde tamamlanmıştır.</p>
+               <p class="mt-3">İki ayrı parselde konumlanan lise ve ilkokul binalarında, öğrenci can güvenliğini en üst düzeye taşıyan adresli EN54 yangın algılama ve ihbar sistemleri, acil durum anons ve seslendirme ağları ile bina içi ve çevre güvenliğini sağlayan IP CCTV kamera altyapısı devreye alınmıştır.</p>
+               <p class="mt-3">Kampüsün yüksek hızlı bilişim ihtiyacını karşılayan gigabit yapısal kablolama (Cat6A) ve fiber optik omurga kurulmuş; doğal ışık odaklı mimariye uyum sağlayan gün ışığı sensörlü akıllı aydınlatma kontrol sistemleri, alçak gerilim ana ve tali dağıtım panoları ile jeneratör-UPS destekli kesintisiz güç hatları anahtar teslim olarak hizmete alınmıştır.</p>`
+  },
+  "proje-kadirhas-ek-bina": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Kadir Has Üniversitesi Ek Hizmet Binası Elektrik-Elektronik Taahhüt Projesi",
+    location: "Cibali, Fatih / İstanbul",
+    image: "assets/proje_kadirhas_ek_bina.jpg",
+    shortDesc: "Müşteri Alperdem Elektrik partnerliğinde, Haliç kıyısındaki tarihi kampüse ait Ek Hizmet Binası'nın kuvvetli akım, zayıf akım ve kesintisiz güç altyapısı tamamlanmıştır.",
+    longDesc: `<p class="text-base text-industrial-gray">Haliç kıyısında, tarihi Cibali Tütün Fabrikası'nın restore edilmesiyle oluşturulan <strong>Kadir Has Üniversitesi Kampüsü</strong>'ne ait <strong>Ek Hizmet Binası</strong>'nın elektrik-elektronik taahhüt işleri, müşterimiz <strong>Alperdem Elektrik</strong> ile birlikte titizlikle tamamlanmıştır.</p>
+               <p class="mt-3">Koruma altındaki tarihi doku ile bütünlük gösteren bir yerleşkede çalışıldığından, tüm kablo taşıma hatları ve tesisat güzergâhları mimari dokuya zarar vermeyecek şekilde, gizli ve geri dönüşü mümkün çözümlerle projelendirilmiştir. Alçak gerilim ana ve tali dağıtım panoları, enerji izleme üniteleri ve kesintisiz güç kaynağı (UPS) hatları yüksek hassasiyetle devreye alınmıştır.</p>
+               <p class="mt-3">Bina genelinde adresli yangın algılama ve ihbar sistemleri, acil durum aydınlatma ve yönlendirme altyapısı, IP CCTV güvenlik ağı ile idari ve akademik birimlerin veri ihtiyacını karşılayan yapısal kablolama (Data/LAN) omurgası kurulmuştur. Enerji verimliliği odaklı LED aydınlatma armatürleri ve otomasyon senaryolarıyla bina, anahtar teslim olarak üniversitenin hizmetine sunulmuştur.</p>`
+  },
+  "proje-altinbas-bagcilar": {
+    category: "zayif-akim",
+    status: "tamamlanan",
+    title: "Altınbaş Üniversitesi Bağcılar Kampüsü Ek Hizmet Binası Elektrik-Elektronik Taahhüt Projesi",
+    location: "Mahmutbey, Bağcılar / İstanbul",
+    image: "assets/proje_altinbas_bagcilar.jpg",
+    shortDesc: "Müşteri Barış İnşaat partnerliğinde tamamlanan merkez kampüs Ek Hizmet Binası'nın yangın algılama, IP CCTV, yapısal kablolama ve kesintisiz güç altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Altınbaş Üniversitesi'nin Bağcılar Mahmutbey'de konumlanan merkez yerleşkesine ait <strong>Ek Hizmet Binası</strong>'nın elektrik ve elektronik taahhüt işleri, ana yüklenici <strong>Barış İnşaat</strong> ile koordineli olarak eksiksiz bir şekilde tamamlanmıştır.</p>
+               <p class="mt-3">Aktif eğitim veren bir kampüs içerisinde yürütülen proje, öğrenci ve akademisyen sirkülasyonunu aksatmayacak şekilde etaplı olarak planlanmıştır. Binanın alçak gerilim ana ve tali dağıtım panoları, kablo taşıma omurgası, jeneratör ve kesintisiz güç kaynağı (UPS) beslemeleri ile enerji izleme üniteleri devreye alınmıştır.</p>
+               <p class="mt-3">Can güvenliğini teminat altına alan adresli EN54 yangın algılama ve ihbar sistemleri, acil durum anons ve yönlendirme altyapısı ile bina içi ve çevresini kapsayan IP CCTV güvenlik ağı kurulmuştur. Derslik, laboratuvar ve idari birimlerin yüksek hızlı veri ihtiyacını karşılayan yapısal kablolama (Cat6A) omurgası ve enerji verimliliği odaklı LED aydınlatma otomasyonu ile bina anahtar teslim olarak hizmete alınmıştır.</p>`
+  },
+  "proje-mvk-golf": {
+    category: "orta-gerilim",
+    status: "tamamlanan",
+    title: "Mustafa Vehbi Koç Golf Kulübü Elektrik-Elektronik Taahhüt Projesi",
+    location: "Riva, Beykoz / İstanbul",
+    image: "assets/proje_mvk_golf.jpg",
+    shortDesc: "Müşteri Mat Enerji partnerliğinde tamamlanan Riva vadisindeki golf kompleksinin orta gerilim enerji dağıtımı, geniş saha elektrifikasyonu ve kulüp binası altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Riva Nehri boyunca uzanan doğal vadi üzerine kurulan <strong>Mustafa Vehbi Koç Golf Kulübü</strong>'nün elektrik ve elektronik taahhüt işleri, müşterimiz <strong>Mat Enerji</strong> ile birlikte, geniş açık alan koşullarına özel mühendislik çözümleriyle tamamlanmıştır.</p>
+               <p class="mt-3">Yüz binlerce metrekarelik arazi genelinde enerjinin kayıpsız dağıtılması amacıyla orta gerilim hücreleri ve trafo merkezi kurulmuş; saha genelinde yeraltı enerji hatları, saha dağıtım panoları ve peyzaja uyumlu dış mekan aydınlatma altyapısı tesis edilmiştir. Açık arazi koşullarının gerektirdiği kapsamlı topraklama ve yıldırımdan korunma sistemleri, uluslararası standartlara uygun şekilde projelendirilerek uygulanmıştır.</p>
+               <p class="mt-3">Kulüp binası, driving range ve tesis birimlerinde adresli yangın algılama, IP CCTV güvenlik ağı, profesyonel seslendirme, yapısal kablolama (Data/LAN) ve kablosuz erişim altyapısı devreye alınmıştır. Sulama otomasyonu ve saha ekipmanlarının besleme hatları ile jeneratör destekli kesintisiz güç çözümleri entegre edilerek, tesisin tüm elektrifikasyon mimarisi anahtar teslim olarak hizmete sunulmuştur.</p>`
+  },
+  "proje-peker-tower": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Peker Tower Maslak Ofis Kulesi Elektrik-Elektronik Taahhüt Projesi",
+    location: "Maslak, Sarıyer / İstanbul",
+    image: "assets/proje_peker_tower.jpg",
+    shortDesc: "Müşteri Gökyol İnşaat partnerliğinde tamamlanan A sınıfı ofis kulesinin dikey enerji omurgası, akıllı bina otomasyonu, kesintisiz güç ve IT altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Maslak'ın ana arteri Eski Büyükdere Caddesi üzerinde yükselen <strong>Peker Tower</strong> ofis kulesinin elektrik ve elektronik taahhüt işleri, ana yüklenici <strong>Gökyol İnşaat</strong> ile koordineli olarak, A sınıfı ofis standartlarında eksiksiz bir şekilde tamamlanmıştır.</p>
+               <p class="mt-3">Çok katlı bodrum ve ofis katlarından oluşan dikey yapının enerji ihtiyacı, busbar dikey enerji omurgası, alçak gerilim ana ve tali dağıtım panoları ile kat bazlı enerji izleme üniteleri üzerinden çözülmüştür. Jeneratör senkronizasyonu ve kesintisiz güç kaynağı (UPS) hatları ile kiracı ofislerin ve kritik yüklerin enerji sürekliliği güvence altına alınmıştır.</p>
+               <p class="mt-3">Binanın akıllı bina sistemi kapsamında DALI aydınlatma otomasyonu, mahal bazlı senaryolar ve merkezi bina yönetim sistemi (BMS) entegrasyonu gerçekleştirilmiştir. Yüksek yapı yönetmeliğine uygun adresli yangın algılama ve ihbar, acil durum anons-yönlendirme, 7/24 IP CCTV güvenlik ve geçiş kontrol sistemleri ile modüler ofis kurgusuna esneklik kazandıran güçlü yapısal kablolama (Data/LAN) altyapısı anahtar teslim olarak devreye alınmıştır.</p>`
+  },
+  "proje-datacasa-dh2": {
+    category: "alcak-gerilim",
+    status: "tamamlanan",
+    title: "Datacasa Veri Merkezi Data Hall 2 Elektrik-Elektronik Taahhüt Projesi",
+    location: "Kayabaşı, Başakşehir / İstanbul",
+    image: "assets/proje_datacasa_dh2.jpg",
+    shortDesc: "Müşteri Etra Holding partnerliğinde tamamlanan Tier III standardındaki veri merkezinin ikinci beyaz alanına ait kritik güç, yedekli enerji ve erken uyarılı yangın altyapısı.",
+    longDesc: `<p class="text-base text-industrial-gray">Türkiye'nin operatör bağımsız veri merkezlerinden <strong>Datacasa</strong>'nın Başakşehir yerleşkesinde bulunan <strong>Data Hall 2 (Beyaz Alan)</strong> yatırımının elektrik-elektronik taahhüt işleri, müşterimiz <strong>Etra Holding</strong> ile birlikte, Tier III kesintisizlik prensipleri gözetilerek tamamlanmıştır.</p>
+               <p class="mt-3">Veri merkezlerinde en kritik başlık olan enerji sürekliliği için yedekli (N+1) mimaride kurgulanmış kritik güç altyapısı tesis edilmiştir. Ayrı A ve B beslemeli enerji hatları, kabin sıralarını besleyen busbar sistemleri, akıllı PDU'lar, UPS grupları ve jeneratör devreye alma senaryoları; tek bir arıza noktasının servisi durdurmasına imkân vermeyecek şekilde birbirinden bağımsız güzergâhlarda projelendirilmiştir.</p>
+               <p class="mt-3">Beyaz alan genelinde sıcak/soğuk koridor kurgusuna uyumlu kablo taşıma ve aydınlatma düzeni, hassas topraklama ve eş potansiyel bağlantıları, VESDA hava örneklemeli erken uyarılı yangın algılama ve gazlı söndürme sistemi tetikleme altyapısı kurulmuştur. Ayrıca kabin sıralarını kapsayan IP CCTV izleme, geçiş kontrol ve enerji tüketiminin anlık takibini sağlayan izleme sistemleri entegre edilerek beyaz alan hizmete hazır şekilde teslim edilmiştir.</p>`
+  }
+};
+
+const categoryNames = {
+  "alcak-gerilim": "Alçak Gerilim Sistemleri",
+  "zayif-akim": "Zayıf Akım Sistemleri",
+  "orta-gerilim": "Orta Gerilim Sistemleri"
+};
+
+// Proje Durumları (Filtreleme bu alan üzerinden yapılır)
+const statusNames = {
+  "tamamlanan": "Tamamlandı",
+  "devam-eden": "Devam Ediyor"
+};
+
+// Durum rozetlerinin renk kodları
+const statusStyles = {
+  "tamamlanan": "bg-emerald-600/90",
+  "devam-eden": "bg-caution-orange/95"
+};
+
+function renderProjects(filterKey = 'all') {
+  const grid = document.getElementById('projects-grid');
+  grid.innerHTML = '';
+
+  let visibleCount = 0;
+
+  Object.keys(projectsData).forEach(key => {
+    const project = projectsData[key];
+
+    if (filterKey === 'all' || project.status === filterKey) {
+      visibleCount++;
+      const card = document.createElement('div');
+      card.className = "group bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer";
+      card.setAttribute("onclick", `openModal('${key}')`);
+      
+      card.innerHTML = `
+        <div class="relative overflow-hidden h-52 bg-gray-100">
+          <img src="${project.image}" alt="${project.title}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <div style="display:none;" class="absolute inset-0 flex-col items-center justify-center bg-gray-100 text-secondary/50">
+            <span class="material-symbols-outlined text-4xl">imagesmode</span>
+            <span class="text-[11px] font-semibold mt-1">Görsel yakında eklenecek</span>
+          </div>
+          <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">
+            ${categoryNames[project.category]}
+          </span>
+          <span class="absolute top-4 right-4 text-[11px] font-bold text-white ${statusStyles[project.status]} backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">
+            ${statusNames[project.status]}
+          </span>
+        </div>
+        <div class="p-6 flex flex-col flex-grow">
+          <div class="flex items-center gap-1 text-xs text-secondary mb-2">
+            <span class="material-symbols-outlined text-sm text-caution-orange">location_on</span>
+            ${project.location}
+          </div>
+          <h4 class="text-lg font-bold text-deep-navy group-hover:text-primary transition-colors line-clamp-1 mb-2">
+            ${project.title}
+          </h4>
+          <p class="text-sm text-secondary leading-relaxed line-clamp-3 mb-6 flex-grow">
+            ${project.shortDesc}
+          </p>
+          <button class="w-full py-3 bg-gray-50 border border-gray-200 text-primary text-sm font-semibold rounded-xl transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary flex items-center justify-center gap-2">
+            Projeyi İncele
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  });
+
+  // Seçilen kategoride proje yoksa gösterilecek zarif mesaj
+  if (visibleCount === 0) {
+    grid.innerHTML = `
+      <div class="col-span-full flex flex-col items-center justify-center py-20 text-center">
+        <span class="material-symbols-outlined text-5xl text-gray-300 mb-4">engineering</span>
+        <h4 class="text-lg font-bold text-deep-navy mb-1">Bu kategoride henüz proje bulunmuyor</h4>
+        <p class="text-sm text-secondary">Yeni projelerimiz çok yakında bu alanda yayınlanacaktır.</p>
+      </div>
+    `;
+  }
+}
+
+function filterProjects(categoryKey) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`btn-${categoryKey}`).classList.add('active');
+  renderProjects(categoryKey);
+}
+
+function openModal(key) {
+  const p = projectsData[key];
+  if(!p) return;
+
+  const mi = document.getElementById('modal-img'); mi.style.visibility=''; mi.src = p.image;
+  document.getElementById('modal-category').innerText = categoryNames[p.category];
+  document.getElementById('modal-title').innerText = p.title;
+  document.getElementById('modal-location').innerText = p.location;
+  document.getElementById('modal-description').innerHTML = p.longDesc;
+
+  const statusEl = document.getElementById('modal-status');
+  statusEl.innerText = statusNames[p.status];
+  statusEl.className = `text-xs font-bold text-white tracking-wider uppercase px-2.5 py-1 rounded-md ml-1 ${statusStyles[p.status]}`;
+
+  document.body.classList.add('overflow-hidden');
+
+  const modal = document.getElementById('project-modal');
+  modal.classList.remove('hidden');
+  setTimeout(() => {
+    modal.classList.remove('opacity-0');
+    modal.firstElementChild.classList.remove('scale-95');
+  }, 50);
+}
+
+function closeModal() {
+  const modal = document.getElementById('project-modal');
+  modal.classList.add('opacity-0');
+  modal.firstElementChild.classList.add('scale-95');
+  
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }, 300);
+}
+
+// URL parametresinden filtre okuma (menüdeki Tamamlanan/Devam Eden linkleri için)
+(function initFilterFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const durum = params.get('durum') || params.get('filtre');
+  if (durum === 'tamamlanan' || durum === 'devam-eden') {
+    filterProjects(durum);
+  } else {
+    renderProjects('all');
+  }
+})();
+</script>
+</body>
+</html>

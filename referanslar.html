@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Referanslarımız | Belis Mühendislik İnşaat Elektrik</title>
+<meta content="Belis Mühendislik'e güvenen kurumlar: Arçelik, Beko, Borsa İstanbul, Doğuş Group, Dedeman, İGA İstanbul Havalimanı ve daha fazlası." name="description"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23003B6F'/%3E%3Cpath d='M37 6 14 38h13l-5 20 26-34H33l4-18z' fill='%2310B981'/%3E%3C/svg%3E"/>
+<link href="assets/tailwind.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
+<style>.material-symbols-outlined{opacity:0;transition:opacity .25s ease}html.ms-ready .material-symbols-outlined{opacity:1}</style>
+<script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
+<script type="text/plain" data-note="eski tailwind cdn config (artik kullanilmiyor)">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"caution-orange": "#FF9500", "deep-navy": "#003B6F", secondary: "#575f66", "inverse-surface": "#2f3131", "surface-container-lowest": "#ffffff", "industrial-gray": "#394147", "secondary-container": "#dbe3eb", "surface-container-low": "#f3f3f3", "surface-tint": "#00558f", tertiary: "#7b4500", "tertiary-fixed": "#ffdcbf", surface: "#f9f9f9", primary: "#00558f", "trust-blue": "#003B6F", "surface-dim": "#dadada", "surface-variant": "#e2e2e2", "on-surface-variant": "#404751", "surface-white": "#FFFFFF", "primary-fixed": "#d1e4ff", "primary-fixed-dim": "#9ecaff", outline: "#717882", "secondary-fixed": "#dbe3eb", "on-surface": "#1a1c1c", "primary-container": "#006eb7", "surface-container-high": "#e8e8e8", "outline-variant": "#c0c7d2", "surface-container": "#eeeeee", "on-background": "#1a1c1c", background: "#f9f9f9", "on-primary": "#ffffff", "on-secondary-container": "#5d656c", "on-tertiary": "#ffffff"}, borderRadius: {sm: "0.125rem", DEFAULT: "0.25rem", md: "0.375rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "64px", unit: "8px", gutter: "24px", "margin-mobile": "20px", "max-width": "1280px"}, fontFamily: {body: ["Inter"], label: ["JetBrains Mono"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-caps": ["12px", {lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", fontWeight: "600"}], "label-bold": ["14px", {lineHeight: "20px", fontWeight: "600"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-xl-mobile": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}]}}}};</script>
+<style>
+.nav-link { position: relative; padding: 6px 0; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
+  background: #00558f; transform: scaleX(0); transform-origin: left;
+  transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+
+/* ===== Mobil cam menü ===== */
+#mobile-menu { visibility: hidden; }
+#mobile-menu .mm-bg {
+  opacity: 0; transition: opacity .3s ease;
+  background: rgba(249,250,251,.72);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+}
+#mobile-menu .mm-item { opacity: 0; transform: translateY(16px); transition: opacity .4s ease, transform .4s ease; }
+#mobile-menu.open { visibility: visible; }
+#mobile-menu.open .mm-bg { opacity: 1; }
+#mobile-menu.open .mm-item { opacity: 1; transform: none; }
+#mobile-menu.open .mm-item:nth-child(1) { transition-delay: .18s; }
+#mobile-menu.open .mm-item:nth-child(2) { transition-delay: .24s; }
+#mobile-menu.open .mm-item:nth-child(3) { transition-delay: .30s; }
+#mobile-menu.open .mm-item:nth-child(4) { transition-delay: .36s; }
+#mobile-menu.open .mm-item:nth-child(5) { transition-delay: .42s; }
+#mobile-menu.open .mm-item:nth-child(6) { transition-delay: .48s; }
+#mobile-menu.open .mm-item:nth-child(7) { transition-delay: .54s; }
+.mm-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 6px; font-size: 17px; font-weight: 700; color: #1a2733;
+  border-bottom: 1px solid rgba(57,65,71,.1);
+}
+.mm-sub { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub.open { max-height: 260px; }
+.mm-sub a {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 12px 8px 12px 18px; font-size: 15px; font-weight: 600; color: #394147;
+}
+.mm-sub .sub-dot {
+  width: 7px; height: 7px; border-radius: 9999px; background: #FF9500;
+  box-shadow: 0 0 0 3px rgba(255,149,0,.18); flex-shrink: 0;
+}
+.mm-chev { transition: transform .3s ease; }
+.mm-chev.rot { transform: rotate(180deg); }
+
+/* ===== iPhone çentik / güvenli alan ===== */
+@supports (padding: env(safe-area-inset-top)) {
+  #site-header { padding-top: env(safe-area-inset-top); }
+  #mobile-menu > div.relative {
+    padding-top: calc(1.75rem + env(safe-area-inset-top));
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu .mm-bg, #mobile-menu .mm-item, .mm-sub, .mm-chev { transition: none; }
+}
+
+/* ===== Referans kartlarinin sirali belirme animasyonu ===== */
+.ref-card { opacity: 0; transform: translateY(16px); animation: refReveal .5s ease forwards; }
+@keyframes refReveal { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ref-card { animation: none; opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body class="bg-background text-on-background font-body text-body-md antialiased overflow-x-hidden">
+
+<!-- MOBIL ÇEKMECE MENÜ -->
+<!-- MOBİL CAM MENÜ -->
+<div class="fixed inset-0 z-[60] hidden" id="mobile-menu">
+  <div class="mm-bg absolute inset-0"></div>
+  <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
+    <div class="flex items-center justify-between mb-8">
+      <span class="text-2xl font-extrabold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined text-[28px]">blur_on</span> Belis
+      </span>
+      <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col">
+      <a class="mm-item mm-link" href="index.html">Ana Sayfa</a>
+      <a class="mm-item mm-link" href="hakkimizda.html">Hakkımızda</a>
+      <div class="mm-item">
+        <button class="mm-link w-full" id="mm-hizmetler-btn" type="button">
+          Hizmetler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub">
+          <a href="hizmetler.html?kategori=alcak-gerilim"><span class="sub-dot"></span> Alçak Gerilim Sistemleri</a>
+          <a href="hizmetler.html?kategori=zayif-akim"><span class="sub-dot"></span> Zayıf Akım Sistemleri</a>
+          <a href="hizmetler.html?kategori=orta-gerilim"><span class="sub-dot"></span> Orta Gerilim Sistemleri</a>
+        </div>
+      </div>
+      <div class="mm-item">
+        <button class="mm-link w-full" id="mm-projeler-btn" type="button">
+          Projeler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev-projeler">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub-projeler">
+          <a href="projeler.html?durum=tamamlanan"><span class="sub-dot"></span> Tamamlanan Projeler</a>
+          <a href="projeler.html?durum=devam-eden"><span class="sub-dot"></span> Devam Eden Projeler</a>
+        </div>
+      </div>
+      <a class="mm-item mm-link text-primary" href="referanslar.html">Referanslar</a>
+      <a class="mm-item mm-link" href="iletisim.html">İletişim</a>
+    </nav>
+  </div>
+</div>
+
+<header class="fixed top-0 w-full z-40 mt-3 md:mt-8 px-margin-mobile md:px-margin-desktop" id="site-header">
+  <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
+    <div class="flex items-center gap-4">
+      <a class="brand text-[22px] md:text-headline-lg font-bold tracking-tight text-primary flex items-center gap-2" href="index.html">
+        <span class="material-symbols-outlined text-primary text-[26px] md:text-[34px] font-bold">blur_on</span>
+        <span class="bg-gradient-to-r from-primary to-deep-navy bg-clip-text text-transparent font-extrabold">Belis</span>
+      </a>
+    </div>
+    <nav class="hidden lg:flex items-center gap-10">
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="index.html">Ana Sayfa</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="hakkimizda.html">Hakkımızda</a>
+      <div class="relative group py-2">
+        <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors flex items-center gap-0.5 cursor-pointer" href="hizmetler.html">
+          Hizmetler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="hizmetler.html?kategori=alcak-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Alçak Gerilim</a>
+            <a href="hizmetler.html?kategori=zayif-akim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Zayıf Akım</a>
+            <a href="hizmetler.html?kategori=orta-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Orta Gerilim</a>
+          </div>
+        </div>
+      </div>
+      <div class="relative group py-2">
+        <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors flex items-center gap-0.5 cursor-pointer" href="projeler.html">
+          Projeler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="projeler.html?durum=tamamlanan" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Tamamlanan Projeler</a>
+            <a href="projeler.html?durum=devam-eden" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Devam Eden Projeler</a>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link text-primary font-body text-label-bold tracking-wider uppercase transition-colors active" href="referanslar.html">Referanslar</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="iletisim.html">İletişim</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button aria-label="Menüyü aç" class="lg:hidden p-2 text-industrial-gray hover:bg-black/5 rounded-full flex items-center" id="menu-btn"><span class="material-symbols-outlined text-[26px]">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- SİNEMATİK ARKA PLANLI SAYFA BAŞLIĞI BANNERI -->
+  <section class="relative w-full h-[240px] md:h-[340px] xl:h-[440px] flex items-end justify-center overflow-hidden bg-industrial-gray pb-8 md:pb-14">
+    <!-- Banner görseli eklendiğinde buraya img etiketi konulabilir (assets/banner_referanslar.jpg) -->
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
+    <div class="relative z-20 max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center w-full">
+      <span class="text-sm md:text-base font-bold text-white tracking-widest uppercase bg-[#003B6F] px-4 py-2 rounded-lg mb-3 inline-block shadow-sm">REFERANSLARIMIZ</span>
+      <h1 class="text-[36px] md:text-[52px] font-extrabold text-surface-white tracking-tight drop-shadow-md">
+        Bize Güvenen Kurumlar
+      </h1>
+      <p class="text-surface-variant/80 text-body-sm mt-4 max-w-xl mx-auto drop-shadow">
+        Türkiye'nin önde gelen kurumlarıyla yürüttüğümüz iş birlikleri
+      </p>
+    </div>
+  </section>
+
+  <!-- REFERANS LOGO IZGARASI -->
+  <section class="pt-8 md:pt-10 pb-20 bg-surface-container-low">
+    <div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+
+      <div class="text-center mb-14">
+        <span class="inline-flex items-center max-w-max px-4 py-2 rounded-lg bg-[#003B6F] text-white font-label text-[13px] font-extrabold tracking-widest uppercase mb-5 shadow-md border-l-4 border-[#10B981]">
+          İŞ ORTAKLARIMIZ
+        </span>
+        <h2 class="text-[32px] md:text-[42px] font-extrabold text-[#003B6F] leading-tight tracking-tight">
+          Referanslarımız
+        </h2>
+      </div>
+
+      <div id="references-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+        <!-- Referans verileri JS ile buraya akacak -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ALT ÇAĞRI ALANI -->
+  <section class="py-14 md:py-20 bg-white">
+    <div class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop">
+      <div class="bg-deep-navy rounded-3xl px-8 py-12 md:px-16 md:py-14 text-center shadow-xl">
+        <h3 class="text-[26px] md:text-[34px] font-extrabold text-surface-white tracking-tight">Bir sonraki referansımız siz olun.</h3>
+        <p class="text-surface-variant/70 text-body-md mt-3 max-w-xl mx-auto">Projeleriniz için mühendislik gücümüzden yararlanın.</p>
+        <a href="iletisim.html" class="inline-flex items-center gap-2 mt-7 px-8 py-3.5 bg-caution-orange text-white font-body text-label-bold rounded-xl hover:bg-white hover:text-deep-navy shadow-lg transition-all duration-300 group">
+          İletişime Geçin
+          <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ALT BİLGİ ALANI (FOOTER) -->
+<footer class="bg-industrial-gray text-surface-white w-full">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<span class="text-headline-md text-surface-white font-bold tracking-tight mb-4">Belis</span>
+<p class="text-body-sm text-surface-variant/80 max-w-xs mb-6">İnşaat &amp; elektrik. Elektrik taahhüt, proje ve mekanik otomasyonda 2014'e dayanan tecrübeyle güvenilir çözümler.</p>
+</div>
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">Sayfalar</h4>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="index.html">Ana Sayfa</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="hakkimizda.html">Hakkımızda</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="hizmetler.html">Hizmetler</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="projeler.html">Projeler</a></li>
+<li><a class="text-body-sm text-surface-white font-semibold" href="referanslar.html">Referanslar</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="iletisim.html">İletişim</a></li>
+</ul>
+</div>
+<div class="md:col-span-4 flex flex-col">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">İletişim</h4>
+<address class="text-body-sm text-surface-variant/80 not-italic flex flex-col gap-2">
+<span class="flex items-start gap-2"><span class="material-symbols-outlined text-[16px] mt-0.5">location_on</span> Oruçreis Mah. Vadi Cad. İstanbul Ticaret Sarayı No:108 İç Kapı No:659 Esenler/İSTANBUL</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@belis.com.tr</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> 0 553 002 92 08</span>
+</address>
+</div>
+</div>
+<div class="w-full border-t border-surface-white/10 px-margin-mobile md:px-margin-desktop py-6">
+<div class="max-w-max-width mx-auto">
+<span class="text-body-sm text-surface-variant/80">© <span id="current-year">2026</span> Belis İnşaat Elektrik. Tüm hakları saklıdır.</span>
+</div>
+</div>
+</footer>
+
+<script>
+  // Mobil cam menü
+  const menuBtn = document.getElementById('menu-btn');
+  const mm = document.getElementById('mobile-menu');
+  const closeMmBtn = document.getElementById('close-mm-btn');
+  const mmHizBtn = document.getElementById('mm-hizmetler-btn');
+  const mmSub = document.getElementById('mm-sub');
+  const mmChev = document.getElementById('mm-chev');
+
+  function openMm() {
+    mm.classList.remove('hidden');
+    requestAnimationFrame(() => requestAnimationFrame(() => mm.classList.add('open')));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMm() {
+    mm.classList.remove('open');
+    setTimeout(() => mm.classList.add('hidden'), 400);
+    document.body.style.overflow = '';
+  }
+  if (menuBtn) menuBtn.addEventListener('click', openMm);
+  if (closeMmBtn) closeMmBtn.addEventListener('click', closeMm);
+
+  // Footer yılı
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (mmHizBtn) mmHizBtn.addEventListener('click', () => {
+    mmSub.classList.toggle('open');
+    mmChev.classList.toggle('rot');
+  });
+
+  // Mobil menü: Projeler alt menüsü
+  const mmProjBtn = document.getElementById('mm-projeler-btn');
+  const mmSubProj = document.getElementById('mm-sub-projeler');
+  const mmChevProj = document.getElementById('mm-chev-projeler');
+  if (mmProjBtn) mmProjBtn.addEventListener('click', () => {
+    mmSubProj.classList.toggle('open');
+    mmChevProj.classList.toggle('rot');
+  });
+</script>
+<script>
+/* ============================================================
+   REFERANS VERİ HAVUZU
+   Logo dosyalarını "assets/" klasörüne, aşağıdaki "logo"
+   alanında yazan isimle kaydetmeniz yeterlidir.
+   Logo yoksa kart otomatik olarak firma adını yazıyla gösterir.
+   ============================================================ */
+/* Logo dosyası assets/ klasörüne eklendiğinde, ilgili satırdaki null yerine
+   "assets/ref_xxx.png" yazmanız yeterli. null olanlar firma adıyla gösterilir
+   (böylece eksik dosyalar için tarayıcıda 404 hatası oluşmaz). */
+const referencesData = [
+  { name: "Gökyol İnşaat ve Sanayii A.Ş.",           logo: null },
+  { name: "Barış İnşaat A.Ş.",                       logo: null },
+  { name: "Alperdem Elektrik İnşaat Ticaret A.Ş.",   logo: null },
+  { name: "Vardallar Grup",                          logo: null },
+  { name: "Mapitech Mühendislik",                    logo: null },
+  { name: "Mensatech Mühendislik",                   logo: null },
+  { name: "Akser Elektrik",                          logo: null },
+  { name: "DMY Mühendislik",                         logo: null },
+  { name: "AEC Mühendislik",                         logo: null },
+  { name: "Delta Mobilya",                           logo: null },
+  { name: "Proje Elektrik",                          logo: null },
+  { name: "Körfez Eta Mühendislik",                  logo: null },
+  { name: "Büyük Avrupa İnşaat",                     logo: null },
+  { name: "İGA İstanbul Havalimanı",                 logo: null },
+  { name: "Decathlon Akmerkez",                      logo: null },
+  { name: "Altınbaş Üniversitesi Gayrettepe Kampüs", logo: null },
+  { name: "Trendyol.com Maslak",                     logo: null },
+  { name: "Koç Ortaokulu Beykoz",                    logo: null },
+  { name: "Özyeğin Üniversitesi",                    logo: null },
+  { name: "Witto Coffee",                            logo: null },
+  { name: "Akment Alüminyum Geri Dönüşüm",           logo: null },
+  { name: "Arçelik",                                 logo: null },
+  { name: "Beko",                                    logo: "assets/ref_beko.png" },
+  { name: "Borsa İstanbul",                          logo: null },
+  { name: "Gama Enerji — Çakırlar HES",              logo: null },
+  { name: "Çelebi Konsept Mimarlık",                 logo: null },
+  { name: "Dedeman Hotels & Resorts",                logo: null },
+  { name: "Doğuş Group",                             logo: null }
+];
+
+function renderReferences() {
+  const grid = document.getElementById('references-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  referencesData.forEach((ref, index) => {
+    const card = document.createElement('div');
+    card.className = "ref-card group bg-white rounded-2xl border border-outline-variant/30 shadow-sm hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-32 md:h-36 flex items-center justify-center p-5 md:p-6";
+    card.style.animationDelay = (index * 45) + 'ms';
+    card.setAttribute('title', ref.name);
+
+    const logoHtml = ref.logo ? `
+      <img
+        src="${ref.logo}"
+        alt="${ref.name}"
+        loading="lazy"
+        class="max-h-full max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+      />` : '';
+    card.innerHTML = `${logoHtml}
+      <div style="display:${ref.logo ? 'none' : 'flex'};" class="w-full h-full flex-col items-center justify-center text-center">
+        <span class="text-[12px] md:text-[13px] font-bold text-deep-navy/70 group-hover:text-primary uppercase tracking-wide leading-snug transition-colors">
+          ${ref.name}
+        </span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderReferences);
+</script>
+</body>
+</html>

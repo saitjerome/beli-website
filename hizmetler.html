@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Hizmetlerimiz | Belis Mühendislik İnşaat Elektrik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23003B6F'/%3E%3Cpath d='M37 6 14 38h13l-5 20 26-34H33l4-18z' fill='%2310B981'/%3E%3C/svg%3E"/>
+<link href="assets/tailwind.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
+<style>.material-symbols-outlined{opacity:0;transition:opacity .25s ease}html.ms-ready .material-symbols-outlined{opacity:1}</style>
+<script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
+<script type="text/plain" data-note="eski tailwind cdn config (artik kullanilmiyor)">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"caution-orange": "#FF9500", "deep-navy": "#003B6F", secondary: "#575f66", "inverse-surface": "#2f3131", "surface-container-lowest": "#ffffff", "industrial-gray": "#394147", "secondary-container": "#dbe3eb", "surface-container-low": "#f3f3f3", "surface-tint": "#00558f", tertiary: "#7b4500", "tertiary-fixed": "#ffdcbf", surface: "#f9f9f9", primary: "#00558f", "trust-blue": "#003B6F", "surface-dim": "#dadada", "surface-variant": "#e2e2e2", "on-surface-variant": "#404751", "surface-white": "#FFFFFF", "primary-fixed": "#d1e4ff", "primary-fixed-dim": "#9ecaff", outline: "#717882", "secondary-fixed": "#dbe3eb", "on-surface": "#1a1c1c", "primary-container": "#006eb7", "surface-container-high": "#e8e8e8", "outline-variant": "#c0c7d2", "surface-container": "#eeeeee", "on-background": "#1a1c1c", background: "#f9f9f9", "on-primary": "#ffffff", "on-secondary-container": "#5d656c", "on-tertiary": "#ffffff"}, borderRadius: {sm: "0.125rem", DEFAULT: "0.25rem", md: "0.375rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"margin-desktop": "64px", unit: "8px", gutter: "24px", "margin-mobile": "20px", "max-width": "1280px"}, fontFamily: {body: ["Inter"], label: ["JetBrains Mono"]}, fontSize: {"headline-md": ["24px", {lineHeight: "32px", fontWeight: "600"}], "headline-xl": ["48px", {lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-caps": ["12px", {lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500"}], "headline-lg-mobile": ["24px", {lineHeight: "32px", fontWeight: "600"}], "label-bold": ["14px", {lineHeight: "20px", fontWeight: "600"}], "body-lg": ["18px", {lineHeight: "28px", fontWeight: "400"}], "body-sm": ["14px", {lineHeight: "20px", fontWeight: "400"}], "headline-xl-mobile": ["32px", {lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "40px", fontWeight: "600"}], "body-md": ["16px", {lineHeight: "24px", fontWeight: "400"}]}}}};</script>
+<style>
+.nav-link { position: relative; padding: 6px 0; }
+.nav-link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 100%;
+  background: #00558f; transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+.group:hover .group-hover\:block { display: block; }
+
+/* ===== Hizmet altı animasyon paneli ===== */
+.anim-stage {
+  background: linear-gradient(135deg, #06253f 0%, #003B6F 55%, #072a4a 100%);
+  position: relative; overflow: hidden;
+}
+.anim-stage::before {
+  content: ""; position: absolute; inset: 0; opacity: .07;
+  background-image: radial-gradient(circle at 2px 2px, #ffffff 1px, transparent 0);
+  background-size: 26px 26px;
+}
+/* akış: hat üzerinde ilerleyen parlak enerji darbesi */
+.pulse-track { opacity: .18; }
+.pulse-run {
+  stroke-dasharray: 70 560;
+  animation: flowDash 3.2s linear infinite;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+@keyframes flowDash { to { stroke-dashoffset: -630; } }
+/* osiloskop: kendini çizen sinyal dalgası */
+.wave-draw {
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: drawWave 4.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+@keyframes drawWave { 0%{stroke-dashoffset:900} 55%{stroke-dashoffset:0} 80%{stroke-dashoffset:0} 100%{stroke-dashoffset:-900} }
+/* nokta/LED nabzı */
+.node-pulse { animation: glowPulse 2.2s ease-in-out infinite; }
+.node-pulse.d1 { animation-delay: .35s; } .node-pulse.d2 { animation-delay: .7s; } .node-pulse.d3 { animation-delay: 1.05s; }
+@keyframes glowPulse { 0%,100%{opacity:.25} 50%{opacity:1} }
+/* OG ark kıvılcımı: seyrek, kısa parlama */
+.spark { opacity: 0; animation: sparkFlicker 4.8s linear infinite; filter: drop-shadow(0 0 8px #FF9500); }
+.spark.s2 { animation-delay: 2.3s; }
+@keyframes sparkFlicker { 0%,90%,100%{opacity:0} 91%,93%{opacity:1} 92%{opacity:.4} }
+/* canlı durum noktası */
+.live-dot { width:8px; height:8px; border-radius:9999px; background:#22c55e; box-shadow:0 0 0 0 rgba(34,197,94,.6); animation: liveDot 2s infinite; }
+@keyframes liveDot { 70%{ box-shadow:0 0 0 9px rgba(34,197,94,0);} 100%{ box-shadow:0 0 0 0 rgba(34,197,94,0);} }
+@media (prefers-reduced-motion: reduce) {
+  .pulse-run, .wave-draw, .node-pulse, .spark, .live-dot { animation: none; }
+  .wave-draw { stroke-dashoffset: 0; }
+  .spark { opacity: .6; }
+}
+
+/* ===== Hizmete özel animasyon parçaları ===== */
+.spin { transform-box: fill-box; transform-origin: center; animation: spinCW 4.5s linear infinite; }
+.spin.fast { animation-duration: 1.8s; }
+@keyframes spinCW { to { transform: rotate(360deg); } }
+
+.ring { transform-box: fill-box; transform-origin: center; animation: ringExpand 2.6s ease-out infinite; }
+.ring.d1 { animation-delay: .85s; } .ring.d2 { animation-delay: 1.7s; }
+@keyframes ringExpand { 0% { transform: scale(.3); opacity: .95; } 100% { transform: scale(1.9); opacity: 0; } }
+
+.bolt-strike { opacity: 0; animation: boltStrike 3.2s linear infinite; filter: drop-shadow(0 0 9px #ffd9a3); }
+@keyframes boltStrike { 0%,54%,100%{opacity:0} 56%,60%{opacity:1} 58%{opacity:.3} 64%{opacity:0} 74%,78%{opacity:1} 76%{opacity:.35} 82%{opacity:0} }
+.strike-ring { transform-box: fill-box; transform-origin: center; opacity: 0; animation: strikeRing 3.2s linear infinite; }
+@keyframes strikeRing { 0%,55%{transform:scale(.3);opacity:0} 58%{opacity:.9} 72%{transform:scale(2);opacity:0} 100%{opacity:0} }
+.puff { transform-box: fill-box; transform-origin: center; animation: puffUp 2.8s ease-out infinite; }
+.puff.d1 { animation-delay: .9s; } .puff.d2 { animation-delay: 1.8s; }
+@keyframes puffUp { 0%{transform:translateY(0) scale(.5);opacity:0} 18%{opacity:.55} 100%{transform:translateY(-24px) scale(1.5);opacity:0} }
+
+.rise { transform-box: fill-box; transform-origin: bottom; animation: riseBar 3.2s ease-in-out infinite; }
+.rise.d1{animation-delay:.35s} .rise.d2{animation-delay:.7s} .rise.d3{animation-delay:1.05s}
+@keyframes riseBar { 0%,100%{transform:scaleY(.3)} 50%{transform:scaleY(1)} }
+
+.fill-x { transform-box: fill-box; transform-origin: left; animation: fillX 3.6s ease-in-out infinite; }
+@keyframes fillX { 0%{transform:scaleX(.12)} 65%,85%{transform:scaleX(1)} 100%{transform:scaleX(.12)} }
+
+.barrier-arm { transform-box: fill-box; transform-origin: 4% 50%; animation: barrierUp 6s ease-in-out infinite; }
+@keyframes barrierUp { 0%,24%{transform:rotate(0deg)} 32%,70%{transform:rotate(-55deg)} 80%,100%{transform:rotate(0deg)} }
+.car-move { animation: carMove 6s ease-in-out infinite; }
+@keyframes carMove { 0%{transform:translateX(0);opacity:0} 6%{opacity:1} 22%,30%{transform:translateX(140px);opacity:1} 55%{transform:translateX(400px);opacity:1} 62%,100%{transform:translateX(430px);opacity:0} }
+.gate-led { animation: gateLed 6s linear infinite; }
+@keyframes gateLed { 0%,24%{fill:#f87171} 32%,70%{fill:#4ade80} 80%,100%{fill:#f87171} }
+
+.card-swipe { animation: cardSwipe 3.8s ease-in-out infinite; }
+@keyframes cardSwipe { 0%{transform:translate(0,0)} 28%,58%{transform:translate(44px,0)} 84%,100%{transform:translate(0,0)} }
+.ok-led { animation: okLed 3.8s linear infinite; }
+@keyframes okLed { 0%,30%{fill:#64748b} 36%,66%{fill:#4ade80} 74%,100%{fill:#64748b} }
+
+.drift { animation: driftMove 4.2s ease-in-out infinite; }
+.drift.d1 { animation-delay: 1s; } .drift.d2 { animation-delay: 2.1s; }
+@keyframes driftMove { 0%{transform:translate(0,0);opacity:0} 25%{opacity:.9} 75%{opacity:.9} 100%{transform:translate(52px,-10px);opacity:0} }
+
+.blink-red { animation: blinkRed 1.4s linear infinite; }
+@keyframes blinkRed { 0%,100%{opacity:.2} 50%{opacity:1} }
+
+.needle { transform-box: fill-box; transform-origin: 50% 92%; animation: needleSwing 3.8s ease-in-out infinite; }
+@keyframes needleSwing { 0%,100%{transform:rotate(-42deg)} 55%,78%{transform:rotate(16deg)} }
+
+.lamp-on { animation: lampOn 4.4s linear infinite; }
+.lamp-on.d1 { animation-delay: .5s; } .lamp-on.d2 { animation-delay: 1s; }
+@keyframes lampOn { 0%,10%{opacity:.12} 20%,78%{opacity:1} 90%,100%{opacity:.12} }
+
+.cam-scan { transform-box: fill-box; transform-origin: 12% 50%; animation: camScan 5s ease-in-out infinite; }
+@keyframes camScan { 0%,100%{transform:rotate(-10deg)} 50%{transform:rotate(12deg)} }
+
+.packet-flow { stroke-dasharray: 7 15; animation: flowDash 1.7s linear infinite; filter: drop-shadow(0 0 4px currentColor); }
+.packet-flow.slow { animation-duration: 2.6s; }
+
+.wave-arc { animation: glowPulse 2.4s ease-in-out infinite; }
+.wave-arc.d1 { animation-delay: .4s; } .wave-arc.d2 { animation-delay: .8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin, .ring, .bolt-strike, .strike-ring, .rise, .fill-x, .barrier-arm, .car-move,
+  .gate-led, .card-swipe, .ok-led, .drift, .blink-red, .needle, .lamp-on, .cam-scan,
+  .packet-flow, .wave-arc { animation: none; }
+  .bolt-strike { opacity: .7; } .drift { opacity: .6; } .lamp-on { opacity: 1; }
+}
+
+/* ===== Mühendislik Standartları: kompakt, turuncu tikli liste ===== */
+#detail-content h4 {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  padding-left: .9rem;
+  border-left: 4px solid #FF9500;
+  line-height: 1.4;
+}
+#detail-content ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-top: .6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+#detail-content ul li {
+  position: relative;
+  padding: .4rem 0 .4rem 2.1rem;
+  font-size: .875rem;
+  font-weight: 500;
+  color: #394147;
+}
+#detail-content ul li::before {
+  content: "";
+  position: absolute;
+  left: .2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.15rem;
+  height: 1.15rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF9500' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.8 10.1A10 10 0 1 1 17.2 4.2'/%3E%3Cpolyline points='9 11.2 12.2 14.4 21.5 5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ===== Sol menü: zarif nokta işaretçili hizmet butonları ===== */
+.svc-btn {
+  width: 100%; display: flex; align-items: center; gap: .9rem;
+  padding: .8rem 1rem; border-radius: .9rem;
+  text-align: left; transition: background .2s ease, color .2s ease, transform .2s ease;
+  color: #394147;
+}
+.svc-btn .dot {
+  width: 8px; height: 8px; border-radius: 9999px; flex-shrink: 0;
+  background: #c4d4e4;
+  box-shadow: 0 0 0 4px rgba(0,85,143,.08);
+  transition: background .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+.svc-btn:hover .dot { background: #00558f; box-shadow: 0 0 0 4px rgba(0,85,143,.14); transform: scale(1.15); }
+.svc-btn .lbl { flex: 1; font-size: 15px; font-weight: 600; line-height: 1.35; }
+.svc-btn .chev { opacity: 0; transition: opacity .2s ease; font-size: 20px !important; }
+.svc-btn:hover { background: #f1f5f9; transform: translateX(2px); }
+.svc-btn.active { background: #00558f; color: #fff; box-shadow: 0 6px 18px rgba(0,85,143,.28); }
+.svc-btn.active .dot {
+  background: #FF9500;
+  box-shadow: 0 0 0 4px rgba(255,255,255,.18), 0 0 12px rgba(255,149,0,.65);
+  transform: scale(1.2);
+}
+.svc-btn.active .chev { opacity: 1; }
+
+@media (max-width: 1023px) {
+  .svc-btn {
+    width: auto;
+    white-space: nowrap;
+    padding: .6rem 1rem;
+    font-size: 14px;
+    flex-shrink: 0;
+    transform: none !important;
+  }
+  .svc-btn .lbl { font-size: 14px; }
+  .svc-btn .chev { display: none; }
+  .svc-btn:hover { transform: none; }
+}
+
+/* ===== Mobil hizmet kartları ===== */
+.acc-cat-title {
+  font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: #fff; background: #003B6F; border-left: 4px solid #10B981;
+  padding: 10px 14px; border-radius: 10px; margin: 22px 0 12px; display: flex; align-items: center; gap: 8px;
+}
+.svc-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: .55rem;
+  text-align: left; padding: 15px 14px; background: #fff; border: 1px solid rgba(0,0,0,.07);
+  border-radius: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.04); width: 100%; min-height: 138px;
+  transition: transform .18s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.svc-card:active { transform: scale(.97); }
+.svc-card:hover { border-color: rgba(0,85,143,.3); box-shadow: 0 8px 20px rgba(0,85,143,.1); }
+.svc-card-ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(0,85,143,.06); color: #00558f; display: flex; align-items: center; justify-content: center; }
+.svc-card-ico .material-symbols-outlined { font-size: 24px; }
+.svc-card-title { font-size: 14px; font-weight: 700; color: #003B6F; line-height: 1.3; }
+.svc-card-more { margin-top: auto; display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; color: #00558f; }
+
+/* ===== Mobil detay paneli (bottom sheet) ===== */
+#svc-sheet-overlay { opacity: 0; transition: opacity .3s ease; }
+#svc-sheet.open #svc-sheet-overlay { opacity: 1; }
+#svc-sheet-panel { transform: translateY(100%); transition: transform .34s cubic-bezier(.4,0,.2,1); }
+#svc-sheet.open #svc-sheet-panel { transform: translateY(0); }
+#sheet-icon .material-symbols-outlined { font-size: 26px; }
+#sheet-content p { margin-bottom: .75rem; font-size: 15px; line-height: 1.7; color: #575f66; }
+#sheet-content h4 { color: #003B6F; font-weight: 700; font-size: 15px; margin-top: 1.1rem; }
+#sheet-content ul { list-style: disc; padding-left: 1.2rem; }
+#sheet-content li { font-size: 14px; line-height: 1.6; margin-bottom: .3rem; color: #575f66; }
+@media (prefers-reduced-motion: reduce) { #svc-sheet-overlay, #svc-sheet-panel { transition: none; } }
+
+/* ===== Mobil cam menü: önce şeffaf alan, sonra sekmeler ===== */
+#mobile-menu { visibility: hidden; }
+#mobile-menu .mm-bg {
+  opacity: 0;
+  transition: opacity .3s ease;
+  background: rgba(249,250,251,.72);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+#mobile-menu .mm-item {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+#mobile-menu.open { visibility: visible; }
+#mobile-menu.open .mm-bg { opacity: 1; }
+#mobile-menu.open .mm-item { opacity: 1; transform: none; }
+/* şeffaf alan otursun, sekmeler sırayla gelsin */
+#mobile-menu.open .mm-item:nth-child(1) { transition-delay: .18s; }
+#mobile-menu.open .mm-item:nth-child(2) { transition-delay: .24s; }
+#mobile-menu.open .mm-item:nth-child(3) { transition-delay: .30s; }
+#mobile-menu.open .mm-item:nth-child(4) { transition-delay: .36s; }
+#mobile-menu.open .mm-item:nth-child(5) { transition-delay: .42s; }
+#mobile-menu.open .mm-item:nth-child(6) { transition-delay: .48s; }
+#mobile-menu.open .mm-item:nth-child(7) { transition-delay: .54s; }
+.mm-link {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 6px; font-size: 17px; font-weight: 700; color: #1a2733;
+  border-bottom: 1px solid rgba(57,65,71,.1);
+}
+.mm-sub { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub.open { max-height: 260px; }
+.mm-sub button {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 12px 8px 12px 18px; font-size: 15px; font-weight: 600; color: #394147;
+  text-align: left;
+}
+.mm-sub button .sub-dot {
+  width: 7px; height: 7px; border-radius: 9999px; background: #FF9500;
+  box-shadow: 0 0 0 3px rgba(255,149,0,.18); flex-shrink: 0;
+}
+.mm-chev { transition: transform .3s ease; }
+.mm-chev.rot { transform: rotate(180deg); }
+
+/* ===== iPhone çentik / güvenli alan ===== */
+@supports (padding: env(safe-area-inset-top)) {
+  #site-header { padding-top: env(safe-area-inset-top); }
+  #mobile-menu > div.relative {
+    padding-top: calc(1.75rem + env(safe-area-inset-top));
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+  }
+  #svc-sheet-panel { top: calc(2rem + env(safe-area-inset-top)); }
+  #sheet-content { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #mobile-menu .mm-bg, #mobile-menu .mm-item, .mm-sub, .mm-chev { transition: none; }
+}
+</style>
+</head>
+<body class="bg-background text-on-background font-body text-body-md antialiased overflow-x-hidden">
+
+<!-- MOBİL CAM MENÜ -->
+<div class="fixed inset-0 z-[60] hidden" id="mobile-menu">
+  <div class="mm-bg absolute inset-0"></div>
+  <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
+    <div class="flex items-center justify-between mb-8">
+      <span class="text-2xl font-extrabold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined text-[28px]">blur_on</span> Belis
+      </span>
+      <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="flex flex-col">
+      <a class="mm-item mm-link" href="index.html">Ana Sayfa</a>
+      <a class="mm-item mm-link" href="hakkimizda.html">Hakkımızda</a>
+      <div class="mm-item">
+        <button class="mm-link w-full text-primary" id="mm-hizmetler-btn" type="button">
+          Hizmetler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub">
+          <button onclick="mmGo('alcak-gerilim')" type="button"><span class="sub-dot"></span> Alçak Gerilim Sistemleri</button>
+          <button onclick="mmGo('zayif-akim')" type="button"><span class="sub-dot"></span> Zayıf Akım Sistemleri</button>
+          <button onclick="mmGo('orta-gerilim')" type="button"><span class="sub-dot"></span> Orta Gerilim Sistemleri</button>
+        </div>
+      </div>
+      <div class="mm-item">
+        <button class="mm-link w-full" id="mm-projeler-btn" type="button">
+          Projeler
+          <span class="material-symbols-outlined mm-chev" id="mm-chev-projeler">expand_more</span>
+        </button>
+        <div class="mm-sub" id="mm-sub-projeler">
+          <a href="projeler.html?durum=tamamlanan"><span class="sub-dot"></span> Tamamlanan Projeler</a>
+          <a href="projeler.html?durum=devam-eden"><span class="sub-dot"></span> Devam Eden Projeler</a>
+        </div>
+      </div>
+      <a class="mm-item mm-link" href="referanslar.html">Referanslar</a>
+      <a class="mm-item mm-link" href="iletisim.html">İletişim</a>
+    </nav>
+  </div>
+</div>
+<header class="fixed top-0 w-full z-40 mt-3 md:mt-8 px-margin-mobile md:px-margin-desktop" id="site-header">
+  <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
+    <div class="flex items-center gap-4">
+      <a class="brand text-[22px] md:text-headline-lg font-bold tracking-tight text-primary flex items-center gap-2" href="index.html">
+        <span class="material-symbols-outlined text-primary text-[26px] md:text-[34px] font-bold">blur_on</span>
+        <span class="bg-gradient-to-r from-primary to-deep-navy bg-clip-text text-transparent font-extrabold">Belis</span>
+      </a>
+    </div>
+    <nav class="hidden lg:flex items-center gap-10">
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="index.html">Ana Sayfa</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="hakkimizda.html">Hakkımızda</a>
+
+      <div class="relative group py-2">
+        <a class="nav-link text-primary font-body text-label-bold tracking-wider uppercase transition-colors active flex items-center gap-0.5 cursor-pointer" href="hizmetler.html">
+          Hizmetler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="hizmetler.html?kategori=alcak-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Alçak Gerilim</a>
+            <a href="hizmetler.html?kategori=zayif-akim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Zayıf Akım</a>
+            <a href="hizmetler.html?kategori=orta-gerilim" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Orta Gerilim</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative group py-2">
+        <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors flex items-center gap-0.5 cursor-pointer" href="projeler.html">
+          Projeler <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </a>
+        <div class="absolute left-0 top-full pt-4 hidden group-hover:block z-50">
+          <div class="w-56 bg-[#1a202c] border border-gray-700 rounded-xl shadow-xl py-2">
+            <a href="projeler.html?durum=tamamlanan" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Tamamlanan Projeler</a>
+            <a href="projeler.html?durum=devam-eden" class="block w-full text-left px-5 py-3 text-sm font-semibold text-white hover:bg-gray-800 hover:text-primary transition-colors uppercase tracking-wider">Devam Eden Projeler</a>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="referanslar.html">Referanslar</a>
+      <a class="nav-link text-industrial-gray hover:text-primary font-body text-label-bold tracking-wider uppercase transition-colors" href="iletisim.html">İletişim</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <button aria-label="Menüyü aç" class="lg:hidden p-2 text-industrial-gray hover:bg-black/5 rounded-full flex items-center" id="menu-btn"><span class="material-symbols-outlined text-[26px]">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="relative w-full h-[240px] md:h-[340px] xl:h-[440px] flex items-end justify-center overflow-hidden bg-industrial-gray pb-8 md:pb-14">
+    <img id="detail-banner-img" src="" onerror="this.style.visibility='hidden'" alt="Hizmet Banner" class="absolute inset-0 w-full h-full object-cover transition-all duration-500 scale-100"/>
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/50 to-black/20"></div>
+    <div class="absolute inset-0 bg-[#003B6F]/30 z-10"></div>
+    <div class="relative z-20 max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center w-full">
+      <span id="detail-top-tag" class="text-xs font-bold text-white tracking-widest uppercase bg-primary px-3 py-1.5 rounded-lg mb-3 inline-block shadow-sm">MÜHENDİSLİK</span>
+      <h1 id="detail-title" class="text-3xl md:text-5xl font-extrabold text-surface-white tracking-tight drop-shadow-md">Hizmet Başlığı</h1>
+    </div>
+  </section>
+
+  <section class="pt-8 pb-16 px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-max-width mx-auto">
+
+      <!-- ===== MOBİL: hizmet kartları ızgarası (yalnızca <lg) ===== -->
+      <div id="services-mobile" class="lg:hidden"></div>
+
+      <!-- ===== MASAÜSTÜ: sol menü + detay (yalnızca lg+) ===== -->
+      <div class="hidden lg:grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+        <div class="lg:col-span-4">
+          <div class="bg-white rounded-2xl p-4 md:p-6 border border-gray-200/60 shadow-sm lg:sticky lg:top-36">
+            <h3 id="category-title" class="text-lg font-bold text-[#003B6F] mb-3 lg:mb-4 pb-2 lg:pb-3 border-b border-gray-100 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">bolt</span> Tüm Hizmetlerimiz
+            </h3>
+            <ul class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar gap-2 lg:gap-0 lg:space-y-1.5 pb-2 lg:pb-0" id="services-menu">
+              </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-span-8 bg-white rounded-2xl p-8 md:p-12 border border-gray-200/60 shadow-sm min-h-[500px]">
+          
+          <div class="flex items-center gap-5 border-b border-gray-100 pb-6 mb-8">
+            <div id="detail-icon-container" class="w-16 h-16 rounded-xl bg-primary/5 flex items-center justify-center text-primary shadow-sm border border-primary/10">
+              </div>
+            <div>
+              <span id="detail-sub-tag" class="text-xs font-semibold text-primary tracking-wider uppercase">BELİS MÜHENDİSLİK</span>
+              <h2 id="detail-body-title" class="text-2xl font-bold text-[#003B6F] mt-0.5">Hizmet Başlığı</h2>
+            </div>
+          </div>
+
+          <div id="detail-content" class="prose max-w-none text-secondary leading-relaxed space-y-6">
+            </div>
+          
+          <div id="detail-anim" class="mt-12"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== MOBİL HİZMET DETAY PANELİ (bottom sheet) ===== -->
+<div id="svc-sheet" class="lg:hidden fixed inset-0 z-[80] hidden">
+  <div id="svc-sheet-overlay" onclick="closeSheet()" class="absolute inset-0 bg-black/50"></div>
+  <div id="svc-sheet-panel" class="absolute inset-x-0 bottom-0 top-8 bg-white rounded-t-3xl shadow-2xl flex flex-col overflow-hidden">
+    <!-- Banner + kapatma -->
+    <div class="relative h-44 flex-shrink-0 bg-industrial-gray">
+      <img id="sheet-banner" src="" onerror="this.style.visibility='hidden'" alt="Hizmet görseli" class="w-full h-full object-cover"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20"></div>
+      <div class="absolute left-1/2 -translate-x-1/2 top-2.5 w-11 h-1.5 rounded-full bg-white/70 z-10"></div>
+      <button onclick="closeSheet()" aria-label="Kapat" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center text-industrial-gray z-10"><span class="material-symbols-outlined">close</span></button>
+      <div class="absolute bottom-4 left-5 right-5 z-10 flex items-end gap-3">
+        <div id="sheet-icon" class="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm text-white flex items-center justify-center flex-shrink-0 border border-white/25"></div>
+        <div>
+          <span id="sheet-tag" class="text-[10px] font-bold text-white tracking-widest uppercase bg-primary px-2 py-0.5 rounded inline-block mb-1"></span>
+          <h2 id="sheet-title" class="text-xl font-extrabold text-white leading-tight drop-shadow"></h2>
+        </div>
+      </div>
+    </div>
+    <div id="sheet-content" class="px-5 py-5 overflow-y-auto flex-grow text-secondary leading-relaxed space-y-4"></div>
+  </div>
+</div>
+
+<footer class="bg-industrial-gray text-surface-white w-full">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter px-margin-mobile md:px-margin-desktop py-12 max-w-max-width mx-auto">
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<span class="text-headline-md text-surface-white font-bold tracking-tight mb-4">Belis</span>
+<p class="text-body-sm text-surface-variant/80 max-w-xs mb-6">İnşaat &amp; elektrik. Elektrik taahhüt, proje ve mekanik otomasyonda 2014'e dayanan tecrübeyle güvenilir çözümler.</p>
+</div>
+<div class="md:col-span-4 flex flex-col mb-8 md:mb-0">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">Sayfalar</h4>
+<ul class="flex flex-col gap-3">
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="index.html">Ana Sayfa</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="hakkimizda.html">Hakkımızda</a></li>
+<li><a class="text-body-sm text-surface-white font-semibold" href="hizmetler.html">Hizmetler</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="projeler.html">Projeler</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="referanslar.html">Referanslar</a></li>
+<li><a class="text-body-sm text-surface-variant/80 hover:text-surface-white" href="iletisim.html">İletişim</a></li>
+</ul>
+</div>
+<div class="md:col-span-4 flex flex-col">
+<h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">İletişim</h4>
+<address class="text-body-sm text-surface-variant/80 not-italic flex flex-col gap-2">
+<span class="flex items-start gap-2"><span class="material-symbols-outlined text-[16px] mt-0.5">location_on</span> Oruçreis Mah. Vadi Cad. İstanbul Ticaret Sarayı No:108 İç Kapı No:659 Esenler/İSTANBUL</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@belis.com.tr</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> 0 553 002 92 08</span>
+</address>
+</div>
+</div>
+<div class="w-full border-t border-surface-white/10 px-margin-mobile md:px-margin-desktop py-6">
+<div class="max-w-max-width mx-auto">
+<span class="text-body-sm text-surface-variant/80">© <span id="current-year">2026</span> Belis İnşaat Elektrik. Tüm hakları saklıdır.</span>
+</div>
+</div>
+</footer>
+
+<script>
+// İkonlar ve İleri Düzey Teknik Detaylar Veri Setine İşlendi Kanka
+const servicesData = {
+  // ALÇAK GERİLİM DALLARI
+  "yildirimdan-korunma": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Yıldırımdan Korunma Sistemleri",
+    banner: "assets/banner_yildirim.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">bolt</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Yıldırım düşme riskine karşı endüstriyel yapılarınızı, üretim hatlarınızı ve personelinizi IEC 62305 standartlarına tam uyumlu dış ve iç yıldırımlık çözümleriyle koruyoruz.</p>
+    <p>Projelerimizde yapı risk analizlerini hesaplayarak en uygun kapsama alanına sahip <strong>Aktif Paratoner Tesisatı</strong> ve bina yüzeyini örümcek ağı gibi saran <strong>Faraday Kafesi</strong> metotlarını uyguluyoruz. Ayrıca şebeke üzerinden gelebilecek aşırı gerilim darbelerine karşı panolarda B, C ve D sınıfı <strong>Parafudr (Aşırı Gerilim Koruyucu)</strong> entegrasyonu gerçekleştirerek hassas kartları güvenceye alıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>IEC 62305 Yıldırımdan Korunma Standartlarına Uygunluk</li>
+      <li>Erken Akış Uyarımlı (ESE) Aktif Paratoner Direği ve İniş Hatları Montajı</li>
+      <li>Yüksek Gerilim Koruma Röleleri ve Parafudr Koordinasyonu</li>
+    </ul>`
+  },
+  "topraklama": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Topraklama Tesisatı",
+    banner: "assets/banner_topraklama.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">vertical_align_bottom</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Can güvenliği, şasi kaçaklarının önlenmesi ve hassas elektronik cihazların kararlı çalışabilmesi adına sıfıra yakın direnç odaklı topraklama ağları inşa ediyoruz.</p>
+    <p>İnşaat aşamasında bina temeline uygulanan <strong>Temel Topraklaması</strong> başta olmak üzere, işletme ve koruma topraklaması hatlarını termokaynak veya özel bağlantı klemensleri ile birleştiriyoruz. Tesis genelinde tüm metal aksamları <strong>Eşpotansiyel Dengeleme Baraları</strong> üzerinden ortak bir potansiyele bağlayarak tehlikeli adım ve dokunma gerilimlerini ortadan kaldırıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>EMO ve Bakanlık Yönetmeliklerine Uygun Kalibre Cihazlarla Ölçüm</li>
+      <li>Bakır Elektrot, Levha ve Galvaniz Şerit Ağ Altyapısı İmalatları</li>
+      <li>Uluslararası Normlarda Mühendislik Raporlama ve Periyodik Kontroller</li>
+    </ul>`
+  },
+  "jenerator": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Jeneratör Sistemleri",
+    banner: "assets/banner_jenerator.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">schema</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Şebeke kesintilerinde fabrikaların ve ticari merkezlerin üretimine ara vermeden devam edebilmesi için kesintisiz senkronize yedek güç santralleri kuruyoruz.</p>
+    <p>Yük analizi ve demeraj akımları hesaplanarak en uygun kVA gücünde dizel/gazlı jeneratör gruplarını belirliyoruz. Birden fazla jeneratörün birbiriyle veya şebekeyle yük paylaşımı yapmasını sağlayan <strong>Senkronizasyon Panoları</strong> ile akıllı <strong>ATS (Otomatik Transfer Şalteri)</strong> altyapılarının montaj ve kablolama süreçlerini yürütüyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Akustik Hesaplara Uygun Ses Yalıtımlı Kabin ve Susturucu Tasarımları</li>
+      <li>Günlük Yakıt Tankı, Otomatik Pompalama ve Havalandırma Menfez Altyapısı</li>
+      <li>Yük Altında Test, Devreye Alma ve Periyodik Bakım Senaryoları</li>
+    </ul>`
+  },
+  "ups": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Kesintisiz Güç Kaynağı (UPS)",
+    banner: "assets/banner_ups.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">battery_charging_full</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Veri merkezleri, ameliyathaneler ve hassas otomasyon PLC hatları gibi enerjinin mikrosaniyeler mertebesinde dahi kesilmemesi gereken kritik yükleri güvence altına alıyoruz.</p>
+    <p>Yüksek verimliliğe sahip, THDI değerleri düşük, yeni nesil 3 Fazlı <strong>Online Modüler UPS</strong> sistemlerinin tedarik, montaj ve entegrasyon süreçlerini yönetiyoruz. Akıllı akü izleme sistemleri ile donatılmış özel iklimlendirmeli <strong>Akü Odaları</strong> tasarlayarak sistem ömrünü maksimize ediyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Statik ve Mekanik Bypass Altyapı Tasarımları</li>
+      <li>Harmonik Filtre Uygulamaları ile Temiz Sinüs Dalgası Çıkışı</li>
+      <li>Uzaktan İzleme (SNMP) Kartları ile Anlık Durum Analizi Kontrolü</li>
+    </ul>`
+  },
+  "aydinlatma": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "İç ve Dış Mekan Aydınlatma",
+    banner: "assets/banner_aydinlatma.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">lightbulb</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Endüstriyel tesislerde iş güvenliğini ve üretkenliği artıran, ofis alanlarında ise konfor sunan akıllı aydınlatma mimarileri geliştiriyoruz.</p>
+    <p>Mühendislerimiz tarafından hazırlanan DIALux lüks hesaplamaları doğrultusunda, kamaşma yapmayan yüksek lümenli LED armatür yerleşim planları çıkartıyoruz. Enerji tasarrufunu en üst seviyeye taşımak adına projelerimize <strong>DALI ve KNX tabanlı Akıllı Aydınlatma Otomasyonları</strong> entegre ederek gün ışığı sensörlü senaryolar uyguluyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>EN 12464-1 Standartlarına Uygun İç Mekan Aydınlatma Tasarımı</li>
+      <li>Acil Durum Kaçış Yönlendirme (Ex-Proof Dahil) Armatür Altyapısı</li>
+      <li>Çevre Güvenlik ve Yol Aydınlatma Direkleri Mekanik Ankraj ve Hatları</li>
+    </ul>`
+  },
+  "kablo-tasima": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Kablo Taşıma Sistemleri",
+    banner: "assets/banner_kablotasima.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">layers</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Binlerce metrelik kuvvetli ve zayıf akım kablolarının tesis içerisinde sarkmadan, ısınmadan ve güvenle taşınmasını sağlayan omurga yapıları kuruyoruz.</p>
+    <p>Tesisin korozyon riskine göre sıcak daldırma galvaniz, paslanmaz çelik veya elektro-galvaniz kaplamalı <strong>Kablo Tavaları, Ağır Hizmet Merdivenleri ve Tel Kanallar</strong> kullanıyoruz. Sismik askılama ve statik yük taşıma hesapları uzman mühendislerimizce yapılarak montaj hatasız tamamlanır.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Sismik Askılama ve Yangına Dayanıklı (E30-E90) Taşıyıcı Hat Seçimleri</li>
+      <li>EMC Ayrım Kurallarına Uygun Güç ve Data Kablosu Bölme Separatörleri</li>
+      <li>Modüler Çıkış ve Geçiş Elemanları ile Pürüzsüz Dönüş Detayları</li>
+    </ul>`
+  },
+  "busbar": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Busbar Enerji Dağıtım Sistemleri",
+    banner: "assets/banner_busbar.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">view_stream</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Kablo yoğunluğunu ve karmaşasını ortadan kaldıran, yüksek amperajlı enerjiyi kompakt ve modüler gövdelerle taşıyan yeni nesil dağıtım şebekeleri uyguluyoruz.</p>
+    <p>Özellikle otomotiv, tekstil ve büyük üretim hollerinde tercih edilen <strong>Kompakt Busbar Sistemleri</strong> ile dikey şaft dağıtım hatlarının montajını yapıyoruz. Üretim hatlarındaki makine değişikliklerinde, enerji kesilmeden takılabilen <strong>Plug-in Çıkış Kutuları</strong> sayesinde tesislere benzersiz bir esneklik kazandırıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>IEC 61439-6 Standartlarına Uygun Tip Testli Blok Montajları</li>
+      <li>Alüminyum veya Bakır İletkenli, IP55-IP67 Koruma Sınıfı Gövdeler</li>
+      <li>Dilatasyon ve Bina Geçiş Noktaları İçin Esnek Eleman Entegrasyonu</li>
+    </ul>`
+  },
+  "kuvvetli-akim": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Kuvvetli Akım Kablolama",
+    banner: "assets/banner_kuvvetliakim.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">settings_ethernet</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Ana trafo merkezinden makinelere, panolardan motor gruplarına kadar tesisin tüm enerji iletim kılcal damarlarını milimetrik işçilikle döşüyoruz.</p>
+    <p>Gerilim düşümü ve akım taşıma kapasitesi hesapları yapılarak seçilen NYY, NYM, XLPE zırhlı veya yangına dayanıklı <strong>Halogen-Free (HFFR)</strong> kabloların çekimini yapıyoruz. Kablo başlıkları, hidrolik sıkmalı pabuç terminasyonları ve numaralandırma etiketlemeleriyle arıza bulma sürelerini sıfıra indiriyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Isı Isınma Katsayıları ve Tava Doluluk Oranlarına Tam Uyum</li>
+      <li>Yüksek Gerilim İzolasyon (Megger) Testleri ile Güvenli Devreye Alma</li>
+      <li>Kablo Bağları ve Kimyasal Yangın Durdurucu Bariyer Geçişleri (Firestop)</li>
+    </ul>`
+  },
+  "pano-kompanzasyon": {
+    category: "alcak-gerilim",
+    tag: "ALÇAK GERİLİM SİSTEMLERİ",
+    title: "Pano ve Kompanzasyon Sistemleri",
+    banner: "assets/banner_pano.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">widgets</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Elektrik enerjisinin güvenli bir şekilde kontrol edilmesi, dağıtılması ve reaktif cezalara girilmesini önleyen akıllı kompanzasyon mühendisliği sunuyoruz.</p>
+    <p>Uluslararası form yapılarında (Form 2b, 4b vb.) tip testli <strong>Ana Dağıtım Panoları (ADP)</strong>, motor kontrol merkezleri (MCC) ve tali panolar tasarlıyoruz. Endüstriyel yüklerin harmonik bozulmalarını engellemek için <strong>Harmonik Filtreli Tristörlü Kompanzasyon Panoları</strong> imal ederek şebeke kalitesini koruyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>IEC 61439-1/2 Standartlarına Uygun Pano İmalat ve Montaj Güvencesi</li>
+      <li>Gerçek Zamanlı Akıllı Reaktif Güç Kontrol Rölesi Entegrasyonu</li>
+      <li>Termal Kamera Ölçümleri İçin Pano İçi Şeffaf İzleme Pencereleri</li>
+    </ul>`
+  },
+
+  // ZAYIF AKIM DALLARI
+  "yangin-algilama": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Yangın Algılama ve İhbar Sistemleri",
+    banner: "assets/banner_yanginalgilama.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">local_fire_department</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Can ve mal güvenliğini korumak adına, yangın riskini saniyeler içinde tespit edip binadaki diğer mekanik sistemleri tahliye moduna geçiren zeki yapılar kuruyoruz.</p>
+    <p>Projelerimizde uluslararası <strong>NFPA ve EN54 standartlarına</strong> tam uyumlu Adresli Yangın Algılama Panelleri, Optik Duman Dedektörleri, Isı Artış Dedektörleri ve Işın (Beam) Dedektörleri kullanıyoruz. Sistem; acil anons, asansörler, duman damperleri ve jet fanlar ile entegre çalışarak senaryolu matrisleri otomatik yürütür.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>EN54 Onaylı Akıllı Adresli Dedektör Döngü (Loop) Altyapıları</li>
+      <li>Mekanik Yangın Söndürme Akış Anahtarları ve İzlenebilir Vana Entegrasyonu</li>
+      <li>Merkezi Grafik İzleme Yazılımı Üzerinden Noktasal Arıza Takibi</li>
+    </ul>`
+  },
+  "acil-anons": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Acil Anons ve Müzik Yayın Sistemleri",
+    banner: "assets/banner_acilanons.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">volume_up</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Tahliye anlarında panik durumunu önleyen, net ve anlaşılır ses seviyelerine sahip profesyonel acil anons seslendirme altyapıları projelendiriyoruz.</p>
+    <p>Yangın otomasyonu ile entegre çalışan sistem, tehlike anında otomatik olarak önceden kaydedilmiş dijital tahliye mesajlarını ilgili bölgelere (Zoning) gönderir. Günlük operasyonda ise tesis genelinde arka plan müzik yayını ve genel duyuru amacıyla konforlu bir kullanım sunar.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>EN54-16 ve EN54-24 Sertifikalı Amplifikatör ve Hoparlör Seçimleri</li>
+      <li>Akustik Gürültü Sensörleri ile Ortam Sesine Göre Otomatik Volume Ayarı</li>
+      <li>Yedekli (A/B Hatlı) Kesintisiz Hoparlör Kablolama Mimarisi</li>
+    </ul>`
+  },
+  "co-algilama": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "CO Algılama ve İhbar Sistemleri",
+    banner: "assets/banner_co.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">co2</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Kapalı otoparklarda, sığınaklarda ve endüstriyel tesislerde zehirli egzoz gazı birikimlerini önleyen koruyucu gaz izleme ağları kuruyoruz.</p>
+    <p>Ortamdaki Karbonmonoksit (CO) gazı ppm seviyelerini anlık ölçen elektrokimyasal sensör panelleri kuruyoruz. Gaz seviyesi önceden belirlenen kritik eşik değerine ulaştığında, <strong>Jet Fan Otomasyonu</strong> devreye girerek havayı hızlıca tahliye eder ve insanları ışıklı-sesli tabelalarla uyarır.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Bölgesel veya Adresli Karbonmonoksit Dedektör Yerleşim Planlaması</li>
+      <li>Havalandırma ve Duman Damper Panolarıyla Senkronize Kuru Kontak Bağlantıları</li>
+      <li>Zaman Ayarlı Akıllı Jet Fan Kademelendirme Senaryoları</li>
+    </ul>`
+  },
+  "otopark-yonetim": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Otopark Yönetim Sistemleri",
+    banner: "assets/banner_otopark.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">directions_car</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Ticari binalarda ve endüstriyel tesislerde araç giriş-çıkış kontrolünü hızlandıran, otopark içi doluluk konforunu artıran otomasyonlar sunuyoruz.</p>
+    <p>Giriş noktalarına yüksek doğruluk oranlı <strong>Plaka Tanıma Kameraları</strong>, bilet kesme/okuma terminalleri ve hızlı bariyer grupları konumlandırıyoruz. Otopark içerisinde ise tavan tipi <strong>Ultrasonik Dolu-Boş Sensörleri</strong> ve LED yönlendirme ekranları yerleştirerek karmaşayı önlüyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Loop Dedektör (Zemin Manyetik Araç Algılama) Altyapı Güvencesi</li>
+      <li>Merkezi Ücretlendirme, Abone Yönetimi ve Sunucu Yazılım Kurulumları</li>
+      <li>UHF Hızlı Geçiş (HGS/OGS) Anten Kartlı Entegrasyon Çözümleri</li>
+    </ul>`
+  },
+  "kartli-gecis": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Kartlı Geçiş Kontrol Sistemleri",
+    banner: "assets/banner_kartligecis.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">badge</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Tesislerdeki yetkisiz alanlara erişimi engelleyen, personelin giriş-çıkış verilerini loglayan üst düzey geçiş kontrol mühendisliği sunuyoruz.</p>
+    <p>Biyometrik (Yüz Tanıma, Parmak İzi, İris) okuyucular, şifreli/RFID <strong>Kart Okuyucular ve Turnike Sistemleri</strong> entegre ediyoruz. Gelişmiş merkezi yönetim yazılımıyla entegre çalışan sistem, acil yangın durumunda kapılardaki <strong>Manyetik Kilitleri</strong> otomatik boşa çıkartarak tahliyeyi serbest bırakır.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>PDKS (Personel Devam Kontrol) Yazılımları ile İK Entegrasyonu</li>
+      <li>TCP/IP Tabanlı Akıllı Kapı Kontrol Panelleri Altyapısı</li>
+      <li>Anti-Passback (Karta Giriş Yapmadan Çıkış Yapamama) Güvenlik Algoritmaları</li>
+    </ul>`
+  },
+  "televizyon-tesisati": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Televizyon ve SMATV Tesisatı",
+    banner: "assets/banner_tv.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">tv</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Otel, hastane, site ve iş merkezleri gibi yapılarda yüzlerce uç noktaya kayıpsız, ultra yüksek çözünürlüklü video ve TV sinyali ulaştırıyoruz.</p>
+    <p>Merkezi uydu anten gruplarından alınan sinyalleri <strong>SMATV Headend (Merkez Santral)</strong> ünitelerinde işleyerek koaksiyel veya fiber optik kablo şebekeleri üzerinden dağıtıyoruz. Modern projelerde ise ağ üzerinden yayın sunan interaktif <strong>IPTV Sistemleri</strong> kuruyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Fiber Optik RF Dağıtım Teknolojileri ile Sıfır Sinyal Kaybı</li>
+      <li>Kanal Ekleme, Modülasyon ve Bilgi/Info Yayın Kanalları Oluşturulması</li>
+      <li>Kaskatlı Multi-Switch Dağıtım ve Priz Altyapı Hesaplamaları</li>
+    </ul>`
+  },
+  "data-tesisati": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Data Tesisatları ve Yapısal Kablolama",
+    banner: "assets/banner_data.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">lan</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Kurumsal ağların, sunucuların ve internet erişiminin yüksek hızda, kopma yaşamadan çalışması için uluslararası standartlarda yapısal kablolama yapıyoruz.</p>
+    <p>Kategori standartlarına uygun <strong>Cat6, Cat6A ve Cat7 Bakır Kablolama</strong> ile binalar arası omurgayı oluşturan <strong>Single-Mode/Multi-Mode Fiber Optik (F/O)</strong> altyapıları kuruyoruz. Sistem odalarında düzenli kabinet montajları ve patch panel terminasyonları gerçekleştiriyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>ANSI/TIA/EIA-568 Yapısal Kablolama Standartlarına Tam Uyum</li>
+      <li>Fluke Kalibre Test Cihazları ile Her Uca Özel Frekans Performans Sertifikasyonu</li>
+      <li>Organize Kablo Düzenleyiciler (Organizer) ile Kusursuz Sistem Odası Estetiği</li>
+    </ul>`
+  },
+  "telefon-tesisati": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Telefon Tesisatları",
+    banner: "assets/banner_telefon.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">call</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Şirket içi haberleşmenin ve dış hat ses trafiğinin kesintisiz yürümesi amacıyla analog, dijital ve yeni nesil IP tabanlı haberleşme santralleri kuruyoruz.</p>
+    <p>Gelişmiş kurumsal kapasitelere uygun <strong>IP-PBX Telefon Santralleri</strong>, sesli yanıt sistemleri (IVR) ve VoIP geçit kapısı donanımlarının montajını yapıyoruz. Bina içi analog/dijital dağıtım çatısı (kron klemens kutuları) altyapı kablolamasını tamamlıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Genişleyebilir Modüler İç ve Dış Hat Donanım Konfigürasyonları</li>
+      <li>DECT (Kablosuz Tesis İçi) Baz İstasyonları Kapsama Alanı Planlaması</li>
+      <li>Çağrı Kayıt Raporlama ve Çağrı Merkezi (Call Center) Yazılım Entegrasyonları</li>
+    </ul>`
+  },
+  "kamera-sistemleri": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Kamera ve CCTV Sistemleri",
+    banner: "assets/banner_kamera.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">videocam</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Tesislerin iç ve dış güvenliğini sağlamak için yapay zeka analiz yeteneklerine sahip yüksek çözünürlüklü IP kamera şebekeleri kuruyoruz.</p>
+    <p>Geniş alan gözetimi için Speed Dome kameralar, çevre hatları için termal kameralar ve bina içi için dome IP kameralar seçiyoruz. Verilerin güvenle depolanması için RAID mimarisine sahip <strong>NVR Sunucuları</strong> ve güvenlik izleme odaları için <strong>Video Wall</strong> ekran duvarları tasarlıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Plaka Tanıma, Sınır İhlali, Kayıp Nesne ve Yüz Eşleştirme Yapay Zeka Analizleri</li>
+      <li>H.265+ Sıkıştırma Teknolojisi ile Maksimum Gün Sayısında Depolama Optimizasyonu</li>
+      <li>Fiber Optik Ring Hatları ile Kesintisiz Network Video İletimi</li>
+    </ul>`
+  },
+  "scada-enerji": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "SCADA ve Enerji İzleme Otomasyonu",
+    banner: "assets/banner_scada.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">monitoring</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Büyük tesislerin elektrik tüketim değerlerini, şalter açık-kapalı durumlarını ve şebeke kalitesini tek bir dijital merkezden izlenebilir kılıyoruz.</p>
+    <p>Haberleşmeli enerji analizörleri, koruma röleleri ve PLC/RTU cihazlarından <strong>Modbus/IEC 61850</strong> protokolleri ile veri toplayan gelişmiş SCADA yazılımları kuruyoruz. Sistem, olası bir arıza anında ilgili şalterin lokasyonunu grafik ekranda göstererek müdahale süresini en aza indirir.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Anlık Aktif/Reaktif Güç Çizgisel Grafikleri ve Otomatik Pano Raporlamaları</li>
+      <li>Akıllı Alarm Hiyerarşisi (SMS ve E-Posta Bildirim Entegrasyonu)</li>
+      <li>Geçmişe Dönük Tüketim Analizleri ile Enerji Tasarrufu Odak Alanı Tespiti</li>
+    </ul>`
+  },
+  "bina-otomasyonu": {
+    category: "zayif-akim",
+    tag: "ZAYIF AKIM SİSTEMLERİ",
+    title: "Bina Otomasyon Sistemleri (BMS)",
+    banner: "assets/banner_bms.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">domain_add</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Mekanik iklimlendirme (HVAC), aydınlatma, pompalar ve vanaların birbiriyle haberleşerek minimum karbon ayak iziyle çalışmasını sağlayan merkezi beyin altyapıları kuruyoruz.</p>
+    <p>Saha elemanlarından gelen sıcaklık, nem ve basınç verilerini işleyen <strong>DDC ve PLC Panoları</strong> imal ediyor; BACnet ve LonWorks protokolleri üzerinden merkezi BMS yazılımına bağlıyoruz. Konfor şartlarından ödün vermeden operasyonel maliyetleri ciddi oranda düşürüyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Klima Santralleri (AHU), Chiller ve Kazan Grupları Akıllı Isı Optimizasyonları</li>
+      <li>Filtre Kirlilik Alarm ve Pompa Eş Yaşlandırma Çalışma Senaryoları</li>
+      <li>Kullanıcı Dostu Mimari Grafik Arayüz (GUI) Tasarımları</li>
+    </ul>`
+  },
+
+  // ORTA GERİLİM DALLARI
+  "trafo-merkezi": {
+    category: "orta-gerilim",
+    tag: "ORTA GERİLİM SİSTEMLERİ",
+    title: "Trafo Merkezi Kurulumu",
+    banner: "assets/banner_trafo.jpg",
+    icon: `<span class="material-symbols-outlined text-[36px]">account_tree</span>`,
+    content: `<p class="text-lg font-medium text-[#394147]">Endüstriyel tesislerin şebekeden yüksek güç alabilmesi için gereken 34.5 kV düzeyindeki Orta Gerilim altyapılarını anahtar teslim kuruyoruz.</p>
+    <p>Tesis sınırları içinde beton köşk veya direk tipi <strong>Trafo Merkezleri</strong> inşa ederek, Metal-Enclosed veya Metal-Clad OG modüler hücre yerleşimlerini tamamlıyoruz. Güç transformatörlerinin montajı, OG kablo başlıkları (iç-dış mekan ısı büzüşmeli), hücre kilitleme senaryoları ve röle koordinasyon ayarlarını eksiksiz yapıyoruz.</p>
+    <h4 class="text-base font-bold text-[#003B6F] mt-4">Mühendislik Standartlarımız:</h4>
+    <ul class="list-disc pl-5 space-y-1 text-sm">
+      <li>Enerji Müsaadesi Alınması ve Proje TEDAŞ Onay Süreçlerinin Takibi</li>
+      <li>OG İzolasyon Testleri, Trafo Yağ Testleri ve Topraklama Ölçümleri</li>
+      <li>Geçici Kabul ve Devreye Alma Sonrası OG İşletme Sorumluluğu Hizmetleri</li>
+    </ul>`
+  }
+};
+
+const categoryNames = {
+  "alcak-gerilim": "Alçak Gerilim Sistemleri",
+  "zayif-akim": "Zayıf Akım Sistemleri",
+  "orta-gerilim": "Orta Gerilim Sistemleri"
+};
+
+// Kategoriye özel, daha zarif simgeler
+const categoryIcons = {
+  "alcak-gerilim": "bolt",
+  "zayif-akim": "settings_input_antenna",
+  "orta-gerilim": "electrical_services"
+};
+
+// ===== Kategoriye özel animasyon panelleri =====
+// ===== Hizmete özel animasyon panelleri (ortak iskelet: animPanel) =====
+function animPanel(label, status, statusCls, dotStyle, svgInner) {
+  return `
+  <div class="anim-stage rounded-xl px-6 py-5">
+    <div class="relative z-10 flex items-center justify-between mb-2">
+      <span class="text-[11px] font-semibold tracking-[0.2em] text-white/70 uppercase">${label}</span>
+      <span class="flex items-center gap-2 text-[11px] font-semibold tracking-widest ${statusCls} uppercase"><span class="live-dot" style="${dotStyle}"></span> ${status}</span>
+    </div>
+    <svg aria-hidden="true" class="relative z-10 w-full h-[92px]" preserveAspectRatio="xMidYMid meet" viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg">${svgInner}</svg>
+  </div>`;
+}
+const G = '';                                   // yeşil (varsayılan live-dot)
+const O = 'background:#FF9500; box-shadow:0 0 0 0 rgba(255,149,0,.55);';   // turuncu
+const R = 'background:#f87171; box-shadow:0 0 0 0 rgba(248,113,113,.55);'; // kırmızı
+
+const animTemplates = {
+  // 1) YILDIRIMDAN KORUNMA: büyük fırtına bulutu, yağmur, binaya monte paratoner ve çift çakan yıldırım
+  "yildirimdan-korunma": animPanel("Yıldırımdan Korunma • Deşarj Hattı", "Sistem Hazır", "text-green-400", G, `
+    <g fill="#9ecaff">
+      <ellipse cx="300" cy="20" fill-opacity=".5" rx="128" ry="17"/>
+      <ellipse cx="236" cy="13" fill-opacity=".55" rx="52" ry="14"/>
+      <ellipse cx="312" cy="8" fill-opacity=".6" rx="60" ry="15"/>
+      <ellipse cx="382" cy="14" fill-opacity=".5" rx="48" ry="13"/>
+      <ellipse cx="300" cy="27" fill="#06253f" fill-opacity=".55" rx="120" ry="10"/>
+    </g>
+    <g stroke="#7dd3fc" stroke-opacity=".3" stroke-width="2" stroke-linecap="round">
+      <path class="packet-flow slow" d="M 190 36 L 182 88" fill="none"/>
+      <path class="packet-flow slow" d="M 415 34 L 407 88" fill="none" style="animation-delay:.7s;"/>
+      <path class="packet-flow slow" d="M 452 40 L 446 88" fill="none" style="animation-delay:1.4s;"/>
+    </g>
+    <path class="bolt-strike" d="M 296 32 L 282 48 L 294 48 L 278 66 L 289 66 L 280 80" fill="none" stroke="#ffd9a3" stroke-linejoin="round" stroke-width="3.5"/>
+    <rect fill="none" height="24" rx="2" stroke="#9ecaff" stroke-opacity=".8" stroke-width="2.5" width="72" x="264" y="68"/>
+    <line stroke="#9ecaff" stroke-width="2.5" x1="280" x2="280" y1="52" y2="68"/>
+    <circle cx="280" cy="52" fill="#e2edff" r="3.5"/>
+    <line stroke="#7dd3fc" stroke-opacity=".8" stroke-width="2" x1="264" x2="252" y1="80" y2="92"/>
+    <circle class="strike-ring" cx="252" cy="92" fill="none" r="15" stroke="#ffd9a3" stroke-width="2"/>
+    <g stroke="#9ecaff" stroke-opacity=".8" stroke-width="2"><line x1="236" x2="268" y1="92" y2="92"/><line x1="242" x2="262" y1="97" y2="97"/></g>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="11" x="452" y="76">IEC 62305</text>
+    <text fill="#4ade80" font-family="monospace" font-size="11" x="452" y="92">ESE AKTİF</text>`),
+
+  // 2) TOPRAKLAMA: toprağa inen iletken, aşağı akan darbeler, toprak sembolü
+  "topraklama": animPanel("Topraklama • <1Ω Direnç", "Ölçüm Normal", "text-green-400", G, `
+    <line stroke="#9ecaff" stroke-opacity=".2" stroke-width="2.5" x1="300" x2="300" y1="6" y2="66"/>
+    <line class="pulse-run" stroke="#e2edff" stroke-linecap="round" stroke-width="2.5" x1="300" x2="300" y1="6" y2="66" style="stroke-dasharray:22 120;"/>
+    <g stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"><line x1="272" x2="328" y1="66" y2="66"/><line x1="282" x2="318" y1="76" y2="76"/><line x1="292" x2="308" y1="86" y2="86"/></g>
+    <g class="node-pulse" fill="#4ade80"><circle cx="300" cy="66" r="4"/></g>
+    <line stroke="#9ecaff" stroke-dasharray="4 8" stroke-opacity=".35" stroke-width="1.5" x1="0" x2="600" y1="94" y2="94"/>
+    <text fill="#9ecaff" fill-opacity=".8" font-family="monospace" font-size="13" x="330" y="30">R = 0.8 Ω</text>
+    <g stroke="#9ecaff" stroke-opacity=".3" stroke-width="1.5" fill="none"><path d="M 120 94 L 120 40 L 200 40 M 480 94 L 480 44 L 410 44"/></g>`),
+
+  // 3) JENERATÖR: şase üzerinde motor + dönen soğutma fanı, egzoz dumanı, alternatör ve enerjili çıkış hattı
+  "jenerator": animPanel("Jeneratör • Senkronizasyon", "Yük Devrede", "text-green-400", G, `
+    <rect fill="#9ecaff" fill-opacity=".5" height="6" rx="2" width="180" x="52" y="84"/>
+    <rect fill="none" height="44" rx="5" stroke="#9ecaff" stroke-width="2.5" width="104" x="60" y="40"/>
+    <circle cx="92" cy="62" fill="none" r="16" stroke="#9ecaff" stroke-opacity=".8" stroke-width="2"/>
+    <g class="spin fast" stroke="#7dd3fc" stroke-linecap="round" stroke-width="3">
+      <line x1="92" x2="92" y1="49" y2="75"/><line x1="79" x2="105" y1="62" y2="62"/><line x1="83" x2="101" y1="53" y2="71"/>
+    </g>
+    <g stroke="#9ecaff" stroke-opacity=".45" stroke-width="1.5"><line x1="76" x2="108" y1="47" y2="47"/><line x1="76" x2="108" y1="77" y2="77"/></g>
+    <rect fill="#9ecaff" fill-opacity=".25" height="32" rx="4" width="36" x="122" y="46"/>
+    <g stroke="#9ecaff" stroke-opacity=".7" stroke-width="2"><line x1="128" x2="152" y1="54" y2="54"/><line x1="128" x2="152" y1="62" y2="62"/><line x1="128" x2="152" y1="70" y2="70"/></g>
+    <rect fill="#9ecaff" height="12" width="5" x="146" y="28"/>
+    <g fill="#9ecaff">
+      <circle class="puff" cx="149" cy="24" r="5"/>
+      <circle class="puff d1" cx="152" cy="22" r="4"/>
+      <circle class="puff d2" cx="147" cy="23" r="4.5"/>
+    </g>
+    <rect fill="none" height="20" rx="3" stroke="#9ecaff" stroke-opacity=".8" stroke-width="2" width="18" x="196" y="52"/>
+    <line stroke="#7dd3fc" stroke-width="2.5" x1="164" x2="196" y1="62" y2="62"/>
+    <circle class="node-pulse" cx="205" cy="62" fill="#4ade80" r="3"/>
+    <path class="pulse-track" d="M 214 62 L 600 62" stroke="#9ecaff" stroke-width="2.5" fill="none"/>
+    <path class="pulse-run" d="M 214 62 L 600 62" stroke="#e2edff" stroke-linecap="round" stroke-width="2.5" fill="none"/>
+    <g fill="#9ecaff"><circle class="node-pulse d1" cx="380" cy="62" r="4"/><circle class="node-pulse d3" cx="500" cy="62" r="4"/></g>
+    <text fill="#9ecaff" fill-opacity=".8" font-family="monospace" font-size="11" x="300" y="34">400 kVA • ATS</text>
+    <text fill="#4ade80" font-family="monospace" font-size="11" x="452" y="34">50.0 Hz • 1500 rpm</text>`),
+
+  // 4) UPS: şarj olan akü hücreleri ve beslenen kritik yük hattı
+  "ups": animPanel("UPS • Online Mod", "Şarj %100", "text-green-400", G, `
+    <rect fill="none" height="36" rx="5" stroke="#9ecaff" stroke-width="2.5" width="86" x="60" y="32"/>
+    <rect fill="#9ecaff" height="14" rx="2" width="6" x="148" y="43"/>
+    <rect class="fill-x" fill="#4ade80" fill-opacity=".85" height="24" rx="3" width="70" x="68" y="38"/>
+    <path d="M 108 38 L 98 52 L 106 52 L 96 64" fill="none" stroke="#06253f" stroke-linejoin="round" stroke-width="3"/>
+    <path class="pulse-track" d="M 158 50 L 600 50" stroke="#9ecaff" stroke-width="2.5" fill="none"/>
+    <path class="pulse-run" d="M 158 50 L 600 50" stroke="#e2edff" stroke-linecap="round" stroke-width="2.5" fill="none"/>
+    <g fill="#9ecaff"><circle class="node-pulse d1" cx="340" cy="50" r="4"/><circle class="node-pulse d3" cx="500" cy="50" r="4"/></g>
+    <text fill="#9ecaff" fill-opacity=".8" font-family="monospace" font-size="11" x="380" y="34">THDI &lt; %3</text>`),
+
+  // 5) AYDINLATMA: sırayla yanan armatürler ve ışık konileri
+  "aydinlatma": animPanel("Aydınlatma • Senaryo Aktif", "Devrede", "text-green-400", G, `
+    <line stroke="#9ecaff" stroke-opacity=".4" stroke-width="2" x1="40" x2="560" y1="14" y2="14"/>
+    <g>
+      <line stroke="#9ecaff" stroke-width="2" x1="150" x2="150" y1="14" y2="26"/><rect fill="#9ecaff" height="7" rx="2" width="34" x="133" y="26"/>
+      <path class="lamp-on" d="M 136 35 L 118 84 L 182 84 L 164 35 Z" fill="#ffd9a3" fill-opacity=".28"/>
+      <circle class="lamp-on" cx="150" cy="31" fill="#ffd9a3" r="3"/>
+    </g>
+    <g>
+      <line stroke="#9ecaff" stroke-width="2" x1="300" x2="300" y1="14" y2="26"/><rect fill="#9ecaff" height="7" rx="2" width="34" x="283" y="26"/>
+      <path class="lamp-on d1" d="M 286 35 L 268 84 L 332 84 L 314 35 Z" fill="#ffd9a3" fill-opacity=".28"/>
+      <circle class="lamp-on d1" cx="300" cy="31" fill="#ffd9a3" r="3"/>
+    </g>
+    <g>
+      <line stroke="#9ecaff" stroke-width="2" x1="450" x2="450" y1="14" y2="26"/><rect fill="#9ecaff" height="7" rx="2" width="34" x="433" y="26"/>
+      <path class="lamp-on d2" d="M 436 35 L 418 84 L 482 84 L 464 35 Z" fill="#ffd9a3" fill-opacity=".28"/>
+      <circle class="lamp-on d2" cx="450" cy="31" fill="#ffd9a3" r="3"/>
+    </g>
+    <line stroke="#9ecaff" stroke-dasharray="3 7" stroke-opacity=".3" stroke-width="1.5" x1="0" x2="600" y1="90" y2="90"/>`),
+
+  // 6) KABLO TAŞIMA: merdiven tava ve içinde akan üç kablo hattı
+  "kablo-tasima": animPanel("Kablo Taşıma • Tava Hattı", "Hat Döşendi", "text-green-400", G, `
+    <g stroke="#9ecaff" stroke-opacity=".55" stroke-width="2.5"><line x1="0" x2="600" y1="24" y2="24"/><line x1="0" x2="600" y1="78" y2="78"/></g>
+    <g stroke="#9ecaff" stroke-opacity=".35" stroke-width="2">
+      <line x1="60" x2="60" y1="24" y2="78"/><line x1="150" x2="150" y1="24" y2="78"/><line x1="240" x2="240" y1="24" y2="78"/>
+      <line x1="330" x2="330" y1="24" y2="78"/><line x1="420" x2="420" y1="24" y2="78"/><line x1="510" x2="510" y1="24" y2="78"/>
+    </g>
+    <path class="pulse-track" d="M 0 38 L 600 38" stroke="#7dd3fc" stroke-width="3" fill="none"/>
+    <path class="pulse-run" d="M 0 38 L 600 38" stroke="#e2edff" stroke-linecap="round" stroke-width="3" fill="none"/>
+    <path class="pulse-track" d="M 0 51 L 600 51" stroke="#ffd9a3" stroke-width="3" fill="none"/>
+    <path class="pulse-run" d="M 0 51 L 600 51" stroke="#ffd9a3" stroke-linecap="round" stroke-width="3" fill="none" style="animation-delay:.9s;"/>
+    <path class="pulse-track" d="M 0 64 L 600 64" stroke="#9ecaff" stroke-width="3" fill="none"/>
+    <path class="pulse-run" d="M 0 64 L 600 64" stroke="#e2edff" stroke-linecap="round" stroke-width="3" fill="none" style="animation-delay:1.8s;"/>`),
+
+  // 7) BUSBAR: üç rijit bara, ek kutuları ve kademeli enerji akışı
+  "busbar": animPanel("Busbar • Enerji Dağıtımı", "Bara Enerjili", "text-caution-orange", O, `
+    <g>
+      <rect fill="#9ecaff" fill-opacity=".25" height="8" width="600" y="26"/><path class="pulse-run" d="M 0 30 L 600 30" stroke="#e2edff" stroke-linecap="round" stroke-width="6" fill="none"/>
+      <rect fill="#9ecaff" fill-opacity=".25" height="8" width="600" y="46"/><path class="pulse-run" d="M 0 50 L 600 50" stroke="#ffd9a3" stroke-linecap="round" stroke-width="6" fill="none" style="animation-delay:1s;"/>
+      <rect fill="#9ecaff" fill-opacity=".25" height="8" width="600" y="66"/><path class="pulse-run" d="M 0 70 L 600 70" stroke="#e2edff" stroke-linecap="round" stroke-width="6" fill="none" style="animation-delay:2s;"/>
+    </g>
+    <g fill="none" stroke="#9ecaff" stroke-opacity=".6" stroke-width="2"><rect height="66" rx="4" width="26" x="170" y="17"/><rect height="66" rx="4" width="26" x="400" y="17"/></g>
+    <g fill="#4ade80"><circle class="node-pulse" cx="183" cy="90" r="3"/><circle class="node-pulse d2" cx="413" cy="90" r="3"/></g>`),
+
+  // 8) KUVVETLİ AKIM: 3 faz etiketli güçlü hat ve yüksek akım darbesi
+  "kuvvetli-akim": animPanel("Kuvvetli Akım • 3 Faz Besleme", "Yük Altında", "text-green-400", G, `
+    <text fill="#ffd9a3" font-family="monospace" font-size="12" x="14" y="32">L1</text>
+    <text fill="#7dd3fc" font-family="monospace" font-size="12" x="14" y="55">L2</text>
+    <text fill="#9ecaff" font-family="monospace" font-size="12" x="14" y="78">L3</text>
+    <path class="pulse-track" d="M 40 28 C 200 22, 400 34, 600 26" stroke="#ffd9a3" stroke-width="3.5" fill="none"/>
+    <path class="pulse-run" d="M 40 28 C 200 22, 400 34, 600 26" stroke="#ffd9a3" stroke-linecap="round" stroke-width="3.5" fill="none"/>
+    <path class="pulse-track" d="M 40 51 C 200 45, 400 57, 600 49" stroke="#7dd3fc" stroke-width="3.5" fill="none"/>
+    <path class="pulse-run" d="M 40 51 C 200 45, 400 57, 600 49" stroke="#7dd3fc" stroke-linecap="round" stroke-width="3.5" fill="none" style="animation-delay:1.05s;"/>
+    <path class="pulse-track" d="M 40 74 C 200 68, 400 80, 600 72" stroke="#9ecaff" stroke-width="3.5" fill="none"/>
+    <path class="pulse-run" d="M 40 74 C 200 68, 400 80, 600 72" stroke="#e2edff" stroke-linecap="round" stroke-width="3.5" fill="none" style="animation-delay:2.1s;"/>
+    <text fill="#9ecaff" fill-opacity=".8" font-family="monospace" font-size="11" x="510" y="93">630 A</text>`),
+
+  // 9) PANO & KOMPANZASYON: kondansatör grubu ve cosφ ibresi
+  "pano-kompanzasyon": animPanel("Kompanzasyon • Reaktif Kontrol", "cosφ 0.99", "text-green-400", G, `
+    <rect fill="none" height="66" rx="6" stroke="#9ecaff" stroke-width="2.5" width="130" x="55" y="20"/>
+    <g stroke="#7dd3fc" stroke-width="2.5">
+      <line x1="80" x2="80" y1="34" y2="48"/><line x1="72" x2="88" y1="50" y2="50"/><line x1="72" x2="88" y1="56" y2="56"/><line x1="80" x2="80" y1="58" y2="72"/>
+      <line x1="120" x2="120" y1="34" y2="48"/><line x1="112" x2="128" y1="50" y2="50"/><line x1="112" x2="128" y1="56" y2="56"/><line x1="120" x2="120" y1="58" y2="72"/>
+      <line x1="160" x2="160" y1="34" y2="48"/><line x1="152" x2="168" y1="50" y2="50"/><line x1="152" x2="168" y1="56" y2="56"/><line x1="160" x2="160" y1="58" y2="72"/>
+    </g>
+    <g fill="#4ade80"><circle class="node-pulse" cx="80" cy="78" r="2.5"/><circle class="node-pulse d1" cx="120" cy="78" r="2.5"/><circle class="node-pulse d2" cx="160" cy="78" r="2.5"/></g>
+    <path d="M 340 80 A 78 78 0 0 1 496 80" fill="none" stroke="#9ecaff" stroke-opacity=".45" stroke-width="3"/>
+    <path d="M 452 40 A 78 78 0 0 1 496 80" fill="none" stroke="#4ade80" stroke-width="3"/>
+    <line class="needle" stroke="#e2edff" stroke-linecap="round" stroke-width="3" x1="418" x2="418" y1="80" y2="34"/>
+    <circle cx="418" cy="80" fill="#e2edff" r="4"/>
+    <text fill="#9ecaff" fill-opacity=".8" font-family="monospace" font-size="11" x="392" y="97">cos φ</text>`),
+
+  // 10) YANGIN ALGILAMA: tavan dedektörü, kırmızı algılama halkaları
+  "yangin-algilama": animPanel("Yangın Algılama • Dedektör Ağı", "İzleniyor", "text-red-400", R, `
+    <line stroke="#9ecaff" stroke-opacity=".4" stroke-width="2" x1="40" x2="560" y1="16" y2="16"/>
+    <g><rect fill="#9ecaff" height="8" rx="3" width="44" x="278" y="16"/><path d="M 282 24 A 20 12 0 0 0 318 24" fill="#e2edff"/></g>
+    <circle class="ring" cx="300" cy="30" fill="none" r="20" stroke="#f87171" stroke-width="2.5"/>
+    <circle class="ring d1" cx="300" cy="30" fill="none" r="20" stroke="#f87171" stroke-width="2"/>
+    <circle class="ring d2" cx="300" cy="30" fill="none" r="20" stroke="#ffd9a3" stroke-width="1.5"/>
+    <circle class="blink-red" cx="300" cy="27" fill="#f87171" r="2.5"/>
+    <g stroke="#9ecaff" stroke-opacity=".35" stroke-width="1.5" fill="none"><path d="M 130 16 L 130 40 M 470 16 L 470 40"/></g>
+    <g fill="#9ecaff" fill-opacity=".5"><circle cx="130" cy="44" r="3"/><circle cx="470" cy="44" r="3"/></g>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="11" x="252" y="90">LOOP-1 • 24 CİHAZ</text>`),
+
+  // 11) ACİL ANONS: hoparlör ve yayılan ses dalgaları
+  "acil-anons": animPanel("Acil Anons • Yayın Hattı", "Yayında", "text-green-400", G, `
+    <g fill="#9ecaff"><rect height="26" rx="3" width="18" x="150" y="37"/><path d="M 168 37 L 194 22 L 194 78 L 168 63 Z"/></g>
+    <path class="wave-arc" d="M 208 32 A 26 26 0 0 1 208 68" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="3"/>
+    <path class="wave-arc d1" d="M 224 22 A 40 40 0 0 1 224 78" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="3"/>
+    <path class="wave-arc d2" d="M 240 12 A 55 55 0 0 1 240 88" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="3"/>
+    <path class="wave-draw" d="M 300 50 L 340 50 L 350 30 L 362 70 L 372 50 L 420 50 L 430 38 L 442 62 L 452 50 L 520 50 L 530 42 L 540 58 L 550 50 L 600 50" fill="none" stroke="#e2edff" stroke-linecap="round" stroke-width="2.5"/>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="11" x="300" y="90">EN 54-16 YAYIN HATTI</text>`),
+
+  // 12) CO ALGILAMA: sensöre süzülen CO molekülleri, ppm izleme
+  "co-algilama": animPanel("CO Algılama • ppm İzleme", "Hava Temiz", "text-green-400", G, `
+    <g font-family="monospace" font-size="12" fill="#ffd9a3">
+      <text class="drift" x="120" y="42">CO</text>
+      <text class="drift d1" x="160" y="66">CO</text>
+      <text class="drift d2" x="105" y="76">CO</text>
+    </g>
+    <rect fill="none" height="42" rx="6" stroke="#9ecaff" stroke-width="2.5" width="58" x="280" y="30"/>
+    <g stroke="#9ecaff" stroke-opacity=".7" stroke-width="2"><line x1="290" x2="328" y1="42" y2="42"/><line x1="290" x2="328" y1="50" y2="50"/><line x1="290" x2="328" y1="58" y2="58"/></g>
+    <circle class="node-pulse" cx="309" cy="66" fill="#4ade80" r="3"/>
+    <circle class="ring" cx="309" cy="51" fill="none" r="26" stroke="#4ade80" stroke-opacity=".8" stroke-width="2"/>
+    <text fill="#4ade80" font-family="monospace" font-size="13" x="400" y="48">CO: 2 ppm</text>
+    <text fill="#9ecaff" fill-opacity=".65" font-family="monospace" font-size="11" x="400" y="68">EŞİK: 30 ppm</text>
+    <line stroke="#9ecaff" stroke-dasharray="3 7" stroke-opacity=".3" stroke-width="1.5" x1="0" x2="600" y1="92" y2="92"/>`),
+
+  // 13) OTOPARK YÖNETİM: kalkan bariyer ve geçen araç
+  "otopark-yonetim": animPanel("Otopark Yönetim • Bariyer", "Geçiş Kontrollü", "text-green-400", G, `
+    <line stroke="#9ecaff" stroke-opacity=".45" stroke-width="2.5" x1="0" x2="600" y1="84" y2="84"/>
+    <rect fill="#9ecaff" height="34" rx="3" width="14" x="292" y="50"/>
+    <circle class="gate-led" cx="299" cy="58" r="3.5"/>
+    <rect class="barrier-arm" fill="#ffd9a3" height="6" rx="3" width="150" x="306" y="52"/>
+    <g class="car-move">
+      <rect fill="#7dd3fc" fill-opacity=".9" height="16" rx="5" width="52" x="60" y="62"/>
+      <path d="M 70 62 L 76 54 L 96 54 L 102 62 Z" fill="#7dd3fc" fill-opacity=".9"/>
+      <circle cx="74" cy="80" fill="#06253f" r="5" stroke="#9ecaff" stroke-width="2"/>
+      <circle cx="98" cy="80" fill="#06253f" r="5" stroke="#9ecaff" stroke-width="2"/>
+    </g>
+    <text fill="#9ecaff" fill-opacity=".7" font-family="monospace" font-size="11" x="460" y="30">PLAKA TANIMA</text>
+    <text fill="#4ade80" font-family="monospace" font-size="11" x="460" y="46">34 BLS 2026 ✓</text>`),
+
+  // 14) KARTLI GEÇİŞ: okuyucuya uzanan kart ve yetki LED'i
+  "kartli-gecis": animPanel("Kartlı Geçiş • Okuyucu", "Yetki Onaylı", "text-green-400", G, `
+    <rect fill="none" height="52" rx="6" stroke="#9ecaff" stroke-width="2.5" width="34" x="300" y="24"/>
+    <circle class="ok-led" cx="317" cy="38" r="4"/>
+    <rect fill="#9ecaff" fill-opacity=".5" height="10" rx="2" width="18" x="308" y="54"/>
+    <g class="card-swipe">
+      <rect fill="#7dd3fc" fill-opacity=".95" height="30" rx="4" width="46" x="210" y="36"/>
+      <rect fill="#06253f" height="6" width="46" x="210" y="42"/>
+      <rect fill="#e2edff" height="4" rx="2" width="22" x="218" y="56"/>
+    </g>
+    <circle class="ring" cx="317" cy="50" fill="none" r="30" stroke="#4ade80" stroke-opacity=".7" stroke-width="2"/>
+    <g stroke="#9ecaff" stroke-opacity=".4" stroke-width="2"><line x1="392" x2="392" y1="14" y2="86"/></g>
+    <text fill="#9ecaff" fill-opacity=".7" font-family="monospace" font-size="11" x="420" y="44">KAPI-04</text>
+    <text fill="#4ade80" font-family="monospace" font-size="11" x="420" y="62">ERİŞİM: ✓</text>`),
+
+  // 15) TELEVİZYON TESİSATI: anten, yayın dalgaları ve ekran çizgisi
+  "televizyon-tesisati": animPanel("TV Tesisatı • Sinyal Dağıtımı", "Yayın Aktif", "text-green-400", G, `
+    <g stroke="#9ecaff" stroke-width="2.5"><line x1="120" x2="120" y1="34" y2="70"/><line x1="104" x2="136" y1="34" y2="22"/><line x1="104" x2="136" y1="46" y2="34"/></g>
+    <path class="wave-arc" d="M 138 24 A 24 24 0 0 1 138 60" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2.5"/>
+    <path class="wave-arc d1" d="M 152 15 A 38 38 0 0 1 152 69" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2.5"/>
+    <path class="pulse-track" d="M 120 70 L 120 84 L 380 84 L 380 70" stroke="#9ecaff" stroke-width="2" fill="none"/>
+    <path class="pulse-run slow" d="M 120 70 L 120 84 L 380 84 L 380 70" stroke="#e2edff" stroke-linecap="round" stroke-width="2" fill="none"/>
+    <rect fill="none" height="44" rx="5" stroke="#9ecaff" stroke-width="2.5" width="72" x="344" y="26"/>
+    <path class="wave-draw" d="M 352 48 L 362 48 L 368 38 L 376 58 L 382 48 L 396 48 L 402 42 L 408 54 L 412 48" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2"/>
+    <text fill="#9ecaff" fill-opacity=".7" font-family="monospace" font-size="11" x="450" y="52">IPTV / SAT</text>`),
+
+  // 16) DATA TESİSATI: omurga switch'ten uçlara akan paketler
+  "data-tesisati": animPanel("Data Tesisatı • Cat6A Omurga", "Bağlantı 10G", "text-green-400", G, `
+    <rect fill="none" height="30" rx="5" stroke="#9ecaff" stroke-width="2.5" width="72" x="66" y="35"/>
+    <g fill="#4ade80"><circle class="node-pulse" cx="82" cy="50" r="2.5"/><circle class="node-pulse d1" cx="94" cy="50" r="2.5"/><circle class="node-pulse d2" cx="106" cy="50" r="2.5"/><circle class="node-pulse d3" cx="118" cy="50" r="2.5"/></g>
+    <path class="packet-flow" d="M 138 42 L 600 20" stroke="#7dd3fc" stroke-width="2.5" fill="none"/>
+    <path class="packet-flow" d="M 138 50 L 600 50" stroke="#e2edff" stroke-width="2.5" fill="none" style="animation-delay:.5s;"/>
+    <path class="packet-flow" d="M 138 58 L 600 80" stroke="#7dd3fc" stroke-width="2.5" fill="none" style="animation-delay:1s;"/>
+    <g fill="#9ecaff"><circle class="node-pulse" cx="560" cy="22" r="4"/><circle class="node-pulse d1" cx="560" cy="50" r="4"/><circle class="node-pulse d2" cx="560" cy="78" r="4"/></g>`),
+
+  // 17) TELEFON TESİSATI: santral, hat darbesi ve çalan ahize
+  "telefon-tesisati": animPanel("Telefon Tesisatı • Santral", "Hat Açık", "text-green-400", G, `
+    <rect fill="none" height="40" rx="5" stroke="#9ecaff" stroke-width="2.5" width="58" x="80" y="30"/>
+    <g stroke="#9ecaff" stroke-opacity=".7" stroke-width="2"><line x1="90" x2="128" y1="42" y2="42"/><line x1="90" x2="128" y1="50" y2="50"/><line x1="90" x2="128" y1="58" y2="58"/></g>
+    <text fill="#9ecaff" fill-opacity=".7" font-family="monospace" font-size="10" x="82" y="86">PBX</text>
+    <path class="pulse-track" d="M 138 50 L 440 50" stroke="#9ecaff" stroke-width="2.5" fill="none"/>
+    <path class="pulse-run" d="M 138 50 L 440 50" stroke="#e2edff" stroke-linecap="round" stroke-width="2.5" fill="none"/>
+    <path d="M 462 58 C 452 44, 462 30, 478 34 L 484 42 L 476 50 C 482 56, 488 62, 494 68 L 502 60 L 510 66 C 514 82, 498 90, 486 82 C 476 76, 468 68, 462 58 Z" fill="#7dd3fc" fill-opacity=".9"/>
+    <path class="wave-arc" d="M 512 34 A 18 18 0 0 1 524 52" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2.5"/>
+    <path class="wave-arc d1" d="M 524 24 A 30 30 0 0 1 542 54" fill="none" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2.5"/>`),
+
+  // 18) KAMERA SİSTEMLERİ: taranan görüş açısı ve REC göstergesi
+  "kamera-sistemleri": animPanel("Kamera • Canlı İzleme", "REC", "text-red-400", R, `
+    <rect fill="#9ecaff" fill-opacity=".6" height="26" rx="3" width="10" x="96" y="24"/>
+    <g class="cam-scan">
+      <rect fill="#9ecaff" height="22" rx="4" width="52" x="106" y="26"/>
+      <circle cx="162" cy="37" fill="#06253f" r="8" stroke="#9ecaff" stroke-width="2.5"/>
+      <circle class="blink-red" cx="114" cy="32" fill="#f87171" r="2.5"/>
+      <path d="M 170 37 L 470 6 L 470 88 Z" fill="#7dd3fc" fill-opacity=".12"/>
+    </g>
+    <g stroke="#9ecaff" stroke-opacity=".35" stroke-width="1.5" fill="none"><rect height="30" rx="3" width="44" x="490" y="20"/><rect height="30" rx="3" width="44" x="490" y="56"/></g>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="10" x="494" y="38">CAM-01</text>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="10" x="494" y="74">CAM-02</text>`),
+
+  // 19) SCADA: izleme ekranında yükselen barlar ve canlı eğri
+  "scada-enerji": animPanel("SCADA • Enerji İzleme", "Veri Akışı", "text-green-400", G, `
+    <rect fill="none" height="72" rx="6" stroke="#9ecaff" stroke-width="2.5" width="200" x="60" y="14"/>
+    <g fill="#7dd3fc" fill-opacity=".85">
+      <rect class="rise" height="40" width="18" x="82" y="38"/>
+      <rect class="rise d1" height="40" width="18" x="112" y="38"/>
+      <rect class="rise d2" height="40" width="18" x="142" y="38"/>
+      <rect class="rise d3" height="40" width="18" x="172" y="38"/>
+      <rect class="rise d1" height="40" width="18" x="202" y="38"/>
+      <rect class="rise d3" height="40" width="18" x="232" y="38"/>
+    </g>
+    <line stroke="#9ecaff" stroke-opacity=".5" stroke-width="2" x1="70" x2="250" y1="78" y2="78"/>
+    <path class="wave-draw" d="M 300 60 L 340 58 L 370 40 L 400 52 L 430 30 L 460 44 L 490 26 L 530 38 L 570 22" fill="none" stroke="#4ade80" stroke-linecap="round" stroke-width="2.5"/>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="11" x="300" y="90">kW ANLIK TÜKETİM</text>`),
+
+  // 20) BİNA OTOMASYONU: kat kat aydınlanan bina ve çatı fanı
+  "bina-otomasyonu": animPanel("Bina Otomasyonu • BMS", "Senaryo Aktif", "text-green-400", G, `
+    <rect fill="none" height="66" rx="4" stroke="#9ecaff" stroke-width="2.5" width="90" x="120" y="26"/>
+    <g fill="#ffd9a3">
+      <rect class="lamp-on" height="10" width="16" x="132" y="36"/><rect class="lamp-on d2" height="10" width="16" x="157" y="36"/><rect class="lamp-on d1" height="10" width="16" x="182" y="36"/>
+      <rect class="lamp-on d1" height="10" width="16" x="132" y="56"/><rect class="lamp-on" height="10" width="16" x="157" y="56"/><rect class="lamp-on d2" height="10" width="16" x="182" y="56"/>
+      <rect class="lamp-on d2" height="10" width="16" x="132" y="76"/><rect class="lamp-on d1" height="10" width="16" x="157" y="76"/><rect class="lamp-on" height="10" width="16" x="182" y="76"/>
+    </g>
+    <g class="spin fast" stroke="#7dd3fc" stroke-linecap="round" stroke-width="2.5">
+      <line x1="165" x2="165" y1="10" y2="24"/><line x1="158" x2="172" y1="17" y2="17"/>
+    </g>
+    <path class="packet-flow slow" d="M 210 58 L 600 58" stroke="#7dd3fc" stroke-width="2.5" fill="none"/>
+    <text fill="#9ecaff" fill-opacity=".75" font-family="monospace" font-size="11" x="330" y="42">BACnet / DDC</text>
+    <text fill="#4ade80" font-family="monospace" font-size="11" x="330" y="82">HVAC OPTİMİZE</text>`),
+
+  // 21) TRAFO MERKEZİ (Orta Gerilim): direk + katener hattı — beğenilen orijinal
+  "trafo-merkezi": animPanel("Orta Gerilim • 34.5 kV Hat", "Enerjili", "text-caution-orange", O, `
+    <g stroke="#9ecaff" stroke-opacity=".5" stroke-width="2" fill="none">
+      <path d="M 60 92 L 74 18 M 88 92 L 74 18"/>
+      <path d="M 52 60 L 96 60 M 58 40 L 90 40"/>
+      <line x1="46" x2="60" y1="28" y2="28"/><line x1="88" x2="102" y1="28" y2="28"/>
+    </g>
+    <path class="pulse-track" d="M 102 28 C 220 58, 340 58, 600 30" fill="none" stroke="#FF9500" stroke-width="2.5"/>
+    <path class="pulse-run" d="M 102 28 C 220 58, 340 58, 600 30" fill="none" stroke="#ffd9a3" stroke-linecap="round" stroke-width="2.5"/>
+    <g class="spark" stroke="#FF9500" stroke-linecap="round" stroke-width="2" fill="none"><path d="M 102 28 l -5 -8 m 5 8 l 7 -7 m -7 7 l -2 -11"/></g>
+    <g class="spark s2" stroke="#ffd9a3" stroke-linecap="round" stroke-width="2" fill="none"><path d="M 46 28 l -6 -6 m 6 6 l -8 2"/></g>
+    <circle cx="102" cy="28" fill="#FF9500" r="3.5"/>
+    <circle cx="46" cy="28" fill="#9ecaff" fill-opacity=".7" r="3"/>`)
+};
+
+function svcIconName(key) {
+  return (servicesData[key].icon || '').replace(/<[^>]+>/g, '').trim() || 'bolt';
+}
+
+function filterCategory(categoryKey) {
+  const menuContainer = document.getElementById('services-menu');
+  document.getElementById('category-title').innerHTML = `<span class="material-symbols-outlined text-primary">${categoryIcons[categoryKey] || 'electric_bolt'}</span> ${categoryNames[categoryKey]}`;
+  menuContainer.innerHTML = ''; 
+  
+  let firstMatchKey = null;
+
+  Object.keys(servicesData).forEach(key => {
+    if (servicesData[key].category === categoryKey) {
+      if (!firstMatchKey) firstMatchKey = key;
+      
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <button id="menu-${key}" onclick="loadServiceContent('${key}')" class="svc-btn">
+          <span class="dot"></span>
+          <span class="lbl">${servicesData[key].title}</span>
+          <span class="material-symbols-outlined chev">chevron_right</span>
+        </button>
+      `;
+      menuContainer.appendChild(li);
+    }
+  });
+
+  if (firstMatchKey) {
+    loadServiceContent(firstMatchKey);
+  }
+}
+
+function loadServiceContent(key) {
+  if (!servicesData[key]) { key = 'yildirimdan-korunma'; }
+  const currentData = servicesData[key];
+
+  // Dinamik Banner ve Lüks İkon Enjeksiyonu
+  const _db=document.getElementById('detail-banner-img'); _db.style.visibility=''; _db.src = currentData.banner; 
+  document.getElementById('detail-icon-container').innerHTML = currentData.icon;
+  document.getElementById('detail-top-tag').innerText = currentData.tag;
+  document.getElementById('detail-title').innerText = currentData.title;
+  document.getElementById('detail-body-title').innerText = currentData.title;
+  document.getElementById('detail-content').innerHTML = currentData.content;
+  document.getElementById('detail-anim').innerHTML = animTemplates[key] || '';
+  document.title = `${currentData.title} | Belis Mühendislik`;
+
+  // Aktif buton yönetimi
+  Object.keys(servicesData).forEach(k => {
+    const btn = document.getElementById(`menu-${k}`);
+    if (btn) btn.classList.remove('active');
+  });
+
+  const activeBtn = document.getElementById(`menu-${key}`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?hizmet=' + key;
+  window.history.pushState({path:newUrl}, '', newUrl);
+
+}
+
+// İLK AÇILIŞ TETİKLEYİCİSİ
+const urlParams = new URLSearchParams(window.location.search);
+const kategoriParam = urlParams.get('kategori');
+let initialKey = urlParams.get('hizmet') || 'yildirimdan-korunma';
+if (!servicesData[initialKey]) initialKey = 'yildirimdan-korunma';
+
+if (kategoriParam && categoryNames[kategoriParam]) {
+  // Diğer sayfalardan kategori bağlantısıyla gelindi: o kategorinin ilk hizmetini aç
+  filterCategory(kategoriParam);
+} else {
+  filterCategory(servicesData[initialKey].category);
+  loadServiceContent(initialKey);
+}
+
+// ============ MOBİL: KART IZGARASI + DETAY PANELİ ============
+function buildMobileGrid() {
+  const wrap = document.getElementById('services-mobile');
+  if (!wrap) return;
+  const cats = ['alcak-gerilim', 'zayif-akim', 'orta-gerilim'];
+  let html = '';
+  cats.forEach(cat => {
+    const keys = Object.keys(servicesData).filter(k => servicesData[k].category === cat);
+    if (!keys.length) return;
+    html += `<div class="acc-cat-title"><span class="material-symbols-outlined" style="font-size:18px">${categoryIcons[cat] || 'electric_bolt'}</span> ${categoryNames[cat]}</div>`;
+    html += `<div class="grid grid-cols-2 gap-3 mb-2">`;
+    keys.forEach(key => {
+      const s = servicesData[key];
+      html += `
+        <button type="button" onclick="openSheet('${key}')" class="svc-card">
+          <span class="svc-card-ico">${s.icon}</span>
+          <span class="svc-card-title">${s.title}</span>
+          <span class="svc-card-more">İncele <span class="material-symbols-outlined" style="font-size:15px">arrow_forward</span></span>
+        </button>`;
+    });
+    html += `</div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function openSheet(key) {
+  const s = servicesData[key];
+  if (!s) return;
+  const sheet = document.getElementById('svc-sheet');
+  const bimg = document.getElementById('sheet-banner');
+  bimg.style.visibility = ''; bimg.src = s.banner;
+  document.getElementById('sheet-tag').innerText = s.tag;
+  document.getElementById('sheet-title').innerText = s.title;
+  document.getElementById('sheet-icon').innerHTML = s.icon;
+  const c = document.getElementById('sheet-content');
+  c.innerHTML = s.content + `<div class="mt-5">${animTemplates[key] || ''}</div>`;
+  c.scrollTop = 0;
+  sheet.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add('open')));
+}
+
+function closeSheet() {
+  const sheet = document.getElementById('svc-sheet');
+  sheet.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => sheet.classList.add('hidden'), 340);
+}
+
+// Aşağı çekerek kapatma (swipe to dismiss)
+(function sheetSwipe() {
+  const sheet = document.getElementById('svc-sheet');
+  const panel = document.getElementById('svc-sheet-panel');
+  const content = document.getElementById('sheet-content');
+  const overlay = document.getElementById('svc-sheet-overlay');
+  if (!sheet || !panel) return;
+  let startY = 0, dy = 0, dragging = false;
+
+  panel.addEventListener('touchstart', e => {
+    if (!sheet.classList.contains('open')) return;
+    if (content && content.contains(e.target) && content.scrollTop > 0) return;
+    startY = e.touches[0].clientY;
+    dy = 0;
+    dragging = true;
+    panel.style.transition = 'none';
+  }, { passive: true });
+
+  panel.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    dy = e.touches[0].clientY - startY;
+    if (dy < 0) dy = 0;
+    panel.style.transform = `translateY(${dy}px)`;
+    if (overlay) overlay.style.opacity = String(Math.max(0, 1 - dy / 420));
+  }, { passive: true });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    if (dy > 110) {
+      panel.style.transition = 'transform .28s ease';
+      panel.style.transform = 'translateY(100%)';
+      if (overlay) overlay.style.opacity = '0';
+      setTimeout(() => {
+        sheet.classList.remove('open');
+        sheet.classList.add('hidden');
+        document.body.style.overflow = '';
+        panel.style.transition = '';
+        panel.style.transform = '';
+        if (overlay) overlay.style.opacity = '';
+      }, 280);
+    } else {
+      panel.style.transition = '';
+      panel.style.transform = '';
+      if (overlay) overlay.style.opacity = '';
+    }
+    dy = 0;
+  }
+
+  panel.addEventListener('touchend', endDrag);
+  panel.addEventListener('touchcancel', endDrag);
+})();
+
+// Escape ile kapat
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+
+buildMobileGrid();
+
+// Mobilde: üst banner'ı genel yap; derin bağlantı varsa paneli aç
+if (window.matchMedia('(max-width: 1023px)').matches) {
+  const t = document.getElementById('detail-title'); if (t) t.innerText = 'Hizmetlerimiz';
+  const tag = document.getElementById('detail-top-tag'); if (tag) tag.innerText = 'TÜM HİZMETLERİMİZ';
+
+  const hizmetParam = urlParams.get('hizmet');
+  if (hizmetParam && servicesData[hizmetParam]) {
+    setTimeout(() => openSheet(hizmetParam), 400);
+  } else if (kategoriParam && categoryNames[kategoriParam]) {
+    setTimeout(() => {
+      const first = document.querySelector('#services-mobile .acc-cat-title');
+      // İlgili kategoriye kaydır
+      const titles = document.querySelectorAll('#services-mobile .acc-cat-title');
+      titles.forEach(el => { if (el.textContent.trim().includes(categoryNames[kategoriParam])) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    }, 400);
+  }
+}
+</script>
+
+
+<script>
+  // Mobil cam menü
+  const menuBtn = document.getElementById('menu-btn');
+  const mm = document.getElementById('mobile-menu');
+  const closeMmBtn = document.getElementById('close-mm-btn');
+  const mmHizBtn = document.getElementById('mm-hizmetler-btn');
+  const mmSub = document.getElementById('mm-sub');
+  const mmChev = document.getElementById('mm-chev');
+
+  function openMm() {
+    mm.classList.remove('hidden');
+    requestAnimationFrame(() => requestAnimationFrame(() => mm.classList.add('open')));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMm() {
+    mm.classList.remove('open');
+    setTimeout(() => mm.classList.add('hidden'), 400);
+    document.body.style.overflow = '';
+  }
+  if (menuBtn) menuBtn.addEventListener('click', openMm);
+  if (closeMmBtn) closeMmBtn.addEventListener('click', closeMm);
+
+  // Footer yılı
+  const yearEl = document.getElementById('current-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  if (mmHizBtn) mmHizBtn.addEventListener('click', () => {
+    mmSub.classList.toggle('open');
+    mmChev.classList.toggle('rot');
+  });
+
+  // Mobil menü: Projeler alt menüsü
+  const mmProjBtn = document.getElementById('mm-projeler-btn');
+  const mmSubProj = document.getElementById('mm-sub-projeler');
+  const mmChevProj = document.getElementById('mm-chev-projeler');
+  if (mmProjBtn) mmProjBtn.addEventListener('click', () => {
+    mmSubProj.classList.toggle('open');
+    mmChevProj.classList.toggle('rot');
+  });
+
+  function mmGo(categoryKey) {
+    filterCategory(categoryKey);
+    closeMm();
+    // Menü kartına yumuşak kaydır
+    setTimeout(() => {
+      const menuCard = document.getElementById('category-title');
+      if (menuCard) menuCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 420);
+  }
+</script>
+</body>
+</html>
