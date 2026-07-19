@@ -49,10 +49,11 @@
 }
 .mm-sub { display: flex; flex-direction: column; max-height: 0; overflow: hidden; transition: max-height .35s ease; }
 .mm-sub > a, .mm-sub > button { flex-shrink: 0; }
-#close-mm-btn { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 0.75rem); right: 1.25rem; z-index: 10; }
-/* Menü açıkken üst bar (hamburger) gizlenir: ekranda tek kapatma (X) kalır */
-#site-header { transition: opacity .2s ease; }
-body.mm-open #site-header { opacity: 0; pointer-events: none; }
+/* Menü açıkken üst bar üstte kalır; hamburger simgesi yerinde X'e dönüşür */
+#close-mm-btn { display: none; }
+#mobile-menu .relative > div:first-child { display: none; } /* menü içi eski Belis+X satırı */
+#mobile-menu nav { padding-top: 56px; }
+body.mm-open #site-header { z-index: 70; }
 .mm-sub.open { max-height: 260px; }
 .mm-sub a {
   display: flex; align-items: center; gap: 10px; width: 100%;
@@ -307,19 +308,26 @@ body.mm-open #site-header { opacity: 0; pointer-events: none; }
   const mmSub = document.getElementById('mm-sub');
   const mmChev = document.getElementById('mm-chev');
 
+  const menuIcon = menuBtn ? menuBtn.querySelector('.material-symbols-outlined') : null;
   function openMm() {
     mm.classList.remove('hidden');
     document.body.classList.add('mm-open');
+    if (menuIcon) menuIcon.textContent = 'close';
+    if (menuBtn) menuBtn.setAttribute('aria-label', 'Menüyü kapat');
     requestAnimationFrame(() => requestAnimationFrame(() => mm.classList.add('open')));
     document.body.style.overflow = 'hidden';
   }
   function closeMm() {
     mm.classList.remove('open');
     document.body.classList.remove('mm-open');
+    if (menuIcon) menuIcon.textContent = 'menu';
+    if (menuBtn) menuBtn.setAttribute('aria-label', 'Menüyü aç');
     setTimeout(() => mm.classList.add('hidden'), 400);
     document.body.style.overflow = '';
   }
-  if (menuBtn) menuBtn.addEventListener('click', openMm);
+  if (menuBtn) menuBtn.addEventListener('click', () => {
+    if (document.body.classList.contains('mm-open')) closeMm(); else openMm();
+  });
   if (closeMmBtn) closeMmBtn.addEventListener('click', closeMm);
 
   // Footer yılı
