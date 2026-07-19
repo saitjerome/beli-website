@@ -318,15 +318,7 @@ const PROJECT_ITEMS = [
 
 function initGallery() {
   const el = document.getElementById('circular-gallery');
-  const fallback = document.getElementById('project-carousel');
   if (!el) return;
-
-  // Mobilde WebGL galerisi yerine fallback carousel'ı kullan
-  const isMobile = window.matchMedia('(max-width: 767px)').matches;
-  if (isMobile) {
-    if (fallback) fallback.classList.remove('hidden', 'carousel-hidden');
-    return;
-  }
 
   try {
     // Inter fontu hazır olduktan sonra başlat (etiketler doğru fontla çizilsin)
