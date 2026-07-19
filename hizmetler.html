@@ -287,7 +287,10 @@
     padding-top: calc(1.75rem + env(safe-area-inset-top));
     padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
   }
-  #svc-sheet-panel { top: calc(2rem + env(safe-area-inset-top)); }
+  /* Sheet en üste kadar dolsun; başlık çubuğu çentiğin altında kalsın */
+  #sheet-banner-wrap { padding-top: env(safe-area-inset-top); }
+  #sheet-close { top: calc(0.75rem + env(safe-area-inset-top)); }
+  #sheet-handle { top: calc(0.625rem + env(safe-area-inset-top)); }
   #sheet-content { padding-bottom: calc(1.25rem + env(safe-area-inset-bottom)); }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -438,13 +441,13 @@
 <!-- ===== MOBİL HİZMET DETAY PANELİ (bottom sheet) ===== -->
 <div id="svc-sheet" class="lg:hidden fixed inset-0 z-[80] hidden">
   <div id="svc-sheet-overlay" onclick="closeSheet()" class="absolute inset-0 bg-black/50"></div>
-  <div id="svc-sheet-panel" class="absolute inset-x-0 bottom-0 top-8 bg-white rounded-t-3xl shadow-2xl flex flex-col overflow-hidden">
+  <div id="svc-sheet-panel" class="absolute inset-x-0 bottom-0 top-0 bg-white shadow-2xl flex flex-col overflow-hidden">
     <!-- Banner + kapatma -->
-    <div class="relative h-44 flex-shrink-0 bg-industrial-gray">
+    <div id="sheet-banner-wrap" class="relative h-52 flex-shrink-0 bg-industrial-gray">
       <img id="sheet-banner" src="" onerror="this.style.visibility='hidden'" alt="Hizmet görseli" class="w-full h-full object-cover"/>
       <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20"></div>
-      <div class="absolute left-1/2 -translate-x-1/2 top-2.5 w-11 h-1.5 rounded-full bg-white/70 z-10"></div>
-      <button onclick="closeSheet()" aria-label="Kapat" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center text-industrial-gray z-10"><span class="material-symbols-outlined">close</span></button>
+      <div id="sheet-handle" class="absolute left-1/2 -translate-x-1/2 top-2.5 w-11 h-1.5 rounded-full bg-white/70 z-10"></div>
+      <button id="sheet-close" onclick="closeSheet()" aria-label="Kapat" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/90 shadow flex items-center justify-center text-industrial-gray z-10"><span class="material-symbols-outlined">close</span></button>
       <div class="absolute bottom-4 left-5 right-5 z-10 flex items-end gap-3">
         <div id="sheet-icon" class="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm text-white flex items-center justify-center flex-shrink-0 border border-white/25"></div>
         <div>

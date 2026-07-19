@@ -193,12 +193,6 @@ class CircularGalleryApp {
     this.addEventListeners();
   }
   createRenderer() {
-    // Mobilde WebGL render etme
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      this.gl = null;
-      this.renderer = null;
-      return;
-    }
     this.renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
     this.gl = this.renderer.gl;
     this.gl.clearColor(0, 0, 0, 0);
@@ -277,8 +271,6 @@ class CircularGalleryApp {
     if (this.medias) this.medias.forEach(m => m.onResize({ screen: this.screen, viewport: this.viewport }));
   }
   update() {
-    // Mobilde çalışma
-    if (!this.renderer || !this.gl) return;
     // Boştayken yavaşça kendi kendine dönsün (hareket azaltma tercihi hariç)
     if (!this.isDown && !this.reduceMotion && Date.now() - this.lastInteract > 3000) {
       this.scroll.target += 0.006;
@@ -318,6 +310,7 @@ const PROJECT_ITEMS = [
 
 function initGallery() {
   const el = document.getElementById('circular-gallery');
+  const fallback = document.getElementById('project-carousel');
   if (!el) return;
 
   try {
@@ -328,14 +321,14 @@ function initGallery() {
     ready.then(() => {
       const app = new CircularGalleryApp(el, {
         items: PROJECT_ITEMS,
-        bend: 2.2,
+        bend: 0,               // düz: kartlar yan yana kavis yapmadan aksın
         textColor: '#003B6F',
         borderRadius: 0.05,
         font: 'bold 28px Inter',
         scrollSpeed: 2,
-        scrollEase: 0.06
+        scrollEase: 0.05
       });
-      // Başarılı: galeriyi göster, eski kaydırıcıyı gizle
+      // Başarılı: galeriyi göster, eski kaydırıcıyı (yalnızca yedek) gizle
       el.classList.add('loaded');
       if (fallback) fallback.classList.add('carousel-hidden');
       requestAnimationFrame(() => app.onResize());
@@ -352,25 +345,14 @@ function initGallery() {
   }
 }
 
-// Mobilde hiç yükleme
-const isMobile = window.matchMedia('(max-width: 767px)').matches;
-if (isMobile) {
-  // Mobilde: Fallback carousel göster, WebGL gizle
-  const carousel = document.getElementById('project-carousel');
-  const gallery = document.getElementById('circular-gallery');
-  if (carousel) carousel.style.display = 'block';
-  if (gallery) gallery.style.display = 'none';
+// Her ekran boyutunda (mobil + masaüstü) galeriyi başlat.
+// Görünür olmaya yakınken yükle (performans için).
+const target = document.getElementById('projelerimiz-slider');
+if ('IntersectionObserver' in window && target) {
+  const io = new IntersectionObserver((entries, obs) => {
+    if (entries.some(e => e.isIntersecting)) { obs.disconnect(); initGallery(); }
+  }, { rootMargin: '300px' });
+  io.observe(target);
 } else {
-  // Desktop: WebGL galerisi yükle, fallback carousel gizle
-  const carousel = document.getElementById('project-carousel');
-  if (carousel) carousel.style.display = 'none';
-  const target = document.getElementById('projelerimiz-slider');
-  if ('IntersectionObserver' in window && target) {
-    const io = new IntersectionObserver((entries, obs) => {
-      if (entries.some(e => e.isIntersecting)) { obs.disconnect(); initGallery(); }
-    }, { rootMargin: '300px' });
-    io.observe(target);
-  } else {
-    initGallery();
-  }
+  initGallery();
 }

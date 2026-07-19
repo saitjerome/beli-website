@@ -48,21 +48,16 @@
 .mm-chev { transition: transform .3s ease; }
 .mm-chev.rot { transform: rotate(180deg); }
 
-/* ===== Dairesel proje galerisi (Desktop Sadece) ===== */
-#circular-gallery { height: 420px; width: 100%; overflow: hidden; cursor: grab; touch-action: pan-y; display: none !important; }
+/* ===== Dairesel proje galerisi (mobil + masaüstü) ===== */
+#circular-gallery { height: 400px; width: 100%; overflow: hidden; cursor: grab; touch-action: pan-y; display: none; }
+#circular-gallery.loaded { display: block; }
 #circular-gallery:active { cursor: grabbing; }
 #circular-gallery:focus-visible { outline: 2px solid #00558f; outline-offset: 4px; }
 #circular-gallery canvas { display: block; width: 100%; height: 100%; }
+@media (min-width: 768px) { #circular-gallery { height: 520px; } }
 
-/* Mobilde Carousel'ı göster, Desktop'ta gizle */
-#project-carousel { display: block !important; }
-
-@media (min-width: 768px) {
-  #circular-gallery { display: none !important; }
-  #circular-gallery.loaded { display: block !important; }
-  #project-carousel { display: none !important; }
-  #circular-gallery.loaded ~ #project-carousel { display: none !important; }
-}
+/* Kart kaydırıcı yalnızca yedektir; galeri yüklenince JS onu gizler */
+#project-carousel.carousel-hidden { display: none; }
 
 /* ===== iPhone çentik / güvenli alan ===== */
 @supports (padding: env(safe-area-inset-top)) {
@@ -79,6 +74,25 @@
 .hero-glow-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(255,176,64,.35), transparent 70%); top: 8%; left: 30%; animation: heroFloat 16s ease-in-out infinite; }
 .hero-glow-2 { width: 460px; height: 460px; background: radial-gradient(circle, rgba(0,130,220,.40), transparent 70%); bottom: -140px; right: -80px; animation: heroFloat 20s ease-in-out infinite reverse; }
 @keyframes heroFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,-22px); } }
+
+/* ===== Mobil dokunuşta yeşil vurgulama (masaüstündeki hover'ın karşılığı) ===== */
+@media (hover: none) {
+  .vz-card:active {
+    border-color: #10B981 !important;
+    background: #ffffff !important;
+    box-shadow: 0 20px 40px rgba(16,185,129,0.14) !important;
+  }
+  .vz-card:active .vz-ico {
+    background: #10B981 !important;
+    color: #ffffff !important;
+    transform: rotate(12deg) !important;
+  }
+  .vz-card:active .vz-title { color: #10B981 !important; }
+  /* Güven maddeleri: dokununca gece mavisi vurgusu */
+  .trust-item:active { background: rgba(0,59,111,0.05); border-color: rgba(0,59,111,0.10); }
+  .trust-item:active p { color: #003B6F; }
+  .trust-item:active .material-symbols-outlined { transform: scale(1.1); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   #mobile-menu .mm-bg, #mobile-menu .mm-item, .mm-sub, .mm-chev { transition: none; }
@@ -233,38 +247,38 @@
       <div class="lg:col-span-7 grid grid-cols-2 gap-3 sm:gap-6">
         
         <!-- Kart 1: Tecrübe ve Güven -->
-        <div class="group bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
-          <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
+        <div class="group vz-card bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
+          <div class="vz-ico w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
             <span class="material-symbols-outlined text-[28px]">workspace_premium</span>
           </div>
-          <h3 class="text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Yılların Getirdiği Güven</h3>
+          <h3 class="vz-title text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Yılların Getirdiği Güven</h3>
           <p class="hidden sm:block text-body-sm text-on-surface-variant leading-relaxed">Sektördeki köklü saha birikimimizle, en karmaşık altyapı projelerinde bile sürdürülebilir taahhütler sunuyoruz.</p>
         </div>
 
         <!-- Kart 2: Profesyonel Ekip -->
-        <div class="group bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
-          <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
+        <div class="group vz-card bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
+          <div class="vz-ico w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
             <span class="material-symbols-outlined text-[28px]">engineering</span>
           </div>
-          <h3 class="text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Uzman Mühendislik Kadrosu</h3>
+          <h3 class="vz-title text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Uzman Mühendislik Kadrosu</h3>
           <p class="hidden sm:block text-body-sm text-on-surface-variant leading-relaxed">Gelişen teknolojileri yakından takip eden, mevzuatlara ve dijital modellemeye hakim dinamik teknik ekip.</p>
         </div>
 
         <!-- Kart 3: Kalite ve Zamanlama -->
-        <div class="group bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
-          <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
+        <div class="group vz-card bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
+          <div class="vz-ico w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
             <span class="material-symbols-outlined text-[28px]">schedule</span>
           </div>
-          <h3 class="text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Sıfır Hata &amp; Tam Zamanında</h3>
+          <h3 class="vz-title text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">Sıfır Hata &amp; Tam Zamanında</h3>
           <p class="hidden sm:block text-body-sm text-on-surface-variant leading-relaxed">İş akış planlamasında milimetrik hesaplamalar yaparak, projelerinizi vaat edilen sürede eksiksiz devreye alıyoruz.</p>
         </div>
 
         <!-- Kart 4: İnovatif Yaklaşım -->
-        <div class="group bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
-          <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
+        <div class="group vz-card bg-surface rounded-2xl sm:rounded-3xl p-3.5 sm:p-7 border-2 border-transparent hover:border-[#10B981] hover:shadow-[0_20px_40px_rgba(16,185,129,0.1)] hover:bg-surface-white hover:-translate-y-2 transition-all duration-300 flex flex-col aspect-square sm:aspect-auto justify-center sm:justify-start cursor-pointer">
+          <div class="vz-ico w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-3 sm:mb-5 transition-all duration-300 group-hover:bg-[#10B981] group-hover:text-white transform group-hover:rotate-12">
             <span class="material-symbols-outlined text-[28px]">tips_and_updates</span>
           </div>
-          <h3 class="text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">İnovatif Akıllı Sistemler</h3>
+          <h3 class="vz-title text-label-bold text-on-surface text-base sm:text-xl mb-2 sm:mb-3 transition-colors group-hover:text-[#10B981]">İnovatif Akıllı Sistemler</h3>
           <p class="hidden sm:block text-body-sm text-on-surface-variant leading-relaxed">Yapay zeka entegreli otomasyon ve yeni nesil akıllı şebeke tasarımlarıyla tesisleri modernize ediyoruz.</p>
         </div>
 
@@ -299,19 +313,19 @@
 
         <!-- 🛡️ GÜVEN VEREN DERİN GECE MAVİSİ (TRUST BLUE) HOVER ALANI -->
         <div class="flex flex-col gap-3.5 border-t border-outline-variant/40 pt-6">
-          <div class="group flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
+          <div class="group trust-item flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
             <span class="material-symbols-outlined text-[26px] text-[#10B981] fill-current transition-all duration-300 ease-out group-hover:scale-110">check_circle</span>
             <p class="text-industrial-gray text-body-md transition-colors duration-300 group-hover:text-[#003B6F] font-semibold">
               Uluslararası akreditasyona sahip, sertifikalı ve can güvenliği odaklı donanım entegrasyonu.
             </p>
           </div>
-          <div class="group flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
+          <div class="group trust-item flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
             <span class="material-symbols-outlined text-[26px] text-[#10B981] fill-current transition-all duration-300 ease-out group-hover:scale-110">check_circle</span>
             <p class="text-industrial-gray text-body-md transition-colors duration-300 group-hover:text-[#003B6F] font-semibold">
               Kritik termin tarihlerine tam uyum ve milimetrik projelendirme süreçleri.
             </p>
           </div>
-          <div class="group flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
+          <div class="group trust-item flex items-start gap-4 cursor-pointer p-3 rounded-xl transition-all duration-200 hover:bg-[#003B6F]/5 border border-transparent hover:border-[#003B6F]/10">
             <span class="material-symbols-outlined text-[26px] text-[#10B981] fill-current transition-all duration-300 ease-out group-hover:scale-110">check_circle</span>
             <p class="text-industrial-gray text-body-md transition-colors duration-300 group-hover:text-[#003B6F] font-semibold">
               Maksimum enerji tasarrufu ve operasyonel verimlilik odaklı mühendislik mimarisi.
@@ -569,6 +583,9 @@
   // Footer yılı
   const yearEl = document.getElementById('current-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // iOS Safari'de :active durumunun çalışması için boş dokunma dinleyicisi
+  document.addEventListener('touchstart', function () {}, { passive: true });
 
   // Hero: gece şehri ışıklarının ışıldaması (twinkle + bokeh)
   (function heroLights() {
