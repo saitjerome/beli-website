@@ -363,9 +363,17 @@ function initGallery() {
 // Mobilde hiç yükleme
 const isMobile = window.matchMedia('(max-width: 767px)').matches;
 if (isMobile) {
-  // Fallback carousel göster
+  // Fallback carousel göster, WebGL gizle
   const carousel = document.getElementById('project-carousel');
-  if (carousel) carousel.classList.remove('hidden');
+  const gallery = document.getElementById('circular-gallery');
+  if (carousel) {
+    carousel.style.display = 'block';
+    carousel.classList.remove('hidden');
+  }
+  if (gallery) {
+    gallery.style.display = 'none';
+    gallery.innerHTML = '';
+  }
 } else {
   // Görünür olmaya yakınken başlat (performans için)
   const target = document.getElementById('projelerimiz-slider');
