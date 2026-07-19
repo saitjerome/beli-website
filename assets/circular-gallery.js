@@ -363,19 +363,15 @@ function initGallery() {
 // Mobilde hiç yükleme
 const isMobile = window.matchMedia('(max-width: 767px)').matches;
 if (isMobile) {
-  // Fallback carousel göster, WebGL gizle
+  // Mobilde: Fallback carousel göster, WebGL gizle
   const carousel = document.getElementById('project-carousel');
   const gallery = document.getElementById('circular-gallery');
-  if (carousel) {
-    carousel.style.display = 'block';
-    carousel.classList.remove('hidden');
-  }
-  if (gallery) {
-    gallery.style.display = 'none';
-    gallery.innerHTML = '';
-  }
+  if (carousel) carousel.style.display = 'block';
+  if (gallery) gallery.style.display = 'none';
 } else {
-  // Görünür olmaya yakınken başlat (performans için)
+  // Desktop: WebGL galerisi yükle, fallback carousel gizle
+  const carousel = document.getElementById('project-carousel');
+  if (carousel) carousel.style.display = 'none';
   const target = document.getElementById('projelerimiz-slider');
   if ('IntersectionObserver' in window && target) {
     const io = new IntersectionObserver((entries, obs) => {
