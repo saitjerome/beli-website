@@ -319,6 +319,9 @@ function initGallery() {
       ? Promise.race([document.fonts.load('bold 28px Inter'), new Promise(r => setTimeout(r, 1500))])
       : Promise.resolve();
     ready.then(() => {
+      // Önce görünür yap ki kapsayıcı gerçek boyutuyla ölçülsün (0px yarışını önler)
+      el.classList.add('loaded');
+      if (fallback) fallback.classList.add('carousel-hidden');
       const app = new CircularGalleryApp(el, {
         items: PROJECT_ITEMS,
         bend: 0,               // düz: kartlar yan yana kavis yapmadan aksın
@@ -328,9 +331,6 @@ function initGallery() {
         scrollSpeed: 2,
         scrollEase: 0.05
       });
-      // Başarılı: galeriyi göster, eski kaydırıcıyı (yalnızca yedek) gizle
-      el.classList.add('loaded');
-      if (fallback) fallback.classList.add('carousel-hidden');
       requestAnimationFrame(() => app.onResize());
       // Mevcut ok butonlarını galeriye bağla
       const prev = document.getElementById('slider-prev-btn');
