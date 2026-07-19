@@ -48,6 +48,13 @@
 .mm-chev { transition: transform .3s ease; }
 .mm-chev.rot { transform: rotate(180deg); }
 
+/* ===== Dairesel proje galerisi ===== */
+#circular-gallery { height: 420px; width: 100%; overflow: hidden; cursor: grab; touch-action: pan-y; }
+#circular-gallery:active { cursor: grabbing; }
+#circular-gallery:focus-visible { outline: 2px solid #00558f; outline-offset: 4px; }
+#circular-gallery canvas { display: block; width: 100%; height: 100%; }
+@media (min-width: 768px) { #circular-gallery { height: 560px; } }
+
 /* ===== iPhone çentik / güvenli alan ===== */
 @supports (padding: env(safe-area-inset-top)) {
   #site-header { padding-top: env(safe-area-inset-top); }
@@ -354,7 +361,10 @@
       </div>
     </div>
 
-    <!-- Kaydırılabilir Proje Kartları -->
+    <!-- Dairesel WebGL Proje Galerisi (JS başarıyla yüklenince görünür) -->
+    <div id="circular-gallery" class="hidden" tabindex="0" role="region" aria-label="Proje galerisi. Sürükleyerek veya ok tuşlarıyla gezinebilirsiniz."></div>
+
+    <!-- Kaydırılabilir Proje Kartları (yedek görünüm) -->
     <div id="project-carousel" class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-2">
 
       <!-- Proje 1: İstanbul Finans Merkezi -->
@@ -675,5 +685,6 @@ const carousel = document.getElementById('project-carousel');
     });
   }
 </script>
+<script type="module" src="assets/circular-gallery.js"></script>
 </body>
 </html>
