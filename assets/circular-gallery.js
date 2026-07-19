@@ -312,6 +312,14 @@ function initGallery() {
   const el = document.getElementById('circular-gallery');
   const fallback = document.getElementById('project-carousel');
   if (!el) return;
+
+  // Mobilde WebGL galerisi yerine fallback carousel'ı kullan
+  const isMobile = window.matchMedia('(max-width: 767px)').matches;
+  if (isMobile) {
+    if (fallback) fallback.classList.remove('hidden', 'carousel-hidden');
+    return;
+  }
+
   try {
     // Inter fontu hazır olduktan sonra başlat (etiketler doğru fontla çizilsin)
     const ready = (document.fonts && document.fonts.load)
@@ -328,8 +336,8 @@ function initGallery() {
         scrollEase: 0.06
       });
       // Başarılı: galeriyi göster, eski kaydırıcıyı gizle
-      el.classList.remove('hidden');
-      if (fallback) fallback.classList.add('hidden');
+      el.classList.add('loaded');
+      if (fallback) fallback.classList.add('carousel-hidden');
       requestAnimationFrame(() => app.onResize());
       // Mevcut ok butonlarını galeriye bağla
       const prev = document.getElementById('slider-prev-btn');
@@ -339,6 +347,7 @@ function initGallery() {
     });
   } catch (err) {
     // WebGL yoksa eski kaydırıcı görünür kalır
+    if (fallback) fallback.classList.remove('carousel-hidden');
     console.warn('CircularGallery başlatılamadı, kart kaydırıcısı kullanılacak.', err);
   }
 }
