@@ -360,13 +360,21 @@ function initGallery() {
   }
 }
 
-// Görünür olmaya yakınken başlat (performans için)
-const target = document.getElementById('projelerimiz-slider');
-if ('IntersectionObserver' in window && target) {
-  const io = new IntersectionObserver((entries, obs) => {
-    if (entries.some(e => e.isIntersecting)) { obs.disconnect(); initGallery(); }
-  }, { rootMargin: '300px' });
-  io.observe(target);
+// Mobilde hiç yükleme
+const isMobile = window.matchMedia('(max-width: 767px)').matches;
+if (isMobile) {
+  // Fallback carousel göster
+  const carousel = document.getElementById('project-carousel');
+  if (carousel) carousel.classList.remove('hidden');
 } else {
-  initGallery();
+  // Görünür olmaya yakınken başlat (performans için)
+  const target = document.getElementById('projelerimiz-slider');
+  if ('IntersectionObserver' in window && target) {
+    const io = new IntersectionObserver((entries, obs) => {
+      if (entries.some(e => e.isIntersecting)) { obs.disconnect(); initGallery(); }
+    }, { rootMargin: '300px' });
+    io.observe(target);
+  } else {
+    initGallery();
+  }
 }
