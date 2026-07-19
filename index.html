@@ -41,7 +41,9 @@
 #mobile-menu.open .mm-item:nth-child(6) { transition-delay: .48s; }
 #mobile-menu.open .mm-item:nth-child(7) { transition-delay: .54s; }
 .mm-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 6px; font-size: 17px; font-weight: 700; color: #1a2733; border-bottom: 1px solid rgba(57,65,71,.1); }
-.mm-sub { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub { display: flex; flex-direction: column; max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub > a, .mm-sub > button { flex-shrink: 0; }
+#close-mm-btn { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 0.75rem); right: 1.25rem; z-index: 10; }
 .mm-sub.open { max-height: 260px; }
 .mm-sub a { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 8px 12px 18px; font-size: 15px; font-weight: 600; color: #394147; }
 .mm-sub .sub-dot { width: 7px; height: 7px; border-radius: 9999px; background: #FF9500; box-shadow: 0 0 0 3px rgba(255,149,0,.18); flex-shrink: 0; }

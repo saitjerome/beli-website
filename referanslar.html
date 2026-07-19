@@ -47,7 +47,9 @@
   padding: 14px 6px; font-size: 17px; font-weight: 700; color: #1a2733;
   border-bottom: 1px solid rgba(57,65,71,.1);
 }
-.mm-sub { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub { display: flex; flex-direction: column; max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+.mm-sub > a, .mm-sub > button { flex-shrink: 0; }
+#close-mm-btn { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 0.75rem); right: 1.25rem; z-index: 10; }
 .mm-sub.open { max-height: 260px; }
 .mm-sub a {
   display: flex; align-items: center; gap: 10px; width: 100%;
