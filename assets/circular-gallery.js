@@ -193,6 +193,12 @@ class CircularGalleryApp {
     this.addEventListeners();
   }
   createRenderer() {
+    // Mobilde WebGL render etme
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      this.gl = null;
+      this.renderer = null;
+      return;
+    }
     this.renderer = new Renderer({ alpha: true, antialias: true, dpr: Math.min(window.devicePixelRatio || 1, 2) });
     this.gl = this.renderer.gl;
     this.gl.clearColor(0, 0, 0, 0);
@@ -271,6 +277,8 @@ class CircularGalleryApp {
     if (this.medias) this.medias.forEach(m => m.onResize({ screen: this.screen, viewport: this.viewport }));
   }
   update() {
+    // Mobilde çalışma
+    if (!this.renderer || !this.gl) return;
     // Boştayken yavaşça kendi kendine dönsün (hareket azaltma tercihi hariç)
     if (!this.isDown && !this.reduceMotion && Date.now() - this.lastInteract > 3000) {
       this.scroll.target += 0.006;
