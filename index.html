@@ -621,6 +621,20 @@ body.mm-open #site-header { z-index: 70; }
   });
   if (closeMmBtn) closeMmBtn.addEventListener('click', closeMm);
 
+  if (mmHizBtn) mmHizBtn.addEventListener('click', () => {
+    mmSub.classList.toggle('open');
+    mmChev.classList.toggle('rot');
+  });
+
+  // Mobil menü: Projeler alt menüsü
+  const mmProjBtn = document.getElementById('mm-projeler-btn');
+  const mmSubProj = document.getElementById('mm-sub-projeler');
+  const mmChevProj = document.getElementById('mm-chev-projeler');
+  if (mmProjBtn) mmProjBtn.addEventListener('click', () => {
+    mmSubProj.classList.toggle('open');
+    mmChevProj.classList.toggle('rot');
+  });
+
   // Footer yılı
   const yearEl = document.getElementById('current-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
