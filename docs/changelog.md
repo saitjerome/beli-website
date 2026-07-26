@@ -1,6 +1,34 @@
-# Changelog — 2026-07-25
+# Changelog — 2026-07-25 / 26
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
+
+## 0d. Ana sayfada mobil menüde "Hizmetler ▾" / "Projeler ▾" hiç açılmıyordu
+
+**Belirti:** Kullanıcı GitHub üzerinden canlı siteyi test ederken "hizmetler ve projeler kısmı hâlâ bazen açılmıyor" diye bildirdi. Canlı sitede (`https://saitjerome.github.io/beli-website/`) kapsamlı testler yapıldı:
+- Masaüstünde hizmet listesi butonlarına art arda hızlı tıklama (çalıştı).
+- Mobilde hizmet/proje detay sheet'i ve modalı aç→kaydır→kapat→farklısını aç döngüsü 5+ kez tekrarlandı (hepsi doğru, scroll her seferinde sıfırlandı).
+- Konsol/network hatası yok, GitHub Pages CDN cache'i güncel (`Age: 0`).
+
+**Gerçek kaynak bulundu:** Bunların hiçbiri değil — sorun **yalnızca ana sayfanın (`index.html`) mobil hamburger menüsündeki "Hizmetler ▾" / "Projeler ▾" satırlarıydı**. Bu satırlara dokunulduğunda hiçbir şey olmuyordu (alt menü açılmıyordu). Kod incelenince: `index.html`'in mobil menü script'i `mmHizBtn`, `mmSub`, `mmChev` değişkenlerini tanımlıyordu ama **hiçbirine `addEventListener` eklenmemişti** — diğer 5 sayfada (`hizmetler.html`, `hakkimizda.html`, `projeler.html`, `referanslar.html`, `iletisim.html`) bu handler'lar zaten doğruydu. Bu, geçmişte `update.py`'nin mobil menü script'ini regex ile değiştirdiği adımda kazara silinmiş bir kod parçasıydı (önceki bir araştırmada da tespit edilmiş ama o zaman düzeltilmemişti).
+
+Kullanıcının "bazen açılmıyor" algısı muhtemelen şuradan geliyordu: ana sayfadayken menü hiç açılmıyor, ama Hizmetler/Projeler sayfalarındayken (kendi menüleri doğru çalıştığı için) açılıyordu — sayfadan sayfaya geçerken tutarsız görünüyordu.
+
+**Çözüm:** `hizmetler.html`'deki çalışan koddan birebir kopyalanarak `index.html`'e eklendi:
+```js
+if (mmHizBtn) mmHizBtn.addEventListener('click', () => {
+  mmSub.classList.toggle('open');
+  mmChev.classList.toggle('rot');
+});
+const mmProjBtn = document.getElementById('mm-projeler-btn');
+const mmSubProj = document.getElementById('mm-sub-projeler');
+const mmChevProj = document.getElementById('mm-chev-projeler');
+if (mmProjBtn) mmProjBtn.addEventListener('click', () => {
+  mmSubProj.classList.toggle('open');
+  mmChevProj.classList.toggle('rot');
+});
+```
+
+**Doğrulama:** Yerelde ve canlıda (`saitjerome.github.io/beli-website`) gerçek tıklama simülasyonuyla test edildi — her iki alt menü de artık açılıp kapanıyor, chevron ikonu dönüyor. `git push live main` ile canlıya yansıtıldı (commit `e3401ba`).
 
 ## 0c. "Belis" marka yazısı sayfadan sayfaya farklı görünüyordu
 
