@@ -28,6 +28,7 @@
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
 <style>
+picture { display: contents; }
 .brand-icon { height: 32px; width: auto; display: block; }
 @media (min-width: 768px) { .brand-icon { height: 40px; } }
 .brand-icon-mobile { height: 28px; width: auto; display: block; }
@@ -96,7 +97,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <span class="flex items-center gap-2">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/></picture>
         <span class="brand-text-drawer">Belis</span>
       </span>
       <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
@@ -138,7 +139,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
     <div class="flex items-center gap-4">
       <a class="brand flex items-center gap-2" href="index.html">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/></picture>
         <span class="brand-text-header">Belis</span>
       </a>
     </div>
@@ -180,7 +181,7 @@ body.mm-open #site-header { z-index: 70; }
 <main>
   <!-- SİNEMATİK ARKA PLANLI SAYFA BAŞLIĞI BANNERI -->
   <section class="page-banner relative w-full flex items-end justify-center overflow-hidden bg-industrial-gray">
-    <img src="assets/hakkimizda_bg.jpg" alt="Belis Mühendislik Hakkımızda" width="1600" height="533" fetchpriority="high" decoding="async" class="absolute inset-0 z-0 w-full h-full object-cover select-none pointer-events-none"/>
+    <picture><source type="image/webp" srcset="assets/hakkimizda_bg-900.webp 900w, assets/hakkimizda_bg.webp 1600w" sizes="100vw"/><source type="image/jpeg" srcset="assets/hakkimizda_bg-900.jpg 900w, assets/hakkimizda_bg.jpg 1600w" sizes="100vw"/><img src="assets/hakkimizda_bg.jpg" alt="Belis Mühendislik Hakkımızda" width="1600" height="533" fetchpriority="high" decoding="async" class="absolute inset-0 z-0 w-full h-full object-cover select-none pointer-events-none"/></picture>
     <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
     <div class="relative z-20 max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center w-full">
       <h1 class="text-[36px] md:text-[52px] font-extrabold text-surface-white tracking-tight drop-shadow-md">

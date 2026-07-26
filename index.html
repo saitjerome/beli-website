@@ -28,6 +28,7 @@
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
 <style>
+picture { display: contents; }
 .brand-icon { height: 32px; width: auto; display: block; }
 @media (min-width: 768px) { .brand-icon { height: 40px; } }
 .brand-icon-mobile { height: 28px; width: auto; display: block; }
@@ -152,7 +153,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <span class="flex items-center gap-2">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/></picture>
         <span class="brand-text-drawer">Belis</span>
       </span>
       <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
@@ -193,7 +194,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
     <div class="flex items-center gap-4">
       <a class="brand flex items-center gap-2" href="index.html">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/></picture>
         <span class="brand-text-header">Belis</span>
       </a>
     </div>
@@ -237,7 +238,7 @@ body.mm-open #site-header { z-index: 70; }
 <section class="relative w-full min-h-[100dvh] flex items-center justify-center overflow-hidden" id="hero">
   <!-- Gece şehri görseli (yavaş sinematik zoom) -->
   <div class="absolute inset-0 z-0 bg-[#00121f] overflow-hidden">
-    <img src="assets/proje_finans_merkezi.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async" class="hero-img w-full h-full object-cover"/>
+    <picture><source type="image/webp" srcset="assets/proje_finans_merkezi-900.webp 900w, assets/proje_finans_merkezi.webp 1600w" sizes="100vw"/><source type="image/jpeg" srcset="assets/proje_finans_merkezi-900.jpg 900w, assets/proje_finans_merkezi.jpg 1600w" sizes="100vw"/><img src="assets/proje_finans_merkezi.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async" class="hero-img w-full h-full object-cover"/></picture>
   </div>
 
   <!-- Işıldayan şehir ışıkları (canvas twinkle) -->
@@ -438,7 +439,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 1: İstanbul Finans Merkezi -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_finans_merkezi.jpg" alt="İstanbul Finans Merkezi GGY Bölgesi" width="1600" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_finans_merkezi.webp"/><img src="assets/proje_finans_merkezi.jpg" alt="İstanbul Finans Merkezi GGY Bölgesi" width="1600" height="1200" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Alçak Gerilim</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>
@@ -456,7 +457,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 2: Altınbaş Üniversitesi -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_altinbas_kampus.jpg" alt="Altınbaş Üniversitesi Gayrettepe Kampüsü" width="1100" height="619" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_altinbas_kampus.webp"/><img src="assets/proje_altinbas_kampus.jpg" alt="Altınbaş Üniversitesi Gayrettepe Kampüsü" width="1100" height="619" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Zayıf Akım</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>
@@ -474,7 +475,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 3: Trendyol Spine Tower -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_trendyol_spine.jpg" alt="Trendyol.com Spine Tower Merkez Ofis" width="1100" height="825" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_trendyol_spine.webp"/><img src="assets/proje_trendyol_spine.jpg" alt="Trendyol.com Spine Tower Merkez Ofis" width="1100" height="825" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Alçak Gerilim</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>
@@ -492,7 +493,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 4: Datacasa Veri Merkezi -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_datacasa_dh2.jpg" alt="Datacasa Veri Merkezi Data Hall 2" width="1100" height="733" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_datacasa_dh2.webp"/><img src="assets/proje_datacasa_dh2.jpg" alt="Datacasa Veri Merkezi Data Hall 2" width="1100" height="733" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Alçak Gerilim</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>
@@ -510,7 +511,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 5: Peker Tower -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_peker_tower.jpg" alt="Peker Tower Maslak Ofis Kulesi" width="1100" height="1353" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_peker_tower.webp"/><img src="assets/proje_peker_tower.jpg" alt="Peker Tower Maslak Ofis Kulesi" width="1100" height="1353" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Alçak Gerilim</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>
@@ -528,7 +529,7 @@ body.mm-open #site-header { z-index: 70; }
       <!-- Proje 6: MVK Golf Kulübü -->
       <a href="projeler.html" class="group flex-shrink-0 w-[85%] sm:w-[400px] snap-start bg-white rounded-2xl border border-gray-200/60 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="assets/proje_mvk_golf.jpg" alt="Mustafa Vehbi Koç Golf Kulübü" width="1100" height="825" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <picture><source type="image/webp" srcset="assets/proje_mvk_golf.webp"/><img src="assets/proje_mvk_golf.jpg" alt="Mustafa Vehbi Koç Golf Kulübü" width="1100" height="825" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/></picture>
           <span class="absolute top-4 left-4 text-[11px] font-bold text-white bg-deep-navy/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Orta Gerilim</span>
           <span class="absolute top-4 right-4 text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-sm px-2.5 py-1 rounded-md tracking-wider uppercase">Tamamlandı</span>
         </div>

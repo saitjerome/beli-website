@@ -28,6 +28,7 @@
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
 <style>
+picture { display: contents; }
 .brand-icon { height: 32px; width: auto; display: block; }
 @media (min-width: 768px) { .brand-icon { height: 40px; } }
 .brand-icon-mobile { height: 28px; width: auto; display: block; }
@@ -326,6 +327,22 @@ body.mm-open #site-header { z-index: 70; }
   #mobile-menu .mm-bg, #mobile-menu .mm-item, .mm-sub, .mm-chev { transition: none; }
 }
 </style>
+<script>
+// WebP destegi tespiti (tek seferlik) — JS ile atanan gorseller icin.
+// <head>'te tanimlanir ki asagidaki tum inline script bloklari _img()'i
+// guvenle cagirabilsin (const hoist edilmez; TDZ hatasini onler).
+// Not: yalnizca .jpg/.jpeg yeniden eslenir; ref_*.png logolarin webp
+// karsiligi uretilmedi, bu yuzden onlar oldugu gibi kalir.
+var _webpOK = (function () {
+  try {
+    var c = document.createElement('canvas');
+    return !!(c.toDataURL && c.toDataURL('image/webp').indexOf('data:image/webp') === 0);
+  } catch (e) { return false; }
+})();
+function _img(p) {
+  return (_webpOK && typeof p === 'string') ? p.replace(/\.jpe?g$/i, '.webp') : p;
+}
+</script>
 </head>
 <body class="bg-background text-on-background font-body text-body-md antialiased overflow-x-hidden">
 
@@ -335,7 +352,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <span class="flex items-center gap-2">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/></picture>
         <span class="brand-text-drawer">Belis</span>
       </span>
       <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
@@ -375,7 +392,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
     <div class="flex items-center gap-4">
       <a class="brand flex items-center gap-2" href="index.html">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/></picture>
         <span class="brand-text-header">Belis</span>
       </a>
     </div>
@@ -1213,7 +1230,7 @@ function loadServiceContent(key, scrollToTop) {
   const currentData = servicesData[key];
 
   // Dinamik Banner ve Lüks İkon Enjeksiyonu
-  const _db=document.getElementById('detail-banner-img'); _db.style.visibility=''; _db.src = currentData.banner;
+  const _db=document.getElementById('detail-banner-img'); _db.style.visibility=''; _db.src = _img(currentData.banner);
   document.getElementById('detail-icon-container').innerHTML = currentData.icon;
   document.getElementById('detail-top-tag').innerText = currentData.tag;
   document.getElementById('detail-title').innerText = currentData.title;
@@ -1290,7 +1307,7 @@ function openSheet(key) {
   if (!s) return;
   const sheet = document.getElementById('svc-sheet');
   const bimg = document.getElementById('sheet-banner');
-  bimg.style.visibility = ''; bimg.src = s.banner;
+  bimg.style.visibility = ''; bimg.src = _img(s.banner);
   document.getElementById('sheet-tag').innerText = s.tag;
   document.getElementById('sheet-title').innerText = s.title;
   document.getElementById('sheet-icon').innerHTML = s.icon;
@@ -1388,7 +1405,9 @@ if (window.matchMedia('(max-width: 1023px)').matches) {
 
 
 <script>
-    // Mobil cam menü
+  
+
+  // Mobil cam menü
   const menuBtn = document.getElementById('menu-btn');
   const mm = document.getElementById('mobile-menu');
   const closeMmBtn = document.getElementById('close-mm-btn');

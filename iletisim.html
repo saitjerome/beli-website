@@ -28,6 +28,7 @@
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
 <style>
+picture { display: contents; }
 .brand-icon { height: 32px; width: auto; display: block; }
 @media (min-width: 768px) { .brand-icon { height: 40px; } }
 .brand-icon-mobile { height: 28px; width: auto; display: block; }
@@ -96,7 +97,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <span class="flex items-center gap-2">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/></picture>
         <span class="brand-text-drawer">Belis</span>
       </span>
       <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
@@ -137,7 +138,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
     <div class="flex items-center gap-4">
       <a class="brand flex items-center gap-2" href="index.html">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/></picture>
         <span class="brand-text-header">Belis</span>
       </a>
     </div>

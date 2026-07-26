@@ -5,8 +5,25 @@
    Başarıyla açılırsa eski kart kaydırıcısını gizler; açılamazsa
    (eski tarayıcı, WebGL yok, file:// önizleme) eski kaydırıcı
    aynen çalışmaya devam eder.
+
+   Not: ogl statik `import` yerine initGallery() içinde dinamik
+   import() ile yükleniyor — statik import, IntersectionObserver
+   henüz tetiklenmeden ES modülü ayrıştırılır ayrıştırılmaz (yani
+   kullanıcı galeriye hiç kaydırmasa bile) ~130KB'lık kütüphaneyi
+   her sayfa yüklemesinde indirtiyordu.
    ========================================================= */
-import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/+esm';
+let Camera, Mesh, Plane, Program, Renderer, Texture, Transform;
+
+// WebP destegi tespiti — galeri dokularini webp olarak yukle (varsa).
+const _webpOK = (function () {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.toDataURL && c.toDataURL('image/webp').indexOf('data:image/webp') === 0);
+  } catch (e) { return false; }
+})();
+function _img(p) {
+  return (_webpOK && typeof p === 'string') ? p.replace(/\.jpe?g$/i, '.webp') : p;
+}
 
 function lerp(a, b, t) { return a + (b - a) * t; }
 function debounce(fn, wait) {
@@ -122,7 +139,7 @@ class Media {
     });
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = this.image;
+    img.src = _img(this.image);
     img.onload = () => {
       texture.image = img;
       this.program.uniforms.uImageSizes.value = [img.naturalWidth, img.naturalHeight];
@@ -313,12 +330,15 @@ function initGallery() {
   const fallback = document.getElementById('project-carousel');
   if (!el) return;
 
-  try {
+  // ogl'i yalnızca galeri gerçekten başlatılacağı anda (import()), CDN'den indir
+  import('https://cdn.jsdelivr.net/npm/ogl@1.0.11/+esm').then((OGL) => {
+    ({ Camera, Mesh, Plane, Program, Renderer, Texture, Transform } = OGL);
+
     // Inter fontu hazır olduktan sonra başlat (etiketler doğru fontla çizilsin)
     const ready = (document.fonts && document.fonts.load)
       ? Promise.race([document.fonts.load('bold 28px Inter'), new Promise(r => setTimeout(r, 1500))])
       : Promise.resolve();
-    ready.then(() => {
+    return ready.then(() => {
       // Önce görünür yap ki kapsayıcı gerçek boyutuyla ölçülsün (0px yarışını önler)
       el.classList.add('loaded');
       if (fallback) fallback.classList.add('carousel-hidden');
@@ -338,11 +358,11 @@ function initGallery() {
       if (prev) prev.addEventListener('click', () => app.nudge(-1));
       if (next) next.addEventListener('click', () => app.nudge(1));
     });
-  } catch (err) {
-    // WebGL yoksa eski kaydırıcı görünür kalır
+  }).catch((err) => {
+    // ogl yüklenemedi veya WebGL yoksa eski kaydırıcı görünür kalır
     if (fallback) fallback.classList.remove('carousel-hidden');
     console.warn('CircularGallery başlatılamadı, kart kaydırıcısı kullanılacak.', err);
-  }
+  });
 }
 
 // Her ekran boyutunda (mobil + masaüstü) galeriyi başlat.

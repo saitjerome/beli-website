@@ -28,6 +28,7 @@
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
 <style>
+picture { display: contents; }
 .brand-icon { height: 32px; width: auto; display: block; }
 @media (min-width: 768px) { .brand-icon { height: 40px; } }
 .brand-icon-mobile { height: 28px; width: auto; display: block; }
@@ -104,6 +105,22 @@ body.mm-open #site-header { z-index: 70; }
   box-shadow: 0 4px 12px rgba(0, 85, 143, 0.2);
 }
 </style>
+<script>
+// WebP destegi tespiti (tek seferlik) — JS ile atanan gorseller icin.
+// <head>'te tanimlanir ki asagidaki tum inline script bloklari _img()'i
+// guvenle cagirabilsin (const hoist edilmez; TDZ hatasini onler).
+// Not: yalnizca .jpg/.jpeg yeniden eslenir; ref_*.png logolarin webp
+// karsiligi uretilmedi, bu yuzden onlar oldugu gibi kalir.
+var _webpOK = (function () {
+  try {
+    var c = document.createElement('canvas');
+    return !!(c.toDataURL && c.toDataURL('image/webp').indexOf('data:image/webp') === 0);
+  } catch (e) { return false; }
+})();
+function _img(p) {
+  return (_webpOK && typeof p === 'string') ? p.replace(/\.jpe?g$/i, '.webp') : p;
+}
+</script>
 </head>
 <body class="bg-background text-on-background font-body text-body-md antialiased overflow-x-hidden">
 
@@ -114,7 +131,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="relative h-full flex flex-col px-7 pt-7 pb-10 overflow-y-auto">
     <div class="flex items-center justify-between mb-8">
       <span class="flex items-center gap-2">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon-mobile" width="36" height="40"/></picture>
         <span class="brand-text-drawer">Belis</span>
       </span>
       <button aria-label="Menüyü kapat" class="p-2.5 bg-white/80 rounded-full shadow-sm text-industrial-gray" id="close-mm-btn">
@@ -155,7 +172,7 @@ body.mm-open #site-header { z-index: 70; }
   <div class="max-w-max-width mx-auto bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] rounded-2xl border border-gray-200/70 flex items-center justify-between px-4 py-2 md:px-8 md:py-4 transition-all duration-300">
     <div class="flex items-center gap-4">
       <a class="brand flex items-center gap-2" href="index.html">
-        <img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/>
+        <picture><source type="image/webp" srcset="assets/belis-icon.webp"/><img src="assets/belis-icon.png" alt="" aria-hidden="true" class="brand-icon" width="36" height="40"/></picture>
         <span class="brand-text-header">Belis</span>
       </a>
     </div>
@@ -197,7 +214,7 @@ body.mm-open #site-header { z-index: 70; }
 <main>
   <!-- SİNEMATİK ARKA PLANLI SAYFA BAŞLIĞI BANNERI -->
   <section class="page-banner relative w-full flex items-end justify-center overflow-hidden bg-industrial-gray">
-    <img src="assets/banner_projeler.jpg" alt="Belis Mühendislik Projeleri" width="1600" height="900" fetchpriority="high" decoding="async" onerror="this.style.display='none';" class="absolute inset-0 z-0 w-full h-full object-cover select-none pointer-events-none"/>
+    <picture><source type="image/webp" srcset="assets/banner_projeler-900.webp 900w, assets/banner_projeler.webp 1600w" sizes="100vw"/><source type="image/jpeg" srcset="assets/banner_projeler-900.jpg 900w, assets/banner_projeler.jpg 1600w" sizes="100vw"/><img src="assets/banner_projeler.jpg" alt="Belis Mühendislik Projeleri" width="1600" height="900" fetchpriority="high" decoding="async" onerror="this.style.display='none';" class="absolute inset-0 z-0 w-full h-full object-cover select-none pointer-events-none"/></picture>
     <div class="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
     <div class="relative z-20 max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop text-center w-full">
       <span class="text-sm md:text-base font-bold text-white tracking-widest uppercase bg-[#003B6F] px-4 py-2 rounded-lg mb-3 inline-block shadow-sm">PROJELERİMİZ</span>
@@ -291,7 +308,9 @@ body.mm-open #site-header { z-index: 70; }
 </footer>
 
 <script>
-    // Mobil cam menü
+  
+
+  // Mobil cam menü
   const menuBtn = document.getElementById('menu-btn');
   const mm = document.getElementById('mobile-menu');
   const closeMmBtn = document.getElementById('close-mm-btn');
@@ -541,7 +560,7 @@ function renderProjects(filterKey = 'all') {
       
       card.innerHTML = `
         <div class="relative overflow-hidden h-52 bg-gray-100">
-          <img src="${project.image}" alt="${project.title}" loading="lazy" decoding="async" width="1100" height="825" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+          <img src="${_img(project.image)}" alt="${project.title}" loading="lazy" decoding="async" width="1100" height="825" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
           <div style="display:none;" class="absolute inset-0 flex-col items-center justify-center bg-gray-100 text-secondary/50">
             <span class="material-symbols-outlined text-4xl">imagesmode</span>
             <span class="text-[11px] font-semibold mt-1">Görsel yakında eklenecek</span>
@@ -596,7 +615,7 @@ function openModal(key) {
   const p = projectsData[key];
   if(!p) return;
 
-  const mi = document.getElementById('modal-img'); mi.style.visibility=''; mi.src = p.image;
+  const mi = document.getElementById('modal-img'); mi.style.visibility=''; mi.src = _img(p.image);
   document.getElementById('modal-category').innerText = categoryNames[p.category];
   document.getElementById('modal-title').innerText = p.title;
   document.getElementById('modal-location').innerText = p.location;
