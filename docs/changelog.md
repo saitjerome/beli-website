@@ -2,6 +2,49 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0e. Lighthouse performans skoru düşüklüğü — teşhis ve çözüm
+
+**Belirti:** Canlı sitede Lighthouse skorları: masaüstü Performance **78**, mobil **56**. Accessibility 98, Best Practices 100, SEO 100 (bunlar zaten iyiydi, dokunulmadı).
+
+### Teşhis (ölçümle, tahminle değil)
+
+**1. `ogl` WebGL kütüphanesi her sayfa yüklemesinde boşuna iniyordu.**
+`assets/circular-gallery.js` galeriyi yalnızca kullanıcı o bölüme kaydırınca başlatmak üzere IntersectionObserver kullanıyordu — ama kütüphaneyi dosyanın en üstünde **statik `import`** ile çekiyordu. ES modüllerinde statik `import`, modül ayrıştırılır ayrıştırılmaz (IntersectionObserver koduna hiç gelinmeden) indirilir. Yani tembel yükleme planı fiilen çalışmıyordu: kullanıcı galeriyi hiç görmese bile her ziyarette `cdn.jsdelivr.net`'ten ~130KB (brotli ~40KB) iniyor, ayrıştırılıp derleniyordu. Mobilde Lighthouse CPU'yu 4x yavaşlattığı için bu ceza mobilde çok daha ağırdı — masaüstü 78 / mobil 56 farkının ana sebebi buydu.
+
+**2. Görseller tek boyutlu JPEG'di.** Mobil ziyaretçi de masaüstüyle aynı 1600px hero'yu (289KB) indiriyordu; modern format (WebP) hiç kullanılmıyordu.
+
+### Çözüm
+
+- **`ogl` dinamik `import()`'a çevrildi** (`initGallery()` içine). Artık yalnızca galeri gerçekten açılacaksa iniyor. Ölçüldü: ilk yüklemede jsdelivr isteği **0**.
+- **Tüm görseller WebP'ye çevrildi**, JPEG'ler `<picture>` içinde fallback olarak korundu — WebP desteklemeyen eski tarayıcılar (Safari 13 vb.) hâlâ JPEG alıyor, hiçbir görsel kaybolmuyor.
+- **Her sayfanın hero/LCP görseli için 900w mobil varyant** üretildi (`srcset` + `sizes="100vw"`). Mobil cihaz artık 1600w yerine 900w indiriyor.
+- **Banner/hero görselleri q=72'ye çekildi.** Bunlar arka plan görselleri: üzerlerinde koyu gradient, başlık metni, ana sayfada ışıldama canvas'ı var ve hero 1.2x zoom ile hareket ediyor. 2x büyütülmüş kırpmalarla q=82 ile karşılaştırıldı — görsel fark yok. Modal/kart içinde **doğrudan** izlenen proje fotoğrafları yüksek kalitede (q=82) bırakıldı.
+- Görseller **değiştirilmedi** — aynı fotoğraflar, yalnızca format/boyut/sıkıştırma.
+
+### Ölçülen sonuç (canlı sunucudan, gerçek dosya boyutları)
+
+Ana sayfa, mobil senaryo (375px @dpr2 → 900w seçilir), gzip/brotli dahil:
+
+| Kaynak | Önce | Sonra |
+|---|---|---|
+| hero görseli | 289 KB (JPEG 1600w) | **91 KB** (WebP 900w) |
+| logo | 25 KB (PNG) | **3.6 KB** (WebP) |
+| `ogl` (jsdelivr) | 39 KB | **0 KB** |
+| HTML + CSS + JS | ~25 KB | ~25 KB |
+| **TOPLAM** | **377 KB** | **118 KB** |
+
+**%68 düşüş.** Masaüstünde hero 254 KB → 190 KB.
+
+### Bu geçişte yakalanan iki kendi hatam
+
+- **`display: contents` gerekliliği:** `<img class="w-full h-full">` bir `<picture>` içine alındığında yüzdeler inline `<picture>`'a göre çözülüp layout bozuluyordu. `picture { display: contents; }` eklendi — picture kutu üretmiyor, `<img>` gerçek positioned parent'ına göre boyutlanmaya devam ediyor. 6 sayfada layout birebir korundu (ölçümle doğrulandı).
+- **TDZ hatası:** JS ile atanan görseller `<picture>` kullanamadığı için tek seferlik WebP tespiti (`_img()`) eklendi. İlk denemede helper, kullanıldığı yerden ~180 satır **sonraya** enjekte edildi; `const` hoist edilmediği için (temporal dead zone) `hizmetler.html` açılışında `loadServiceContent()` → `_img()` → `ReferenceError` fırlatıp sayfa başlatmasını yarıda kesti (menü doluyor ama hiçbir hizmet açılmıyordu). Helper `<head>`'e taşındı; artık tüm inline bloklardan önce tanımlı.
+
+### Notlar
+
+- `ref_*.png` müşteri logoları kasıtlı olarak PNG bırakıldı (289B–10KB, WebP kazancı yok) — bu yüzden `_img()` yalnızca `.jpg/.jpeg` uzantılarını yeniden eşliyor.
+- Galerinin kendisi bu test ortamında doğrulanamadı: tarayıcı paneli görünmediği için sayfa kare üretmiyor ve **IntersectionObserver hiç tetiklenmiyor** (boş bir IO ile ayrıca kanıtlandı). Bunun yerine değişikliğin riskli kısmı doğrudan sınandı: dinamik `import()` başarılı, 7 sınıf da geliyor, `Renderer` WebGL context oluşturuyor. Gerçek tarayıcılarda IO güvenilir çalışır.
+
 ## 0d. Ana sayfada mobil menüde "Hizmetler ▾" / "Projeler ▾" hiç açılmıyordu
 
 **Belirti:** Kullanıcı GitHub üzerinden canlı siteyi test ederken "hizmetler ve projeler kısmı hâlâ bazen açılmıyor" diye bildirdi. Canlı sitede (`https://saitjerome.github.io/beli-website/`) kapsamlı testler yapıldı:
