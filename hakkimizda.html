@@ -20,10 +20,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23003B6F'/%3E%3Cpath d='M37 6 14 38h13l-5 20 26-34H33l4-18z' fill='%2310B981'/%3E%3C/svg%3E"/>
+<link rel="preload" href="assets/fonts/inter-subset.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
 <link href="assets/tailwind.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<style>
+/* Yerel (self-hosted) variable fontlar — sitede kullanılan karakterlere
+   subset edilmiş. Google Fonts'a bağımlılık yok. wght ekseni serbest,
+   yani tüm kalınlıklar tek dosyadan gelir. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/inter-subset.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(assets/fonts/jetbrainsmono-subset.woff2) format('woff2')}
+</style>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
 <style>.material-symbols-outlined{opacity:0;transition:opacity .25s ease}html.ms-ready .material-symbols-outlined{opacity:1}</style>
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 

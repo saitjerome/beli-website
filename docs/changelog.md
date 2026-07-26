@@ -2,6 +2,32 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0f. Yazı tipleri kendi sunucumuza alındı (self-hosted, subset)
+
+**Amaç:** Skorlar 85/85'e çıktıktan sonra, tasarımdan hiçbir şey feda etmeden yapılabilecek son temiz iyileştirme. Google Fonts'a olan üçüncü taraf bağımlılığını kaldırmak (2 ayrı origin'e DNS + TLS el sıkışması) ve font yükünü küçültmek.
+
+**Ölçüm (önce):** Google Fonts'un bu site için gerçekte gönderdiği veri ölçüldü — Inter (variable, latin + latin-ext) + JetBrains Mono (latin + latin-ext) = **172 KB**.
+
+**Kritik tuzak — Türkçe karakterler:** Google fontları `latin` ve `latin-ext` diye ikiye bölerek sunuyor ve Türkçe harfler bu ikisine **dağılmış** durumda: `ğ Ğ ş Ş İ` → latin-ext, `ı ç Ç ö Ö ü Ü` → latin. İlk denemede tek alt kümeden subset alındı ve doğrulama scripti `EKSIK: ğĞşŞİ` sonucunu verdi — yani site metinlerinde bu harfler kutu (tofu) olarak görünecekti. Bu yüzden yaklaşım değiştirilip Google Fonts upstream'indeki **bölünmemiş tam variable TTF** kaynak alındı.
+
+**Yapılanlar:**
+- Sitedeki 6 HTML dosyası taranarak fiilen kullanılan karakter kümesi çıkarıldı (146 benzersiz karakter) — `.claude/collect-chars.js`.
+- Tam variable TTF'ler (Inter 877 KB, JetBrains Mono 187 KB) bu karakter setine subset edildi (`subset-font` / harfbuzz) — `.claude/subset-fonts.js`.
+- Inter'in `opsz` (optik boyut) ekseni 18'de sabitlendi: variable eksen verisinin yarısı buradan geliyordu (83 KB → 54 KB). `wght` ekseni serbest bırakıldı, yani 100-900 arası tüm kalınlıklar hâlâ tek dosyadan geliyor.
+- JetBrains Mono, kullanılan karakterlerden daha geniş olan **tam Türkçe/ASCII setinde** bırakıldı (37 KB). Gerçekte yalnızca 4 sayfada, birkaç büyük-harf etikette kullanılıyor (hizmetler/projeler'de hiç yok) ve daha agresif subset ~22 KB kazandırırdı; ancak ileride yeni bir etikete farklı bir harf yazıldığında sessizce kutu çıkma riski göze alınmadı.
+- 6 sayfada Google'ın Inter+JetBrains stylesheet'i (`<noscript>` yedeği dahil) kaldırıldı; yerine inline `@font-face` (ek istek yok) + Inter için `preload` eklendi — `.claude/selfhost-fonts.js`.
+- Material Symbols ikon fontu bilinçli olarak Google'da **bırakıldı** (kullanıcıyla kararlaştırıldı: bu madde kapsam dışı).
+
+**Sonuç:** Font yükü **172 KB → 88 KB** (~%49, 84 KB tasarruf) + `fonts.googleapis.com` ve `fonts.gstatic.com`'a giden Inter/JetBrains istekleri tamamen kalktı (ikon fontu için tek bağlantı kaldı).
+
+**Doğrulama:**
+- Font ikili dosyaları üzerinde glif kontrolü: her iki fontta da tüm Türkçe harfler mevcut.
+- Tarayıcıda piksel bazlı kontrol (`ğĞşŞİıçÇöÖüÜ` tek tek canvas'a çizilip `.notdef`/boş ile karşılaştırıldı): her iki fontta da hepsi çiziliyor. Not: ilk denenen "glif genişliği" yöntemi monospace fontta yanıltıcı sonuç verdi (JetBrains Mono'da tüm glifler eşit genişlikte olduğu için `.notdef`'ten ayırt edilemiyor) — bu yüzden piksel karşılaştırmasına geçildi.
+- Ağ izi: fontlar yerelden geliyor, Inter tek seferde çekiliyor (preload çift indirmeye yol açmıyor).
+- Metrik karşılaştırması (öncesi/sonrası): JetBrains Mono birebir aynı; Inter metinleri ~%1-2 daha dar (opsz sabitlemesi + font sürüm farkı). Daralma yönü satır kaymasına yol açmaz, konsolda hata yok.
+
+**Yan doğrulama — galeri:** Bu sırada yerel testte galerinin açılmadığı görüldü. Araştırıldı ve **ortam kısıtı** olduğu kanıtlandı: tarayıcı paneli görüntülenmediğinde sayfa kare üretmiyor, `IntersectionObserver` da render'a bağlı olduğu için hiç tetiklenmiyor (kontrol amaçlı kurulan ikinci bir gözlemci de tetiklenmedi). Kodun doğruluğunu IO'ya bağımlı olmadan kanıtlamak için geçici bir test sayfası yazıldı: modül yüklenmeden önce `IntersectionObserver` silinerek kodun "IO yok → doğrudan başlat" dalı tetiklendi. Sonuç: dinamik `import()`, destructuring ve WebGL canvas oluşturma zincirinin tamamı çalışıyor (canvas 1240×400, yedek kaydırıcı otomatik gizlendi, konsol temiz). Test dosyası sonrasında silindi.
+
 ## 0e. Lighthouse performans skoru düşüklüğü — teşhis ve çözüm
 
 **Belirti:** Canlı sitede Lighthouse skorları: masaüstü Performance **78**, mobil **56**. Accessibility 98, Best Practices 100, SEO 100 (bunlar zaten iyiydi, dokunulmadı).
