@@ -326,33 +326,33 @@ body.mm-open #site-header { z-index: 70; }
    Logo yoksa kart otomatik olarak firma adını yazıyla gösterir.
    ============================================================ */
 const referencesData = [
-  { name: "Gökyol İnşaat ve Sanayii A.Ş." },
-  { name: "Barış İnşaat A.Ş." },
-  { name: "Alperdem Elektrik İnşaat Ticaret A.Ş.",   logo: "assets/ref_alperdem.png" },
-  { name: "Vardallar Grup",                          logo: "assets/ref_vardallar.png" },
-  { name: "Mapitech Mühendislik" },
-  { name: "Mensatech Mühendislik" },
-  { name: "Akser Elektrik",                          logo: "assets/ref_akser.png" },
-  { name: "DMY Mühendislik" },
-  { name: "AEC Mühendislik" },
-  { name: "Delta Mobilya",                           logo: "assets/ref_delta_mobilya.png" },
-  { name: "Proje Elektrik" },
-  { name: "Körfez Eta Mühendislik" },
-  { name: "Büyük Avrupa İnşaat" },
-  { name: "İGA İstanbul Havalimanı",                 logo: "assets/ref_iga.png" },
-  { name: "Decathlon Akmerkez",                      logo: "assets/ref_decathlon.png" },
-  { name: "Altınbaş Üniversitesi Gayrettepe Kampüs", logo: "assets/ref_altinbas.png" },
-  { name: "Trendyol.com Maslak",                     logo: "assets/ref_trendyol.png" },
-  { name: "Koç Ortaokulu Beykoz",                    logo: "assets/ref_koc_okullari.png" },
-  { name: "Özyeğin Üniversitesi" },
-  { name: "Witto Coffee" },
-  { name: "Akment Alüminyum Geri Dönüşüm" },
-  { name: "Arçelik",                                 logo: "assets/ref_arcelik.png" },
-  { name: "Beko",                                    logo: "assets/ref_beko.png" },
-  { name: "Borsa İstanbul",                          logo: "assets/ref_borsa_istanbul.png" },
-  { name: "Gama Enerji — Çakırlar HES",              logo: "assets/ref_gama_enerji.png" },
-  { name: "Çelebi Konsept Mimarlık",                 logo: "assets/ref_celebi_konsept.png" },
-  { name: "Dedeman Hotels & Resorts",                logo: "assets/ref_dedeman.png" },
+  { name: "Gökyol İnşaat ve Sanayii A.Ş.",          logo: "assets/ref_gokyol.webp" },
+  { name: "Barış İnşaat A.Ş.",                      logo: "assets/ref_baris_insaat.webp" },
+  { name: "Alperdem Elektrik İnşaat Ticaret A.Ş.",   logo: "assets/ref_alperdem_new.webp" },
+  { name: "Vardallar Grup",                          logo: "assets/ref_vardallar.webp" },
+  { name: "Mapitech Mühendislik",                   logo: "assets/ref_mapitech.webp" },
+  { name: "Mensatech Mühendislik",                  logo: "assets/ref_mensatech.svg" },
+  { name: "Akser Elektrik",                          logo: "assets/ref_akser.webp" },
+  { name: "DMY Mühendislik",                        logo: "assets/ref_dmy.webp" },
+  { name: "AEC Mühendislik",                        logo: "assets/ref_aec.webp" },
+  { name: "Delta Mobilya",                           logo: "assets/ref_delta_mobilya_new.webp" },
+  { name: "Proje Elektrik",                         logo: "assets/ref_proje_elektrik.webp" },
+  { name: "Körfez Eta Mühendislik",                 logo: "assets/ref_korfez_eta.svg" },
+  { name: "Büyük Avrupa İnşaat",                    logo: "assets/ref_buyuk_avrupa.webp" },
+  { name: "İGA İstanbul Havalimanı",                 logo: "assets/ref_iga.webp" },
+  { name: "Decathlon Akmerkez",                      logo: "assets/ref_decathlon.webp" },
+  { name: "Altınbaş Üniversitesi Gayrettepe Kampüs", logo: "assets/ref_altinbas.webp" },
+  { name: "Trendyol.com Maslak",                     logo: "assets/ref_trendyol.webp" },
+  { name: "Koç Ortaokulu Beykoz",                    logo: "assets/ref_koc_okullari_new.webp" },
+  { name: "Özyeğin Üniversitesi",                   logo: "assets/ref_ozyegin.webp" },
+  { name: "Witto Coffee",                           logo: "assets/ref_witto.webp" },
+  { name: "Akment Alüminyum Geri Dönüşüm",          logo: "assets/ref_akment.webp" },
+  { name: "Arçelik",                                 logo: "assets/ref_arcelik.webp" },
+  { name: "Beko",                                    logo: "assets/ref_beko.webp" },
+  { name: "Borsa İstanbul",                          logo: "assets/ref_borsa_istanbul.webp" },
+  { name: "Gama Enerji — Çakırlar HES",              logo: "assets/ref_gama_enerji.webp" },
+  { name: "Çelebi Konsept Mimarlık",                 logo: "assets/ref_celebi_konsept.webp" },
+  { name: "Dedeman Hotels & Resorts",                logo: "assets/ref_dedeman.webp" },
   { name: "Doğuş Group",                             logo: "assets/ref_dogus.png" }
 ];
 
@@ -363,7 +363,7 @@ function renderReferences() {
 
   referencesData.forEach((ref, index) => {
     const card = document.createElement('div');
-    card.className = "ref-card group bg-white rounded-2xl border border-outline-variant/30 shadow-sm hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-32 md:h-36 flex items-center justify-center p-5 md:p-6";
+    card.className = "ref-card group bg-white rounded-2xl border border-outline-variant/30 shadow-sm hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-40 md:h-44 flex flex-col items-center justify-center p-5 md:p-6 gap-3";
     card.style.animationDelay = (index * 45) + 'ms';
     card.setAttribute('title', ref.name);
 
@@ -373,14 +373,17 @@ function renderReferences() {
         alt="${ref.name}"
         loading="lazy"
         decoding="async"
-        class="max-h-full max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+        class="max-h-[60%] max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
       />
-      <div style="display:none;" class="w-full h-full flex-col items-center justify-center text-center">
+      <div style="display:none;" class="w-full flex-col items-center justify-center text-center">
         <span class="text-[12px] md:text-[13px] font-bold text-deep-navy/70 group-hover:text-primary uppercase tracking-wide leading-snug transition-colors">
           ${ref.name}
         </span>
       </div>
+      <span class="text-[11px] md:text-[12px] font-semibold text-on-surface-variant/60 group-hover:text-primary tracking-wide text-center leading-tight transition-colors">
+        ${ref.name}
+      </span>
     ` : `
       <div class="w-full h-full flex flex-col items-center justify-center text-center">
         <span class="text-[12px] md:text-[13px] font-bold text-deep-navy/70 group-hover:text-primary uppercase tracking-wide leading-snug transition-colors">

@@ -116,8 +116,8 @@ body.mm-open #site-header { z-index: 70; }
 // WebP destegi tespiti (tek seferlik) — JS ile atanan gorseller icin.
 // <head>'te tanimlanir ki asagidaki tum inline script bloklari _img()'i
 // guvenle cagirabilsin (const hoist edilmez; TDZ hatasini onler).
-// Not: yalnizca .jpg/.jpeg yeniden eslenir; ref_*.png logolarin webp
-// karsiligi uretilmedi, bu yuzden onlar oldugu gibi kalir.
+// Not: yalnizca .jpg/.jpeg yeniden eslenir. Referans logolari (referanslar.html)
+// dogrudan .webp olarak yazilidir ve bu fonksiyondan gecmez.
 var _webpOK = (function () {
   try {
     var c = document.createElement('canvas');

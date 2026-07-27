@@ -2,6 +2,28 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0g. Referans logoları tamamlandı ve optimize edildi (teslim öncesi son geçiş)
+
+**Site sahibinin yaptığı güncelleme:** `referanslar.html` içindeki 12 firma daha önce logosuz olduğu için yalnızca yazıyla gösteriliyordu; bu firmaların logoları eklendi ve mevcut 12 logo da yenilendi. Kart tasarımı da değiştirildi: logo artık kartın tamamını kaplamak yerine üst kısımda duruyor ve altında firma adı yazıyor (`h-40/h-44`, `flex-col`, logo `max-h-[60%]`).
+
+**Tespit edilen sorun:** Eklenen 25 logonun tamamı **1024×1024 PNG** formatındaydı, toplam **4.15 MB**. Oysa bu logolar kartlarda yaklaşık 100px yükseklikte gösteriliyor — yani her boyutta ~10 kat gereğinden büyük. Bu haliyle yayınlansaydı, referanslar sayfası tek başına 4 MB'ın üzerine çıkacak ve daha önce yapılan tüm performans çalışması (görsel optimizasyonu, font subsetting) fazlasıyla geri verilecekti.
+
+**Çözüm:**
+- Orijinal dosyalar depo dışına yedeklendi (`.claude/ref-logos-original/`), böylece git geçmişi 4 MB'lık PNG'lerle kalıcı olarak şişirilmedi.
+- 25 logo 320px'e küçültülüp WebP'ye çevrildi (kalite 82; ~100px gösterim için yüksek yoğunluklu ekranlarda bile 3x pay bırakıyor) — `.claude/optimize-ref-logos.js`.
+- `referanslar.html` referansları `.webp`'ye çevrildi, kullanılmayan büyük PNG'ler silindi — `.claude/switch-ref-logos.js`.
+- İstisna: `ref_dogus.png` zaten 1.3 KB ve şeffaflığı olan küçük bir dosya; WebP karşılığı daha büyük çıktığı için PNG bırakıldı (script bunu otomatik tespit edip PNG'de bıraktı).
+- İki logo SVG olarak geldi (`ref_korfez_eta.svg`, `ref_mensatech.svg`, ~1 KB) — ölçeklenebilir ve zaten küçük oldukları için dokunulmadı.
+
+**Sonuç:** Referans logoları **4.15 MB → 134 KB (%97 azalma)**.
+
+**Doğrulama (teslim öncesi tam kontrol):**
+- 28 logonun tamamı HTTP 200 dönüyor, tarayıcıda çözülebiliyor (320×320) ve piksel analizinde gerçek içerik taşıyor (boş/düz renk değil).
+- 6 sayfada toplam **171 varlık referansı** tek tek denetlendi — kırık bağlantı/eksik dosya **yok**.
+- Konsolda hata yok.
+- Not: Otomatik denetim `${ref.logo}` ve `${_img(project.image)}` gibi JS şablon değişkenlerini "eksik dosya" olarak işaretledi; bunlar çalışma anında üretilen dinamik yollar, gerçek bir sorun değil. Aynı şekilde "kullanılmayan" görünen WebP'ler de `_img()` fonksiyonuyla çalışma anında `.jpg → .webp` çevrimiyle kullanılıyor; hiçbiri silinmedi.
+- `hizmetler.html` ve `projeler.html` içindeki `_img()` fonksiyonunun üstünde duran "referans logolarının webp karşılığı üretilmedi" yorumu artık geçersiz kaldığı için güncellendi.
+
 ## 0f. Yazı tipleri kendi sunucumuza alındı (self-hosted, subset)
 
 **Amaç:** Skorlar 85/85'e çıktıktan sonra, tasarımdan hiçbir şey feda etmeden yapılabilecek son temiz iyileştirme. Google Fonts'a olan üçüncü taraf bağımlılığını kaldırmak (2 ayrı origin'e DNS + TLS el sıkışması) ve font yükünü küçültmek.
