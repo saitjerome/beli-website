@@ -2,6 +2,33 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0k. Kazanılan performans bütçesi kaliteye çevrildi (animasyon + masaüstü banner)
+
+0j'deki optimizasyon masaüstünde TBT'yi 40.243 ms'den 0 ms'ye indirmiş, skoru 65'ten 98'e çıkarmıştı. Bu, elde ciddi bir performans bütçesi bıraktı; o bütçe görsel kaliteye çevrildi. Her adım ölçülerek yapıldı (`.claude/lh.js` ile gerçek Lighthouse).
+
+**1. Animasyon kalitesi**
+- **Damga çözünürlüğü 64px → 128px.** Bokeh kürecikleri 96px'e kadar büyütülerek çiziliyordu; 64px'lik damga bu boyutta upscale edilip yumuşuyordu. Damgalar bir kez üretilip önbelleğe alındığı için bu büyütmenin kare-başına maliyeti yok.
+- **Daha zengin ışık geçişi.** Glow gradyanına ara duraklar eklendi (parlak çekirdek → sıcak hale → yumuşak sönüm), daha fotografik bir "bloom" hissi veriyor.
+- **Yoğunluk artırıldı.** Işık sayısı ~%35 arttı (formül `w*h/12000` → `w*h/8200`, üst sınır 120 → 190), bokeh 14 → 20, ikaz ışıkları 9 → 13. Alan tabanlı formül korunduğu için küçük ekranlarda otomatik olarak daha az ışık üretiliyor.
+- **Boyut çeşitliliği.** Işıkların ~%12'si belirgin şekilde daha büyük; çoğunluk küçük noktalar. Daha derin, gerçekçi bir şehir dokusu veriyor.
+
+**2. Masaüstü banner kalitesi** (yalnızca 1600w dosya — mobil 900w dosyaya dokunulmadı)
+- q90 → **q92 + hafif keskinleştirme** (`sharpen sigma 0.6`). Salt kaliteyi yükseltmek yeterli değildi: kaynak zaten sıkıştırılmış bir JPEG olduğu için q95'e çıkmak +125 KB'a karşılık gözle görülmeyen bir fark veriyordu. Hafif keskinleştirme ise sıkıştırma/yeniden boyutlandırmadan gelen yumuşamayı telafi ederek **gerçek bir netlik kazancı** sağlıyor (2x kırpmada bina kenarları ve pencere detayları belirgin şekilde toparlandı).
+- Boyut: 367 KB → 429 KB (+62 KB).
+
+**Ölçülen sonuç (yerel, 3'er ölçüm):**
+
+| | Değişiklik öncesi | Sonra |
+|---|---|---|
+| Masaüstü | 98 (LCP 1.04s, TBT 0 ms) | **98** (LCP 1.10s, TBT 0 ms) |
+| Mobil | 98-99 | **95** medyan, TBT **0 ms** |
+
+Masaüstünde skor korundu: banner 62 KB büyüdü, LCP yalnızca 60 ms arttı ve masaüstünün 1.2s eşiğinin belirgin şekilde altında kaldı. Animasyon %35 yoğunlaşmasına rağmen TBT her iki cihazda da 0 ms.
+
+Mobil ölçümlerdeki oynama (89-98 arası) localhost kaynaklı ölçüm gürültüsüdür; **mobil hero dosyası bu adımda hiç değişmedi** (91 KB, canlıda 99 puan almıştı) ve mobil TBT 0 ms olarak doğrulandı.
+
+**Doğrulama:** Animasyonun duraklatma davranışı yeniden test edildi — hero ekrandayken 60 kare/sn, ekran dışında **0 kare/sn**, geri dönünce yeniden başlıyor. Hero görüntüsü ekran görüntüsüyle kontrol edildi.
+
 ## 0j. Asıl performans darboğazı bulundu: hero ışıldama animasyonu (masaüstü 85 → 98)
 
 **İstek:** Mobili bir önceki (iyi) haline döndürmek; masaüstünde ana banner kalitesini puan düşürmeden olabildiğince artırmak.
