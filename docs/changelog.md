@@ -2,6 +2,25 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0i. Ana sayfa hero görselinin kalitesi yükseltildi
+
+**Belirti:** Mobil Lighthouse skoru 96'ya çıktıktan sonra, site sahibi ana sayfadaki hero görselinin (`proje_finans_merkezi`) gözle görülür şekilde kalite kaybettiğini fark etti.
+
+**Kök neden:** Bu görsel, farklı optimizasyon geçişlerinde **üç kez** sıkıştırılmıştı: `optimize-images.js` (jpeg q78) → `make-hero-variants.js` (900w türevleri, webp q80/jpeg q78) → `recompress-banners.js` (Lighthouse geçişinde tam boy webp q72'ye, 900w webp q74'e düşürüldü). Her tur kendi başına makul görünse de üst üste binince kaliteyi fazla düşürmüştü.
+
+**Doğrulama yöntemi:** Kaliteyi düşüren asıl etkenin webp sıkıştırması mı yoksa kaynak fotoğrafın kendisi mi olduğunu ayırt etmek için gökyüzü bölgesinden 2x büyütülmüş kırpmalar karşılaştırıldı: kaynak JPEG'te (q78) de aynı bulut geçiş deseni görüldü — yani gökyüzündeki yumuşak banding kaynağın kendisinde var, webp'nin eklediği bir kusur değil. Asıl kalite farkı bina/ışık gibi keskin kenarlı detaylarda ortaya çıktı.
+
+**Çözüm:** Elde daha iyi bir kaynak olup olmadığı kontrol edildi — `.claude/assets-backup/`'taki yedek daha düşük çözünürlüktü (1448×1086 vs mevcut 1600×1200), yani mevcut JPEG zaten elimizdeki en iyi kaynaktı. Bu kaynaktan üç türev de daha yüksek kalitede yeniden üretildi:
+- `proje_finans_merkezi.webp` (masaüstü/1600w): q72 → **q90**
+- `proje_finans_merkezi-900.webp` (mobil): q74 → **q88**
+- `proje_finans_merkezi-900.jpg` (mobil, jpeg fallback): q78 → **q85**
+
+**Bedel:** Mobil hero görseli 91 KB → 159 KB (+68 KB), masaüstü 190 KB → 367 KB (+177 KB). Bu artış kasıtlı ve kabul edilebilir görüldü çünkü artık bu görselle bant genişliği için yarışan başka bir "High" öncelikli istek yok (bkz. 0h) — tek başına önceliklendirilmiş şekilde yükleniyor.
+
+**Kapsam:** Yalnızca ana sayfanın hero görseline uygulandı; diğer sayfaların alt-öncelikli banner'ları (küçük, daha az öne çıkan sayfa başlıkları) mevcut q72 seviyesinde bırakıldı — orijinal `recompress-banners.js` yorumunda belirtildiği gibi, bunlarda kalite farkı 2x büyütmede bile ayırt edilemiyordu.
+
+**Doğrulama:** Yerelde konsol hatası yok; bina/ışık detayları 2x kırpmada net görünüyor.
+
 ## 0h. Font preload'i mobil Lighthouse skorunu 85'ten 58'e düşürdü — geri alındı
 
 **Belirti:** Site sahibi teslim öncesi kendi Chrome DevTools'unda mobil Lighthouse çalıştırdı: Performance **58** (önceki ölçümde 85 idi). Accessibility (98), Best Practices (100), SEO (100) birebir aynı kaldı — bu, sorunun erişilebilirlik/yapısal bir şeyde değil, doğrudan yükleme zamanlamasında olduğunu gösteriyordu.
