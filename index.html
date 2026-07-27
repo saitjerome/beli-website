@@ -712,6 +712,53 @@ body.mm-open #site-header { z-index: 70; }
       }
     }
 
+    /* Isik "damgasi" onbellegi.
+       Onceki surumde her kare, her isik icin ctx.shadowBlur (canvas'in en
+       pahali islemlerinden biri) ve her bokeh icin sifirdan
+       createRadialGradient calisiyordu: ~120 isik x 60 kare = saniyede
+       binlerce blur/gradyan. Olcumde bu tek basina TBT'yi 40 sn'ye
+       cikariyordu (denetim: canvas devre disi -> TBT 0 ms, skor 65 -> 98).
+       Cozum: her renk icin isigi BIR KEZ kucuk bir offscreen canvas'a
+       cizip, karelerde yalnizca drawImage ile olceklenmis kopyasini
+       basmak. Gorunum ayni (parlak cekirdek + yumusak hale), maliyet
+       birkac kat dusuyor. */
+    const spriteCache = new Map();
+    function glowSprite(col, coreStop) {
+      const key = col.join(',') + '|' + coreStop;
+      let c = spriteCache.get(key);
+      if (c) return c;
+      const S = 64, half = S / 2;
+      c = document.createElement('canvas');
+      c.width = S; c.height = S;
+      const g = c.getContext('2d');
+      const grd = g.createRadialGradient(half, half, 0, half, half, half);
+      grd.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},1)`);
+      grd.addColorStop(coreStop, `rgba(${col[0]},${col[1]},${col[2]},0.85)`);
+      grd.addColorStop(0.45, `rgba(${col[0]},${col[1]},${col[2]},0.25)`);
+      grd.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
+      g.fillStyle = grd;
+      g.fillRect(0, 0, S, S);
+      spriteCache.set(key, c);
+      return c;
+    }
+    // Yumusak bokeh icin cekirdeksiz (dogrudan sonumlenen) damga
+    function softSprite(col) {
+      const key = col.join(',') + '|soft';
+      let c = spriteCache.get(key);
+      if (c) return c;
+      const S = 64, half = S / 2;
+      c = document.createElement('canvas');
+      c.width = S; c.height = S;
+      const g = c.getContext('2d');
+      const grd = g.createRadialGradient(half, half, 0, half, half, half);
+      grd.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},1)`);
+      grd.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
+      g.fillStyle = grd;
+      g.fillRect(0, 0, S, S);
+      spriteCache.set(key, c);
+      return c;
+    }
+
     function draw() {
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = 'lighter';
@@ -719,39 +766,69 @@ body.mm-open #site-header { z-index: 70; }
       for (const b of bokeh) {
         b.x += b.vx; b.y += b.vy;
         if (b.x < -60) b.x = w + 60; if (b.x > w + 60) b.x = -60;
-        const a = b.base + Math.sin(t * b.sp + b.ph) * b.amp;
-        const g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-        g.addColorStop(0, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${Math.max(0, a)})`);
-        g.addColorStop(1, `rgba(${b.col[0]},${b.col[1]},${b.col[2]},0)`);
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+        const a = Math.max(0, b.base + Math.sin(t * b.sp + b.ph) * b.amp);
+        if (a <= 0.004) continue;
+        const d = b.r * 2;
+        ctx.globalAlpha = a;
+        ctx.drawImage(softSprite(b.col), b.x - b.r, b.y - b.r, d, d);
       }
-      // Twinkle ışıklar
+      // Twinkle ışıklar (eskiden: dolu daire + shadowBlur 6)
       for (const s of twinkles) {
         const a = Math.max(0, s.base + Math.sin(t * s.sp + s.ph) * s.amp);
-        ctx.shadowColor = `rgba(${s.col[0]},${s.col[1]},${s.col[2]},${a})`;
-        ctx.shadowBlur = 6;
-        ctx.fillStyle = `rgba(${s.col[0]},${s.col[1]},${s.col[2]},${a})`;
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fill();
+        if (a <= 0.01) continue;
+        const d = s.r * 2 + 12;             // yaricap + blur yayilimi
+        ctx.globalAlpha = a;
+        ctx.drawImage(glowSprite(s.col, 0.16), s.x - d / 2, s.y - d / 2, d, d);
       }
-      // Yanıp sönen ikaz ışıkları
+      // Yanıp sönen ikaz ışıkları (eskiden: dolu daire + shadowBlur 12)
       for (const b of blinkers) {
         const phase = (t + b.ph) % b.period;
         if (phase > b.on) continue;               // kapalı dönem
         const k = Math.sin((phase / b.on) * Math.PI); // yumuşak aç/kapa
         const a = Math.max(0, k) * 0.85;
-        ctx.shadowColor = `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`;
-        ctx.shadowBlur = 12;
-        ctx.fillStyle = `rgba(${b.col[0]},${b.col[1]},${b.col[2]},${a})`;
-        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill();
+        if (a <= 0.01) continue;
+        const d = b.r * 2 + 24;
+        ctx.globalAlpha = a;
+        ctx.drawImage(glowSprite(b.col, 0.14), b.x - d / 2, b.y - d / 2, d, d);
       }
-      ctx.shadowBlur = 0;
+      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
     }
 
     function frame() { t += 0.016; draw(); raf = requestAnimationFrame(frame); }
     size(); build();
-    if (reduce) { draw(); } else { frame(); }
+
+    // Animasyon yalnizca hero ekranda VE sekme onplandayken calissin.
+    // Onceden kosulsuz sonsuz donguydu: hero yukari kaydirilip gozden
+    // kaybolsa da, sekme arka plana alinsa da saniyede 60 kez ~120 isik
+    // ciziliyordu. Bu hem Lighthouse TBT'sini hem gercek kullanicida
+    // CPU/pil tuketimini bosuna artiriyordu. Gorunum aynen korunuyor:
+    // hero ekrandayken animasyon birebir eskisi gibi.
+    let inView = true, running = false;
+    function start() {
+      if (running || reduce) return;
+      running = true; frame();
+    }
+    function stop() {
+      if (!running) return;
+      running = false;
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }
+    function sync() { (inView && !document.hidden) ? start() : stop(); }
+
+    if (reduce) {
+      draw();
+    } else if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        inView = entries.some(e => e.isIntersecting);
+        sync();
+      }, { threshold: 0 }).observe(canvas);
+      start(); // ilk boyamayi geciktirme; gozlemci sonra devralir
+    } else {
+      start();
+    }
+    document.addEventListener('visibilitychange', sync);
+
     let rt;
     window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { size(); build(); if (reduce) draw(); }, 200); });
   })();

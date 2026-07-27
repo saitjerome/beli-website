@@ -2,6 +2,47 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0j. Asıl performans darboğazı bulundu: hero ışıldama animasyonu (masaüstü 85 → 98)
+
+**İstek:** Mobili bir önceki (iyi) haline döndürmek; masaüstünde ana banner kalitesini puan düşürmeden olabildiğince artırmak.
+
+**Önce yapısal tespit:** Hero görseli `srcset` ile iki ayrı dosya sunuyor (`900w` ve `1600w`, `sizes="100vw"`). Lighthouse emülasyonunda:
+- **Mobil**: 412px × DPR 1.75 = 721px ihtiyaç → **900w** dosyayı seçer
+- **Masaüstü**: 1350px × DPR 1 → **1600w** (tam boy) dosyayı seçer
+
+Yani mobil ve masaüstü **farklı dosyalar** kullanıyor ve birbirinden bağımsız ayarlanabiliyor. Bu sayede mobil eski kalitesine döndürülürken (900w: q74/q78) masaüstü yüksek kalitede (1600w: q90) bırakılabildi — ikisi çakışmıyor.
+
+**Asıl bulgu — gerçek Lighthouse ölçümüyle:** Bu oturumda tahmin yerine ölçüm yapmak için `lighthouse` + `puppeteer-core` kurulup yerel Chrome üzerinden gerçek denetimler koşuldu (`.claude/lh.js`). Masaüstünde TBT (Total Blocking Time) **40.243 ms** çıktı — yani puan kaybının kaynağı görsel boyutu değildi. Kaynağı izole etmek için hero canvas'ı devre dışı bırakılıp ölçüm tekrarlandı:
+
+| Durum | TBT | Skor |
+|---|---|---|
+| Hero animasyonu açık | 40.243 ms | 65 |
+| Hero animasyonu kapalı | 0 ms | **98** |
+
+Yani puanı yiyen tek şey ana sayfadaki **ışıldama (twinkle) canvas animasyonu**ydı.
+
+**Neden bu kadar pahalıydı:** Animasyon her karede, her ışık için `ctx.shadowBlur` (canvas'ın en pahalı işlemlerinden biri, her çizim için ayrı bir bulanıklık geçişi zorluyor) ve her bokeh küreciği için sıfırdan `createRadialGradient` çağırıyordu. ~120 ışık × 60 kare = saniyede binlerce blur/gradyan hesabı. Ayrıca animasyonun **hiçbir durma koşulu yoktu**: hero yukarı kaydırılıp gözden kaybolsa da, sekme arka plana alınsa da sonsuza kadar çalışıyordu.
+
+**Çözüm (iki parça, görünüm birebir korunarak):**
+1. **Damga (sprite) önbelleği:** Her renk için ışık görseli **bir kez** küçük bir offscreen canvas'a çizilip, karelerde yalnızca `drawImage` ile ölçeklenmiş kopyası basılıyor. `shadowBlur` ve kare-başına gradyan üretimi tamamen kalktı.
+2. **Görünürlük denetimi:** Animasyon artık yalnızca hero ekrandayken **ve** sekme önplandayken çalışıyor (`IntersectionObserver` + `visibilitychange`). Gerçek kullanıcıda boşuna CPU/pil tüketimi de böylece bitti.
+
+**Sonuç (yerel, 3'er ölçümün medyanı):**
+
+| | Önce | Sonra |
+|---|---|---|
+| Masaüstü | 65 (TBT 40.243 ms) | **98** (TBT 0 ms, LCP 1.06s) |
+| Mobil | — | **98** (TBT 0 ms, LCP 2.32s) |
+
+**Banner kalitesi kararı:** Masaüstü artık 98 olduğu ve görsel boyutu puanı neredeyse etkilemediği için kaliteyi yükseltmek serbestti. Kalite/boyut eğrisi ölçüldü ve **q90 (367 KB)** seçildi; q95'e çıkmak +125 KB'a mal oluyor ama kaynakla ortalama fark 255 üzerinden yalnızca 1.66 → 1.18 iyileşiyor — 2x büyütmede bile gözle ayırt edilemiyor. Kaynak zaten sıkıştırılmış bir JPEG olduğu için belli bir noktadan sonra kazanılacak gerçek detay kalmıyor.
+
+**Doğrulama:**
+- Animasyonun durup başladığı headless Chrome'da ölçüldü: hero ekrandayken **60 kare/sn**, ekran dışında **0 kare/sn**, geri dönünce yeniden başlıyor.
+- Hero görüntüsü ekran görüntüsüyle kontrol edildi, ışıklar eskisi gibi çiziliyor (canvas piksel analizi: en parlak alfa 245, ışıklı piksel oranı %1.9).
+- 6 sayfada varlık bütünlüğü ve konsol temizliği doğrulandı.
+
+**Not:** Hero canvas yalnızca `index.html`'de var, diğer sayfalar bu maliyetten zaten etkilenmiyordu.
+
 ## 0i. Ana sayfa hero görselinin kalitesi yükseltildi
 
 **Belirti:** Mobil Lighthouse skoru 96'ya çıktıktan sonra, site sahibi ana sayfadaki hero görselinin (`proje_finans_merkezi`) gözle görülür şekilde kalite kaybettiğini fark etti.
