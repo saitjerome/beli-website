@@ -2,6 +2,22 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0h. Font preload'i mobil Lighthouse skorunu 85'ten 58'e düşürdü — geri alındı
+
+**Belirti:** Site sahibi teslim öncesi kendi Chrome DevTools'unda mobil Lighthouse çalıştırdı: Performance **58** (önceki ölçümde 85 idi). Accessibility (98), Best Practices (100), SEO (100) birebir aynı kaldı — bu, sorunun erişilebilirlik/yapısal bir şeyde değil, doğrudan yükleme zamanlamasında olduğunu gösteriyordu.
+
+**Kök neden:** Font self-hosting geçişinde (bkz. 0f) eklenen şu satır:
+```html
+<link rel="preload" href="assets/fonts/inter-subset.woff2" as="font" type="font/woff2" crossorigin="anonymous"/>
+```
+Chrome'da `preload as="font"` **"High"** kaynak önceliği alıyor — hero görselindeki `fetchpriority="high"` ile **tam olarak aynı öncelik seviyesinde**. Öncesinde (Google Fonts ile) bu stylesheet `media="print" onload="this.media='all'"` hilesiyle asenkron/düşük öncelikli yükleniyordu ve hero görseliyle hiç bant genişliği yarışına girmiyordu. Font'u kendi sunucumuza alıp preload eklerken, farkında olmadan hero görseliyle **aynı önceliğe sahip ikinci bir "High" istek** yaratılmış oldu. Lighthouse'un mobilde simüle ettiği yavaş bağlantıda bu iki istek sınırlı bant genişliği için yarışıyor, LCP (hero görseli) gecikiyor — Lighthouse performans skoru LCP'ye çok duyarlı olduğu için büyük bir puan kaybına yol açtı.
+
+**Çözüm:** 6 sayfadan da preload satırı kaldırıldı; `@font-face` kuralları (dolayısıyla self-hosting'in asıl kazancı: Google'a bağımlılığın kalkması ve küçültülmüş font dosyaları) olduğu gibi kaldı. Preload olmadan da `font-display: swap` sayesinde metin gecikmeden (önce fallback fontla, Inter gelince onunla) görünmeye devam ediyor — burada LCP elemanı zaten metin değil, hero görseli olduğu için preload'un sağladığı "daha hızlı font swap" faydası kritik değildi, riske değmedi.
+
+**Doğrulama:** Yerelde fontların hâlâ yüklendiği (artık `@font-face` üzerinden, sayfa CSS'i işlenirken doğal akışla), Türkçe harflerin (`ğĞşŞİıçÇöÖüÜ`) her iki fontta da piksel bazında sağlam çizildiği ve konsolda hata olmadığı doğrulandı.
+
+**Ders:** Bir optimizasyon (font'u kendi sunucumuza alma) başka bir optimizasyonu (hero görselinin önceliklendirilmesi) fark edilmeden geride bırakabiliyor — ikisi de "doğru" görünen değişiklikler ama birlikte bant genişliği için yarışıyorlardı. Bundan sonraki performans değişikliklerinde kaynak önceliklerinin (fetchpriority, preload) birbirini yeme ihtimaline ayrıca bakılacak.
+
 ## 0g. Referans logoları tamamlandı ve optimize edildi (teslim öncesi son geçiş)
 
 **Site sahibinin yaptığı güncelleme:** `referanslar.html` içindeki 12 firma daha önce logosuz olduğu için yalnızca yazıyla gösteriliyordu; bu firmaların logoları eklendi ve mevcut 12 logo da yenilendi. Kart tasarımı da değiştirildi: logo artık kartın tamamını kaplamak yerine üst kısımda duruyor ve altında firma adı yazıyor (`h-40/h-44`, `flex-col`, logo `max-h-[60%]`).
