@@ -2,6 +2,27 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0m. Işıklar orijinalin altına indirildi — "sayı değil, boyut" bulgusu
+
+**Belirti:** 0l'deki geri almadan sonra site sahibi "ışıklar azalmadı, adeti artmış" dedi.
+
+**Ölçümle doğrulama:** Önce ışık adedi ilk commit (`2d5fd96`) ile karşılaştırıldı — **birebir aynıydı** (120/14/9), yani geri alma doğru çalışmıştı. Ancak gözlem yine de yerindeydi, sebebi farklıydı: 0j'deki performans düzeltmesinde çizim yöntemi `shadowBlur`'dan damga (sprite) tabanlıya geçmişti. İki yöntem aynı parçacık verisiyle yan yana render edilip ölçüldü (`.claude/compare-lights.html` + `run-compare.js`):
+
+| | ışıklı alan % | ortalama parlaklık |
+|---|---|---|
+| Orijinal (shadowBlur) | 1.30 | 3.30 |
+| Damga sürümü (0j) | 1.53 | 3.87 |
+
+Yani damgalar orijinalden **1.2 kat daha geniş ve parlak**tı. Işıklar çoğalmamış, her biri irileşmişti — "daha fazla" algısının kaynağı buydu. Bu, 0j'de gözden kaçan bir sapmaydı: performans düzeltmesi görünümü birebir korumalıydı, %20 sapma bırakmıştı.
+
+**Çözüm (iki cephede):**
+1. **Damga orijinale çekildi:** çizim çapı `r*2+12` → `r*2+9`, gradyan sönümü sıkılaştırıldı (`0.45/0.25` → `0.38/0.18`).
+2. **Adet azaltıldı** (site sahibinin açık isteği): ışıklar 120 → **78** (formül `w*h/12000` → `w*h/19000`), bokeh 14 → **9**, ikaz ışıkları 9 → **6**. Alan tabanlı formül korundu, küçük ekranlarda otomatik daha az üretiliyor.
+
+**Sonuç:** Yeni hâli orijinalin **yarısı** (ışıklı alan ×0.5, parlaklık ×0.5) — belirgin şekilde sakin, abartısız bir gece dokusu.
+
+**Ölçüm:** Masaüstü **98** (LCP 1.10s, TBT 0 ms), mobil TBT **0 ms**. Banner iyileştirmesi (q92 + keskinleştirme, 428 KB) korundu.
+
 ## 0l. Animasyon yoğunlaştırması geri alındı (site sahibi tercihi)
 
 0k'daki iki değişiklikten **yalnızca banner kalitesi korundu**; animasyon yoğunlaştırması geri alındı.

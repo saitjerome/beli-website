@@ -667,7 +667,9 @@ body.mm-open #site-header { z-index: 70; }
 
     function build() {
       // Işıldayan minik şehir ışıkları (alt %65'e yoğunlaşmış)
-      const count = Math.min(120, Math.max(50, Math.round(w * h / 12000)));
+      // Isik adedi site sahibinin istegi uzerine azaltildi (daha sakin,
+      // abartisiz bir gece dokusu). Alan tabanli formul korundu.
+      const count = Math.min(78, Math.max(32, Math.round(w * h / 19000)));
       twinkles = [];
       for (let i = 0; i < count; i++) {
         const warm = Math.random() < 0.68;
@@ -684,7 +686,7 @@ body.mm-open #site-header { z-index: 70; }
       }
       // Yumuşak bokeh kürecikleri (derinlik hissi)
       bokeh = [];
-      const bc = Math.min(14, Math.max(6, Math.round(w / 130)));
+      const bc = Math.min(9, Math.max(4, Math.round(w / 200)));
       for (let i = 0; i < bc; i++) {
         const warm = Math.random() < 0.6;
         bokeh.push({
@@ -697,7 +699,7 @@ body.mm-open #site-header { z-index: 70; }
       }
       // Yanıp sönen ikaz ışıkları (az sayıda, abartısız)
       blinkers = [];
-      const bl = Math.min(9, Math.max(4, Math.round(w / 260)));
+      const bl = Math.min(6, Math.max(3, Math.round(w / 400)));
       for (let i = 0; i < bl; i++) {
         const red = Math.random() < 0.5;
         blinkers.push({
@@ -734,7 +736,7 @@ body.mm-open #site-header { z-index: 70; }
       const grd = g.createRadialGradient(half, half, 0, half, half, half);
       grd.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},1)`);
       grd.addColorStop(coreStop, `rgba(${col[0]},${col[1]},${col[2]},0.85)`);
-      grd.addColorStop(0.45, `rgba(${col[0]},${col[1]},${col[2]},0.25)`);
+      grd.addColorStop(0.38, `rgba(${col[0]},${col[1]},${col[2]},0.18)`);
       grd.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
       g.fillStyle = grd;
       g.fillRect(0, 0, S, S);
@@ -776,7 +778,7 @@ body.mm-open #site-header { z-index: 70; }
       for (const s of twinkles) {
         const a = Math.max(0, s.base + Math.sin(t * s.sp + s.ph) * s.amp);
         if (a <= 0.01) continue;
-        const d = s.r * 2 + 12;             // yaricap + blur yayilimi
+        const d = s.r * 2 + 9;              // yaricap + blur yayilimi
         ctx.globalAlpha = a;
         ctx.drawImage(glowSprite(s.col, 0.16), s.x - d / 2, s.y - d / 2, d, d);
       }
