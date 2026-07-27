@@ -2,6 +2,20 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0l. Animasyon yoğunlaştırması geri alındı (site sahibi tercihi)
+
+0k'daki iki değişiklikten **yalnızca banner kalitesi korundu**; animasyon yoğunlaştırması geri alındı.
+
+**Gerekçe:** Site sahibi yoğunlaştırılmış ışıkları gördükten sonra "çok fazla oldu, abartı oldu, eski hali daha iyi" geri bildirimini verdi. Performans açısından bir sorun yoktu (TBT her iki cihazda 0 ms idi) — karar tamamen estetik.
+
+**Geri alınanlar** (0j'deki optimize edilmiş hâline dönüldü): damga çözünürlüğü 128px → 64px, ışık sayısı üst sınırı 190 → 120 (formül `w*h/8200` → `w*h/12000`), bokeh 20 → 14, ikaz ışıkları 13 → 9, ışık boyutu çeşitliliği kaldırıldı, glow gradyanı sade hâline döndü.
+
+**Korunanlar:** 0j'deki performans düzeltmeleri (damga önbelleği + görünürlük denetimi) ve 0k'daki masaüstü banner iyileştirmesi (q92 + keskinleştirme, 428 KB) olduğu gibi duruyor.
+
+**Ölçüm:** Masaüstü **99** (LCP 1.11s, TBT 0 ms) — ışıklar seyreldiği için 98'den 99'a çıktı.
+
+**Not:** `index.html` bu adımda `git checkout 296206a -- index.html` ile geri alındı; o commit'in `index.html`'de yalnızca animasyon kodunu değiştirdiği diff ile doğrulandıktan sonra uygulandı, böylece başka bir düzeltme kazara geri alınmadı.
+
 ## 0k. Kazanılan performans bütçesi kaliteye çevrildi (animasyon + masaüstü banner)
 
 0j'deki optimizasyon masaüstünde TBT'yi 40.243 ms'den 0 ms'ye indirmiş, skoru 65'ten 98'e çıkarmıştı. Bu, elde ciddi bir performans bütçesi bıraktı; o bütçe görsel kaliteye çevrildi. Her adım ölçülerek yapıldı (`.claude/lh.js` ile gerçek Lighthouse).

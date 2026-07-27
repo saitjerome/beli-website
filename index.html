@@ -666,21 +666,15 @@ body.mm-open #site-header { z-index: 70; }
     }
 
     function build() {
-      /* Yogunluk: damga onbellegi sayesinde kare-basina maliyet cok dustugu
-         icin (olcum: TBT 40.243 ms -> 0 ms) isik sayisi artirilabildi.
-         Alan tabanli formul korundu, boylece kucuk ekranlarda otomatik
-         olarak daha az isik uretiliyor. */
       // Işıldayan minik şehir ışıkları (alt %65'e yoğunlaşmış)
-      const count = Math.min(190, Math.max(64, Math.round(w * h / 8200)));
+      const count = Math.min(120, Math.max(50, Math.round(w * h / 12000)));
       twinkles = [];
       for (let i = 0; i < count; i++) {
         const warm = Math.random() < 0.68;
         twinkles.push({
           x: Math.random() * w,
           y: h * 0.32 + Math.random() * h * 0.66,
-          // Daha genis boyut cesitliligi: birkac belirgin parlak isik,
-          // cogunlukla kucuk noktalar -> daha derin, gercekci sehir dokusu
-          r: (Math.random() < 0.12 ? 1.7 + Math.random() * 1.4 : 0.5 + Math.random() * 1.1),
+          r: Math.random() * 1.3 + 0.6,
           col: warm ? WARM : COOL,
           base: 0.25 + Math.random() * 0.4,
           amp: 0.3 + Math.random() * 0.5,
@@ -690,7 +684,7 @@ body.mm-open #site-header { z-index: 70; }
       }
       // Yumuşak bokeh kürecikleri (derinlik hissi)
       bokeh = [];
-      const bc = Math.min(20, Math.max(8, Math.round(w / 105)));
+      const bc = Math.min(14, Math.max(6, Math.round(w / 130)));
       for (let i = 0; i < bc; i++) {
         const warm = Math.random() < 0.6;
         bokeh.push({
@@ -703,7 +697,7 @@ body.mm-open #site-header { z-index: 70; }
       }
       // Yanıp sönen ikaz ışıkları (az sayıda, abartısız)
       blinkers = [];
-      const bl = Math.min(13, Math.max(5, Math.round(w / 200)));
+      const bl = Math.min(9, Math.max(4, Math.round(w / 260)));
       for (let i = 0; i < bl; i++) {
         const red = Math.random() < 0.5;
         blinkers.push({
@@ -728,28 +722,19 @@ body.mm-open #site-header { z-index: 70; }
        cizip, karelerde yalnizca drawImage ile olceklenmis kopyasini
        basmak. Gorunum ayni (parlak cekirdek + yumusak hale), maliyet
        birkac kat dusuyor. */
-    /* Damga cozunurlugu 128px: bokeh kurecikleri 96px'e kadar buyutulerek
-       ciziliyor; 64px'lik damga bu boyutta upscale edilip yumusuyordu.
-       128px'de kenar gecisleri temiz kaliyor. Damgalar bir kez uretilip
-       onbellege alindigi icin bu buyutmenin kare-basina maliyeti yok. */
-    const SPRITE_SIZE = 128;
     const spriteCache = new Map();
     function glowSprite(col, coreStop) {
       const key = col.join(',') + '|' + coreStop;
       let c = spriteCache.get(key);
       if (c) return c;
-      const S = SPRITE_SIZE, half = S / 2;
+      const S = 64, half = S / 2;
       c = document.createElement('canvas');
       c.width = S; c.height = S;
       const g = c.getContext('2d');
       const grd = g.createRadialGradient(half, half, 0, half, half, half);
-      // Cok duraklı gecis: parlak cekirdek -> sicak hale -> yumusak sonum.
-      // Fotografik "bloom" hissi icin ara duraklar eklendi.
       grd.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},1)`);
-      grd.addColorStop(coreStop, `rgba(${col[0]},${col[1]},${col[2]},0.9)`);
-      grd.addColorStop(0.30, `rgba(${col[0]},${col[1]},${col[2]},0.42)`);
-      grd.addColorStop(0.52, `rgba(${col[0]},${col[1]},${col[2]},0.16)`);
-      grd.addColorStop(0.75, `rgba(${col[0]},${col[1]},${col[2]},0.04)`);
+      grd.addColorStop(coreStop, `rgba(${col[0]},${col[1]},${col[2]},0.85)`);
+      grd.addColorStop(0.45, `rgba(${col[0]},${col[1]},${col[2]},0.25)`);
       grd.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
       g.fillStyle = grd;
       g.fillRect(0, 0, S, S);
@@ -761,13 +746,12 @@ body.mm-open #site-header { z-index: 70; }
       const key = col.join(',') + '|soft';
       let c = spriteCache.get(key);
       if (c) return c;
-      const S = SPRITE_SIZE, half = S / 2;
+      const S = 64, half = S / 2;
       c = document.createElement('canvas');
       c.width = S; c.height = S;
       const g = c.getContext('2d');
       const grd = g.createRadialGradient(half, half, 0, half, half, half);
       grd.addColorStop(0, `rgba(${col[0]},${col[1]},${col[2]},1)`);
-      grd.addColorStop(0.55, `rgba(${col[0]},${col[1]},${col[2]},0.34)`);
       grd.addColorStop(1, `rgba(${col[0]},${col[1]},${col[2]},0)`);
       g.fillStyle = grd;
       g.fillRect(0, 0, S, S);
