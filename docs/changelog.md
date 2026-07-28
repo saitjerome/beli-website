@@ -2,6 +2,20 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0s. Son ince ayar: font-display:swap + kart görselleri daha da küçültüldü
+
+**Durum:** 0r'den sonra üç ardışık taze PSI ölçümü **89, 83, 83** çıktı — 85 eşiğinin etrafında salınıyor, garanti değil. Kalan iki küçük ama kolay kazanç uygulandı:
+
+1. **Material Symbols `font-display:block` → `swap`.** `block` modu fontun hazır olmasını (en fazla ~3sn) bekleyip hiçbir şey göstermiyordu; PSI bunu ~150ms'lik bir gecikme kaynağı olarak işaretledi. Sitede zaten `opacity:0` → `ms-ready` class'ıyla `opacity:1` geçişi olduğu için (font hazır olana kadar ikon zaten görünmüyor), `swap`'a geçmek tamamen güvenli — FOUC riski yok, sadece gereksiz bloklamayı kaldırıyor. 6 sayfada da uygulandı.
+
+2. **Galeri yedek kartları 800px → 650px, kalite 80 → 76.** PSI'nin LCP/görsel detayı, kartın gerçek gösterim boyutunun (~550px CSS) 800px'ten daha küçük bir kaynağa izin verdiğini gösterdi ("550x412 gösteriliyor, 800x529 üretiliyor" uyarısı). 6 görsel yeniden üretildi:
+
+| | 0r sonrası (800px) | Şimdi (650px) |
+|---|---|---|
+| Toplam 6 görsel | 391 KB | **243 KB** |
+
+**Not — GitHub Pages sınırı:** PSI'nin en büyük kalan uyarısı "Verimli önbellek sürelerini kullanın" (832 KiB tasarruf) — bu, statik dosyaların Cache-Control süresiyle ilgili ve GitHub Pages'in kendi sunucu yapılandırması tarafından belirleniyor; bu projeden (özel sunucu config'i erişimi olmayan bir statik hosting) düzeltilebilecek bir şey değil, kapsam dışı bırakıldı.
+
 ## 0r. Material Symbols kendi sunucuya alındı + galeri yedek kartları küçültüldü (mobil 56 → 83)
 
 **0p'nin devamı.** Font eksenleri sabitlendikten (1,1 MB → 320 KB) sonra PSI mobil skoru 56'dan **70**'e çıktı. İki ek adımla **83**'e ulaşıldı:
