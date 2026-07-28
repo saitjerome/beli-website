@@ -359,8 +359,22 @@ function initGallery() {
       if (next) next.addEventListener('click', () => app.nudge(1));
     });
   }).catch((err) => {
-    // ogl yüklenemedi veya WebGL yoksa eski kaydırıcı görünür kalır
-    if (fallback) fallback.classList.remove('carousel-hidden');
+    // ogl yüklenemedi veya WebGL yoksa eski kaydırıcı görünür kalır.
+    // Kartların gorselleri (data-src/data-srcset) SADECE bu noktada gercek
+    // src'ye cevriliyor - boylece WebGL basarili oldugunda (cogu ziyaretci)
+    // bu 6 gorsel HIC INDIRILMIYOR (tarayicinin on-yukleme tarayicisi bile
+    // data-src'yi bir kaynak olarak gormez). PSI "Resim yayinlamayi
+    // kolaylastirin" denetiminde bu kartlar hala statik HTML'de goruldugu
+    // icin taniyordu; artik yalnizca gercekten gerektiginde yukleniyor.
+    if (fallback) {
+      fallback.classList.remove('carousel-hidden');
+      fallback.querySelectorAll('img[data-src]').forEach((img) => {
+        img.src = img.dataset.src; delete img.dataset.src;
+      });
+      fallback.querySelectorAll('source[data-srcset]').forEach((s) => {
+        s.srcset = s.dataset.srcset; delete s.dataset.srcset;
+      });
+    }
     console.warn('CircularGallery başlatılamadı, kart kaydırıcısı kullanılacak.', err);
   });
 }

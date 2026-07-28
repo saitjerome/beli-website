@@ -2,6 +2,18 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0t. Galeri yedek kartları artık yalnızca gerçekten gerektiğinde yükleniyor
+
+**Durum:** 0s'den sonra skor 83'te sabitlendi; "Resim yayınlamayı kolaylaştırın" uyarısı 80 KiB'e kadar küçülmüştü ama tamamen gitmemişti. Kök sebep: galeri yedek kartlarının 6 görseli **hep statik HTML'de yazılıydı** (`<img src="...">`), `loading="lazy"` olsa da tarayıcı bunları her zaman "keşfediyor" ve WebGL galerisi %99 ihtimalle başarıyla yükleyip bu kartları gizlese bile, Lighthouse/PSI testinde (sayfa otomatik kaydırıldığı için) bu görseller gene indiriliyordu.
+
+**Çözüm:** 6 kartın `src`/`srcset` öznitelikleri `data-src`/`data-srcset`'e çevrildi — tarayıcının ön-yükleme tarayıcısı bunları artık bir kaynak olarak hiç görmüyor. Gerçek `src` ataması **yalnızca `circular-gallery.js`'in galeri başlatma `.catch()` bloğunda** (yani WebGL/CDN gerçekten başarısız olduğunda) yapılıyor.
+
+**Doğrulama (headless Chrome, gerçek render):**
+- **Galeri başarılı senaryosu:** kaydırmadan önce 6 kartta da `data-src` var, gerçek `src` yok. Galeri yüklenip (`galleryLoaded:true`, canvas oluştu) yedek gizlendikten sonra bile **hâlâ 6 kartta `data-src`, hiçbirinde `src` yok** — yani bu görseller normal koşulda (galeri çalıştığı sürece) hiç indirilmiyor.
+- **Galeri başarısız senaryosu** (OGL CDN isteği kasıtlı engellenerek test edildi): galeri yüklenemiyor, yedek görünür kalıyor, 6 kartın da gerçek `src`'si atanıyor (`assets/proje_finans_merkezi.jpg` vb.), `loading="lazy"` sayesinde yalnızca o an görünür olan kartlar gerçekten indiriliyor (ilk 3 kart yüklü, ekran dışındaki 3 kart hâlâ 0 genişlikte — beklenen davranış).
+
+Konsol hatası yok. Bu değişikliğin PSI skorunu ne kadar etkileyeceği belirsiz (test ortamının galeriyi başarıyla yükleyip yüklemediğine bağlı), ama gerçek ziyaretçiler için kesin bir kazanç: galeri çalıştığı sürece (ki çoğu zaman çalışıyor) bu ~240 KB hiç indirilmiyor.
+
 ## 0s. Son ince ayar: font-display:swap + kart görselleri daha da küçültüldü
 
 **Durum:** 0r'den sonra üç ardışık taze PSI ölçümü **89, 83, 83** çıktı — 85 eşiğinin etrafında salınıyor, garanti değil. Kalan iki küçük ama kolay kazanç uygulandı:
