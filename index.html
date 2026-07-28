@@ -108,9 +108,14 @@ body.mm-open #site-header { z-index: 70; }
 /* Mobilde: 80px bulaniklik filtreli iki buyuk leke surekli animasyonlu
    oldugu icin her karede pahali yeniden boyama zorluyordu (olcum: yavas
    cihazda ~160 ms TBT). Kucuk ekranda bulaniklik dusurulup animasyon
-   durduruluyor; lekeler gorunmeye devam ediyor, sadece hareket etmiyor. */
+   durduruluyor; lekeler gorunmeye devam ediyor, sadece hareket etmiyor.
+   Ayni sebeple hero-img'in ken-burns zoom'u da mobilde durduruldu (olcum,
+   LH_CPU=16 / PSI'ye yakin kosul: TBT 663ms -> 407ms, skor 78 -> 85).
+   Gorsel etki: mobilde banner sabit durur, masaustunde yavas zoom aynen
+   calisir (masaustunde TBT zaten 0ms). */
 @media (max-width: 767px) {
   .hero-glow { filter: blur(46px); animation: none !important; }
+  .hero-img { animation: none !important; }
 }
 
 /* ===== Mobil dokunuşta yeşil vurgulama (masaüstündeki hover'ın karşılığı) ===== */

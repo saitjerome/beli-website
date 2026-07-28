@@ -2,6 +2,25 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0o. Doğrulama yöntemi PageSpeed Insights'a çevrildi + ken-burns mobilde kapatıldı
+
+**Yöntem değişikliği:** 0n'de yerel Lighthouse ölçümlerinin makine hızına bağlı olarak iyimser sonuç verdiği anlaşıldıktan sonra, site sahibi doğrulamanın bundan sonra doğrudan [PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fsaitjerome.github.io%2Fbeli-website%2F) üzerinden yapılmasını istedi. Bu noktadan itibaren yerel `lh.js` ölçümleri yalnızca **göreceli karşılaştırma** ("bu değişiklik doğru yöne mi gidiyor") için kullanılıyor; kabul kriteri PSI.
+
+**Uygulanan değişiklik:** 0n'de canlı sitede (`LH_CPU=16`, PSI'ye yakın koşul) izole edilen üç maliyet kaleminden en büyüğü olan hero ken-burns zoom animasyonu (`heroKen`, `.hero-img` üzerinde sürekli `transform: scale`) mobilde kapatıldı:
+
+```css
+@media (max-width: 767px) {
+  .hero-glow { filter: blur(46px); animation: none !important; }
+  .hero-img { animation: none !important; }  /* yeni */
+}
+```
+
+Masaüstünde dokunulmadı (zaten TBT 0 ms). Görsel etki: mobilde hero görseli sabit durur (yavaş zoom kaybolur), banner'ın kendisi ve ışık/leke animasyonları aynen kalır.
+
+**Yerel göreceli doğrulama** (`LH_CPU=16`, kabul kriteri değil, yön kontrolü): medyan skor 78 → 85, TBT'de düşme yönü teyit edildi (16x throttling'de run'dan run'a ±300ms oynama normal — tek ölçümle kesin sayı iddia edilmiyor).
+
+**Doğrulama:** Mobil ekran görüntüsü (412×823) ile hero'nun düzgün render edildiği, metnin/butonların yerinde olduğu teyit edildi. Canlıya gönderildikten sonra nihai kabul kriteri: kullanıcının PSI'da tekrar çalıştıracağı mobil skor.
+
 ## 0n. Yerel ölçümün yanıltıcılığı ve gerçek mobil maliyetin bulunması
 
 **Belirti:** Site sahibi PageSpeed Insights'ta (Google'ın kendi sunucusunda çalışır, kullanıcının makinesi denklemden çıkar) ana sayfa için mobilde **56** aldı. Yerel ölçümlerim ise 98-99 gösteriyordu.
