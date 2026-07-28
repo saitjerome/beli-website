@@ -2,6 +2,30 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0p. Asıl kaynak bulundu: Material Symbols ikon fontu 1,1 MB'tı (%72 küçültüldü)
+
+**Belirti:** Site sahibi PSI'da mobil skor için 0o'daki ken-burns düzeltmesinden sonra **hâlâ 56-58** aldı. PSI raporu doğrudan (headless tarayıcıyla taze analiz tetiklenip) incelendiğinde: **FCP 8,0 sn, LCP 9,5-10,9 sn, TBT 0 ms**. TBT'nin sıfır olması, sorunun artık CPU/animasyon değil, **ilk boyamadan önceki ağ/yükleme** olduğunu gösteriyordu — bu, 0n/0o'daki tüm CPU-eksenli çalışmanın (canvas damgaları, kare hızı, ken-burns) yanlış hedefe odaklandığını ortaya çıkardı.
+
+**Yanlış giden ilk hipotez (kayda değer, ders çıkarılan bir çıkmaz sokak):** Önce hero animasyonunun `<body>` sonunda senkron çalışıp ilk boyamayı bloke ettiği düşünüldü — kodun içine `performance.now()` ile gerçek zaman damgaları ("HEROMARK") eklenip gerçek CDP CPU+ağ kısıtlaması (`Network.emulateNetworkConditions` + `Emulation.setCPUThrottlingRate`, "simulate" değil "devtools" modu) altında ölçüldü. Sonuç: heroLights() IIFE'nin senkron kısmı yalnızca **14 ms** sürüyordu — animasyon hiç suçlu değildi. Asıl bulgu: `window.load` olayı navigasyondan **~8,8 saniye sonra** ateşleniyordu.
+
+**Gerçek kök neden — tam ağ izlemesiyle bulundu:** Aynı CDP throttling altında tüm network isteklerinin başlangıç/bitiş zamanları tek tek loglandı (`.claude/trace-network.js`). Tek bir istek her şeyi domine ediyordu:
+```
++2490ms -> +8778ms (6325ms!)  320076B  https://fonts.gstatic.com/.../materialsymbolsoutlined/...
+```
+Bu, `Material+Symbols+Outlined:wght,FILL@100..700,0..1` sorgusuyla istenen ikon fontu — **1.125.820 bayt (1,1 MB)**. Sebep: `wght,FILL@100..700,0..1` iki değişken ekseni TAM ARALIKTA istiyor (ağırlık 100-700 arası + dolgu 0-1 arası sürekli enterpolasyon), Google bu yüzden devasa bir dosya üretiyor. Sitede bu iki eksenin **hiçbir yerde override edilmediği** (tüm ikonlar varsayılan: outline, normal kalınlık) doğrulandı. Bu tek istek Slow 4G'nin (1,6 Mbps) tüm bant genişliğini ~6,3 saniye boyunca tükettiği için, aynı anda yüklenen hero görseli/fontlar gibi gerçekten kritik kaynaklar da bant genişliği için yarışıp gecikiyordu — dolayısıyla FCP/LCP'yi dolaylı olarak (senkron script değil, ağ/bant genişliği yarışı yoluyla) 8 saniyeye kadar geciktiriyordu.
+
+**Çözüm:** 6 sayfada da eksenler sabit tek değere çekildi: `wght,FILL@400,0` (400 = normal kalınlık, 0 = dolu değil/outline — sitede fiilen kullanılan tek değerler). Sonuç: **1,1 MB → 320 KB (%72 küçülme)**. (Ayrıca ikon bazlı alt kümeleme de denendi — Google'ın `&text=` parametresiyle yalnızca kullanılan 43 ikonu istemek dosyayı 260 KB'a indirdi, ama kazanç marjinal ve URL kırılgan/özel bir uç noktaya bağımlıydı; sabit-eksen çözümü hem daha güvenli hem yeterince etkili olduğu için o tercih edildi.)
+
+**Doğrulama (aynı gerçek throttling, önce/sonra):**
+
+| | Önce | Sonra |
+|---|---|---|
+| `window.load` olayı | +8818 ms | **+4906 ms** (%44 azalma) |
+| İkon fontu indirme süresi | 6325 ms | 2396 ms |
+| İkon fontu boyutu | 1.125.820 B | 320.076 B |
+
+**Ders:** Bu oturumun en büyük teşhis hatası, TBT=0 olduğu hâlde CPU/animasyon maliyetine odaklanmaya devam etmekti — TBT'nin sıfır olması, "ilk boyamadan SONRA blokaj yok" demekti, "ilk boyamadan ÖNCE de sorun yok" demek değildi. Asıl sinyal her zaman oradaydı (FCP=LCP=SI, hepsi aynı yüksek değerde) ama CPU-eksenli önceki bulgulara (0n) fazla güvenilip yanlış yöne devam edildi. Ağ izlemesi (gerçek istek/bitiş zamanları) nihayet doğru kaynağı gösterdi.
+
 ## 0o. Doğrulama yöntemi PageSpeed Insights'a çevrildi + ken-burns mobilde kapatıldı
 
 **Yöntem değişikliği:** 0n'de yerel Lighthouse ölçümlerinin makine hızına bağlı olarak iyimser sonuç verdiği anlaşıldıktan sonra, site sahibi doğrulamanın bundan sonra doğrudan [PageSpeed Insights](https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fsaitjerome.github.io%2Fbeli-website%2F) üzerinden yapılmasını istedi. Bu noktadan itibaren yerel `lh.js` ölçümleri yalnızca **göreceli karşılaştırma** ("bu değişiklik doğru yöne mi gidiyor") için kullanılıyor; kabul kriteri PSI.

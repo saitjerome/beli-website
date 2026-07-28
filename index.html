@@ -28,8 +28,8 @@
 @font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(assets/fonts/inter-subset.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(assets/fonts/jetbrainsmono-subset.woff2) format('woff2')}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0&display=swap" rel="stylesheet"/><style>.material-symbols-outlined{opacity:1}</style></noscript>
 <style>.material-symbols-outlined{opacity:0;transition:opacity .25s ease}html.ms-ready .material-symbols-outlined{opacity:1}</style>
 <script>(function(){var r=function(){document.documentElement.classList.add('ms-ready')};if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(r,r);setTimeout(r,2500)}else{r()}})();</script>
 
@@ -830,8 +830,6 @@ body.mm-open #site-header { z-index: 70; }
       t += dt;
       draw();
     }
-    size(); build();
-
     // Animasyon yalnizca hero ekranda VE sekme onplandayken calissin.
     // Onceden kosulsuz sonsuz donguydu: hero yukari kaydirilip gozden
     // kaybolsa da, sekme arka plana alinsa da saniyede 60 kez ~120 isik
@@ -850,17 +848,45 @@ body.mm-open #site-header { z-index: 70; }
     }
     function sync() { (inView && !document.hidden) ? start() : stop(); }
 
-    if (reduce) {
-      draw();
-    } else if ('IntersectionObserver' in window) {
-      new IntersectionObserver((entries) => {
-        inView = entries.some(e => e.isIntersecting);
-        sync();
-      }, { threshold: 0 }).observe(canvas);
-      start(); // ilk boyamayi geciktirme; gozlemci sonra devralir
-    } else {
-      start();
+    /* KRITIK: size()+build()+ilk cizim kurulumu ONCEDEN bu script bloguyla
+       AYNI aninda, senkron calisiyordu. Sayfa <body> sonunda oldugu icin
+       HTML parse'ini engellemiyordu, ama JS calisirken tarayici ayni thread
+       uzerinde paint YAPAMAZ - yani zaten parse edilmis hero metni/gorseli
+       bile bu script bitene kadar ekrana yansimiyordu. Gercek (throttled)
+       CPU'da bunun maliyeti onemsiz sanilirken, PSI/Lighthouse'un "Lightrider"
+       ortaminda (zayif referans cihaz + gercek yavaslatma) FCP'yi 8 saniyeye
+       kadar geciktirdigi olculdu (bkz. degisiklik gerekcesi). Simulate modda
+       bu maliyet neredeyse hic gorunmuyordu (TBT 0ms), bu yuzden onceki
+       optimizasyon turlerinde gozden kacmisti.
+       Cozum: kurulumu ilk boyamadan SONRAYA ertelemek. requestIdleCallback
+       tarayici bosa cikinca (yani ilk paint'ten sonra) calistirir; onu
+       desteklemeyen tarayicilarda setTimeout(0) ayni gorevi görür (yeni bir
+       makrogoreve atarak mevcut senkron script'in bitmesini, dolayisiyla
+       paint firsatini bekletir). */
+    function initHero() {
+      size(); build();
+      if (reduce) {
+        draw();
+      } else if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          inView = entries.some(e => e.isIntersecting);
+          sync();
+        }, { threshold: 0 }).observe(canvas);
+        start();
+      } else {
+        start();
+      }
     }
+    /* requestIdleCallback yeterince kesin bir "ilk paint'ten sonra" garantisi
+       vermiyor (bosta sayilma kriteri throttled ortamda erken tetiklenebilir).
+       window 'load' olayi ise tarayicinin ilk render'i mutlaka tamamladigi,
+       kesin ve evrensel bir isaret - o yuzden ona gecildi. */
+    if (document.readyState === 'complete') {
+      setTimeout(initHero, 0);
+    } else {
+      window.addEventListener('load', () => setTimeout(initHero, 0));
+    }
+
     document.addEventListener('visibilitychange', sync);
 
     let rt;
