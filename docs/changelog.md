@@ -2,6 +2,29 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0r. Material Symbols kendi sunucuya alındı + galeri yedek kartları küçültüldü (mobil 56 → 83)
+
+**0p'nin devamı.** Font eksenleri sabitlendikten (1,1 MB → 320 KB) sonra PSI mobil skoru 56'dan **70**'e çıktı. İki ek adımla **83**'e ulaşıldı:
+
+**1) Material Symbols tamamen kendi sunucumuza alındı.** 320 KB'lık dosya hâlâ Google Fonts'tan (2 ayrı origin: `fonts.googleapis.com` + `fonts.gstatic.com`) geliyordu. Dosya indirilip `assets/fonts/material-symbols-outlined.woff2` olarak yerelleştirildi, 6 sayfada da `@font-face` + `.material-symbols-outlined` sınıfı inline eklendi, artık gereksiz olan `preconnect` etiketleri kaldırıldı. `referanslar.html`'deki farklı (senkron, async-hile'siz) yükleme deseni de aynı şekilde yerel hale getirildi.
+
+**2) Ana sayfadaki proje galerisi yedek kartlarının görselleri küçültüldü.** PSI'nin "Resim yayınlamayı kolaylaştırın" denetimi **784 KiB** tasarruf potansiyeli gösterdi — sebep: galeri (WebGL) yüklenemediğinde görünen 6 yedek kart, kartın gerçek gösterim genişliğine (~350-400px CSS) bakılmaksızın **tam masaüstü boyutunda** (1100-1600px) görsel indiriyordu. Her 6 görsel için kart boyutuna uygun 800px genişlikte yeni bir WebP türevi üretildi (`*-card.webp`, `.claude/make-card-variants.js`) ve `<picture>` kaynakları buna yönlendirildi.
+
+| | Önce | Sonra |
+|---|---|---|
+| Toplam 6 görsel | ~933 KB | ~391 KB (%58 azalma) |
+
+**Ölçüm (gerçek PSI, taze analiz):**
+
+| | 0o sonrası | 0p sonrası | Bu adımdan sonra |
+|---|---|---|---|
+| Mobil skor | 56-58 | 70 | **83** |
+| FCP | 8,0 sn | 4,1 sn | 3,0 sn |
+| LCP | 9,5-10,9 sn | 5,0 sn | 3,5 sn |
+| TBT | 0 ms | 0 ms | 0 ms |
+
+**Doğrulama:** 6 sayfada da ikon fontu yükleniyor, Google'a hiç istek gitmiyor, konsol hatası yok. Galeri yedek kartlarının 6 yeni görseli HTTP 200 dönüyor, doğru boyutta çözülüyor, ekran görüntüsüyle görsel kalite teyit edildi (WebGL galerisi başarıyla yüklenip yedeği gizlediği için normal kullanıcı bu kartları hiç görmüyor bile — bu tamamen "galeri yüklenemezse" senaryosu için bir iyileştirme).
+
 ## 0p. Asıl kaynak bulundu: Material Symbols ikon fontu 1,1 MB'tı (%72 küçültüldü)
 
 **Belirti:** Site sahibi PSI'da mobil skor için 0o'daki ken-burns düzeltmesinden sonra **hâlâ 56-58** aldı. PSI raporu doğrudan (headless tarayıcıyla taze analiz tetiklenip) incelendiğinde: **FCP 8,0 sn, LCP 9,5-10,9 sn, TBT 0 ms**. TBT'nin sıfır olması, sorunun artık CPU/animasyon değil, **ilk boyamadan önceki ağ/yükleme** olduğunu gösteriyordu — bu, 0n/0o'daki tüm CPU-eksenli çalışmanın (canvas damgaları, kare hızı, ken-burns) yanlış hedefe odaklandığını ortaya çıkardı.
