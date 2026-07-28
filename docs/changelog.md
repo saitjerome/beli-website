@@ -2,6 +2,33 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0n. Yerel ölçümün yanıltıcılığı ve gerçek mobil maliyetin bulunması
+
+**Belirti:** Site sahibi PageSpeed Insights'ta (Google'ın kendi sunucusunda çalışır, kullanıcının makinesi denklemden çıkar) ana sayfa için mobilde **56** aldı. Yerel ölçümlerim ise 98-99 gösteriyordu.
+
+**Kök neden — ölçüm ortamı:** Lighthouse, CPU yavaşlatmasını (`cpuSlowdownMultiplier`) **host makinenin üzerine** uyguluyor. Bu makinenin Lighthouse hız endeksi **~2018**; PageSpeed Insights sunucuları tipik olarak 700-1300 bandında. Yani "4x yavaşlatma" burada hâlâ hızlı bir cihazı temsil ediyordu ve **yerel skorlar sistematik olarak iyimserdi**. `lh.js`'e `LH_CPU` ortam değişkeni eklenerek yavaşlatma çarpanı ayarlanabilir hale getirildi ve ölçümler PSI'ye yakın koşullarda tekrarlandı (16x). O koşulda skor **65** çıktı — yani site sahibinin gördüğü tabloyla aynı sorun görülebildi.
+
+**Gerçek maliyet kalemleri (16x, izole ölçüm):**
+
+| Kaldırılan | TBT | Skor |
+|---|---|---|
+| (hiçbiri) | 1244 ms | 65 |
+| Hero canvas animasyonu | 537 ms | 76 |
+| + hero ışık lekeleri | 377 ms | 80 |
+
+Ana iş parçacığı dökümü, yükün script değil **çizim/stil** tarafında olduğunu gösterdi (Script Evaluation yalnızca 183 ms, Style & Layout ~2700 ms).
+
+**Çözüm (ışıklar korunarak, üç kalem):**
+1. **Canvas piksel sayısı düşürüldü.** Mobilde DPR 1.75 ile canvas 721×1440 ≈ **1 milyon pikseldi** ve her karede tamamı yeniden çiziliyordu. Küçük ekranlarda DPR 1'e sabitlendi, masaüstünde 1.5 tavanı kondu. Yumuşak ışık lekelerinde bu fark gözle seçilmiyor.
+2. **Kare hızı ~30'a sınırlandı.** Işıklar yavaş yanıp söndüğü için 60/30 farkı görünmüyor, çizim maliyeti yarıya indi. Zaman adımı gerçek geçen süreye bağlandığı için **animasyonun hızı değişmedi**.
+3. **Hero ışık lekeleri mobilde hafifletildi.** `blur(80px)` filtreli iki büyük leke sürekli animasyonluydu; mobilde bulanıklık 46px'e indirildi ve hareket durduruldu (lekeler görünmeye devam ediyor).
+
+**Sonuç (16x, yavaş cihaz koşulu):** TBT **1244 → 358 ms**, skor **65 → 80**. Animasyon çalışmaya devam ediyor; üstelik animasyonun tamamen kapalı olduğu duruma (377 ms) göre bile daha iyi.
+
+**Standart koşulda gerileme yok:** masaüstü **99** (LCP 0.97s, TBT 0 ms), mobil TBT 0 ms.
+
+**Ders:** Yerel Lighthouse skorları makineye bağlıdır ve hızlı bir geliştirme makinesinde gerçek cihazları temsil etmez. Mobil performansı doğrulamak için ya PageSpeed Insights (sunucu tarafı, nötr) kullanılmalı ya da CPU çarpanı makinenin hız endeksine göre yükseltilmelidir.
+
 ## 0m. Işıklar orijinalin altına indirildi — "sayı değil, boyut" bulgusu
 
 **Belirti:** 0l'deki geri almadan sonra site sahibi "ışıklar azalmadı, adeti artmış" dedi.

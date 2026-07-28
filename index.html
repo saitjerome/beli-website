@@ -105,6 +105,13 @@ body.mm-open #site-header { z-index: 70; }
 .hero-glow-1 { width: 520px; height: 520px; background: radial-gradient(circle, rgba(255,176,64,.35), transparent 70%); top: 8%; left: 30%; animation: heroFloat 16s ease-in-out infinite; }
 .hero-glow-2 { width: 460px; height: 460px; background: radial-gradient(circle, rgba(0,130,220,.40), transparent 70%); bottom: -140px; right: -80px; animation: heroFloat 20s ease-in-out infinite reverse; }
 @keyframes heroFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px,-22px); } }
+/* Mobilde: 80px bulaniklik filtreli iki buyuk leke surekli animasyonlu
+   oldugu icin her karede pahali yeniden boyama zorluyordu (olcum: yavas
+   cihazda ~160 ms TBT). Kucuk ekranda bulaniklik dusurulup animasyon
+   durduruluyor; lekeler gorunmeye devam ediyor, sadece hareket etmiyor. */
+@media (max-width: 767px) {
+  .hero-glow { filter: blur(46px); animation: none !important; }
+}
 
 /* ===== Mobil dokunuşta yeşil vurgulama (masaüstündeki hover'ın karşılığı) ===== */
 @media (hover: none) {
@@ -659,9 +666,16 @@ body.mm-open #site-header { z-index: 70; }
     const WARM = [255, 190, 110], COOL = [150, 205, 255], RED = [255, 74, 60];
 
     function size() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      /* Canvas piksel sayisi mobilde en buyuk maliyet kalemiydi: 412x823 CSS
+         alan, DPR 1.75 ile 721x1440 = ~1 milyon pikselin her karede yeniden
+         cizilmesi demekti. Yumusak isik lekelerinde yuksek DPR gozle fark
+         edilmiyor, bu yuzden kucuk ekranlarda 1'e sabitleniyor; masaustunde
+         1.5'e kadar cikiyor. Olcum: yavas cihazda TBT'nin buyuk kismi buradan
+         geliyordu. */
+      const small = window.innerWidth < 768;
+      dpr = small ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       w = canvas.clientWidth; h = canvas.clientHeight;
-      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
@@ -797,7 +811,20 @@ body.mm-open #site-header { z-index: 70; }
       ctx.globalCompositeOperation = 'source-over';
     }
 
-    function frame() { t += 0.016; draw(); raf = requestAnimationFrame(frame); }
+    /* Kare hizi ~30'a sinirlandi: isiklar yavas yanip sonuyor, 60 kare ile
+       30 kare arasindaki fark gozle secilmiyor ama cizim maliyeti yariya
+       iniyor. Zaman adimi (t) gercek gecen sureye gore ilerledigi icin
+       animasyonun HIZI degismiyor. */
+    let lastDraw = 0;
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      if (now === undefined) now = performance.now();
+      if (now - lastDraw < 32) return;      // ~30 kare/sn
+      const dt = lastDraw ? Math.min((now - lastDraw) / 1000, 0.1) : 0.016;
+      lastDraw = now;
+      t += dt;
+      draw();
+    }
     size(); build();
 
     // Animasyon yalnizca hero ekranda VE sekme onplandayken calissin.
