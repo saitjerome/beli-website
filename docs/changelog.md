@@ -2,6 +2,15 @@
 
 Bu tarihte yapılan güncelleme grupları ve gerekçeleri.
 
+## 0u. İçerik güncellemesi: iletişim bilgileri + harita bölümü kaldırıldı
+
+**İçerik değişikliği (kullanıcı talebi):**
+- Telefon: `0 553 002 92 08` → **`0 533 042 16 53`** (görünen metin, `tel:` linki ve JSON-LD SEO şemasındaki üç ayrı format dahil, 6 sayfa).
+- E-posta: `info@belis.com.tr` → **`info@beliselektrik.com.tr`** (görünen metin, `mailto:` linki ve JSON-LD şeması dahil, 6 sayfa).
+- `iletisim.html`'in en altındaki gömülü Google Haritalar bölümü ("Harita Üzerindeki Konumumuz" başlığı + tıklanınca iframe yükleyen facade) tamamen kaldırıldı, artık kullanılmayan `loadMap()` JS fonksiyonu da temizlendi. Üstteki "Merkez Adresi" kartı (Google Haritalar'a yeni sekmede link veren buton, gömülü harita değil) kullanıcının isteğiyle **dokunulmadan** bırakıldı.
+
+**Doğrulama:** Her 6 sayfada eski telefon/e-posta değerlerinden hiç kalıntı olmadığı (`grep` ile), yeni değerlerin doğru sayıda uygulandığı teyit edildi. İletişim sayfası tarayıcıda açılıp harita bölümünün DOM'dan tamamen kalktığı (`#map-facade` yok, `loadMap` tanımsız), telefon/e-posta kartlarının ve footer'ın doğru değerleri gösterdiği, konsolda hata olmadığı doğrulandı.
+
 ## 0t. Galeri yedek kartları artık yalnızca gerçekten gerektiğinde yükleniyor
 
 **Durum:** 0s'den sonra skor 83'te sabitlendi; "Resim yayınlamayı kolaylaştırın" uyarısı 80 KiB'e kadar küçülmüştü ama tamamen gitmemişti. Kök sebep: galeri yedek kartlarının 6 görseli **hep statik HTML'de yazılıydı** (`<img src="...">`), `loading="lazy"` olsa da tarayıcı bunları her zaman "keşfediyor" ve WebGL galerisi %99 ihtimalle başarıyla yükleyip bu kartları gizlese bile, Lighthouse/PSI testinde (sayfa otomatik kaydırıldığı için) bu görseller gene indiriliyordu.

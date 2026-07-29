@@ -233,24 +233,24 @@ body.mm-open #site-header { z-index: 70; }
           <div class="grid grid-cols-1 gap-4 pt-6">
             
             <!-- Kart 1: Telefon -->
-            <a href="tel:05530029208" class="group bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm flex items-center gap-5 hover:shadow-md hover:border-primary transition-all duration-300">
+            <a href="tel:05330421653" class="group bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm flex items-center gap-5 hover:shadow-md hover:border-primary transition-all duration-300">
               <div class="w-12 h-12 rounded-xl bg-primary/5 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                 <span class="material-symbols-outlined">call</span>
               </div>
               <div>
                 <p class="text-xs font-semibold text-secondary uppercase tracking-wider">Telefon Numarası</p>
-                <p class="text-lg font-bold text-deep-navy mt-0.5 group-hover:text-primary transition-colors">0 (553) 002 92 08</p>
+                <p class="text-lg font-bold text-deep-navy mt-0.5 group-hover:text-primary transition-colors">0 (533) 042 16 53</p>
               </div>
             </a>
 
             <!-- Kart 2: E-Posta -->
-            <a href="mailto:info@belis.com.tr" class="group bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm flex items-center gap-5 hover:shadow-md hover:border-primary transition-all duration-300">
+            <a href="mailto:info@beliselektrik.com.tr" class="group bg-white p-5 rounded-2xl border border-gray-200/60 shadow-sm flex items-center gap-5 hover:shadow-md hover:border-primary transition-all duration-300">
               <div class="w-12 h-12 rounded-xl bg-primary/5 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                 <span class="material-symbols-outlined">mail</span>
               </div>
               <div>
                 <p class="text-xs font-semibold text-secondary uppercase tracking-wider">E-Posta Adresi</p>
-                <p class="text-lg font-bold text-deep-navy mt-0.5 group-hover:text-primary transition-colors">info@belis.com.tr</p>
+                <p class="text-lg font-bold text-deep-navy mt-0.5 group-hover:text-primary transition-colors">info@beliselektrik.com.tr</p>
               </div>
             </a>
 
@@ -328,24 +328,6 @@ body.mm-open #site-header { z-index: 70; }
 
       </div>
 
-      <!-- HARİTA BÖLÜMÜ -->
-      <div class="mt-16 bg-white rounded-3xl p-4 border border-gray-200/60 shadow-md overflow-hidden">
-        <h3 class="text-lg font-bold text-deep-navy px-4 pb-4 border-b border-gray-100 flex items-center gap-2 mb-4">
-          <span class="material-symbols-outlined text-caution-orange">map</span> Harita Üzerindeki Konumumuz
-        </h3>
-        <!-- Harita, performans için tıklanınca yüklenir (facade) -->
-        <div id="map-facade" class="w-full h-80 sm:h-96 md:h-[400px] rounded-2xl overflow-hidden relative border border-gray-100 bg-gray-100">
-          <button type="button" onclick="loadMap()" class="w-full h-full flex flex-col items-center justify-center gap-3 text-secondary group cursor-pointer px-4 text-center">
-            <span class="material-symbols-outlined text-[44px] text-primary">location_on</span>
-            <span class="text-body-md font-semibold text-deep-navy">Oruçreis Mah. Vadi Cad. İstanbul Ticaret Sarayı No:108, Esenler / İstanbul</span>
-            <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl text-label-bold shadow-md group-hover:bg-deep-navy transition-colors">
-              <span class="material-symbols-outlined text-[18px]">map</span> Haritayı Görüntüle
-            </span>
-            <span class="text-xs text-secondary">Harita, tıkladığınızda Google Haritalar üzerinden yüklenir.</span>
-          </button>
-        </div>
-      </div>
-
     </div>
   </section>
 </main>
@@ -372,8 +354,8 @@ body.mm-open #site-header { z-index: 70; }
 <h4 class="text-label-bold text-surface-white mb-4 uppercase tracking-wider text-xs">İletişim</h4>
 <address class="text-body-sm text-surface-variant/80 not-italic flex flex-col gap-2">
 <span class="flex items-start gap-2"><span class="material-symbols-outlined text-[16px] mt-0.5">location_on</span> Oruçreis Mah. Vadi Cad. İstanbul Ticaret Sarayı No:108 İç Kapı No:659 Esenler/İSTANBUL</span>
-<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@belis.com.tr</span>
-<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> 0 553 002 92 08</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> info@beliselektrik.com.tr</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> 0 533 042 16 53</span>
 </address>
 </div>
 </div>
@@ -433,12 +415,6 @@ body.mm-open #site-header { z-index: 70; }
     mmChevProj.classList.toggle('rot');
   });
 
-  // Harita facade: tıklanınca gerçek haritayı yükle
-  function loadMap() {
-    const wrap = document.getElementById('map-facade');
-    if (!wrap) return;
-    wrap.innerHTML = '<iframe src="https://maps.google.com/maps?q=Oru%C3%A7reis%20Mah.%20Vadi%20Cad.%20%C4%B0stanbul%20Ticaret%20Saray%C4%B1%20No%3A108%20Esenler%20%C4%B0stanbul&t=&z=16&ie=UTF8&iwloc=&output=embed" class="w-full h-full absolute inset-0 border-0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Belis Mühendislik Konumu - İstanbul Ticaret Sarayı, Esenler"></iframe>';
-  }
 </script>
 </body>
 </html>
